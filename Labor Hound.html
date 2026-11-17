@@ -374,6 +374,8 @@ body.presenting .prbar{display:flex;gap:10px;justify-content:center;align-items:
 
 #noJobs{display:none}body.nojobs #noJobs{display:block;padding:24px 16px}body.nojobs .tab{display:none!important}body.nojobs #tabs,body.nojobs #jobBtn{visibility:hidden}
 #noJobs .nj{max-width:620px;margin:30px auto}#noJobs code{font-size:13px;background:#f2f5f3;padding:1px 5px;border-radius:5px;overflow-wrap:anywhere}
+.drawbtn{margin-left:8px;font:inherit;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;border:1px solid var(--g);background:#fff;color:var(--g);cursor:pointer;vertical-align:1px}
+.drawbtn.on{background:var(--g);color:#fff}.pl .r.drawing{background:#eef6f1;border-radius:8px}
 </style>
 </head>
 <body>
@@ -412,7 +414,7 @@ body.presenting .prbar{display:flex;gap:10px;justify-content:center;align-items:
       <div class="sec">
         <div class="seg" id="modeSeg">
           <button data-m="s">Simple<small>Roofing field · Wall flashing · Sheet metal</small></button>
-          <button data-m="d">Detailed<small>5 types, item pick lists</small></button>
+          <button data-m="d">Detailed<small>Item pick lists from IronClad</small></button>
         </div>
         <div class="crewsum" id="modeNote" style="margin-top:6px"></div>
       </div>
@@ -573,7 +575,11 @@ body.presenting .prbar{display:flex;gap:10px;justify-content:center;align-items:
 </div>
 
 <script>
-/* ===================== data that IronClad would send ===================== */
+/* ===================== Labor Hound — build history: see the project log =====================
+   11172026-1  real app: jobs from IronClad setup files, desktop folder saving, phone Send to office / drag-and-drop
+   11172026-2  combined / not-sent lines from IronClad's "What gets sent, and how"; no-drawing jobs
+   11172026-3  draw completed LF items (✏ Draw) and mark EA items (📍 Mark) right on the plan */
+const LH_BUILD='11172026-3';
 const TODAY=(()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');})();
 /* PM list lives in Shared Database\tr-project-managers.json (shared with IronClad).
    This device keeps a copy of the last list it read, so phones / tablets and offline use still work. */
@@ -688,10 +694,10 @@ function geomOf(def){
       if(pip(x,y,r)&&!holes.some(h=>pip(x,y,h))){mask[k]=1;sf++;}}});
   // shading the whole traced roof = the estimate's roof SF
   const k=sf&&estSF?estSF/sf:1;
-  const detail=JSON.parse(JSON.stringify(def.detail||[]));
+  const detail=JSON.parse(JSON.stringify(def.detail||[]));const noPlan=!roofs.length&&!p.wFt;
   detail.forEach(w=>{w.color=WT_COLORS[w.id]||'#777';w.short=w.short||w.name;
     w.items.forEach(i=>{i.total=+i.total||0;i.mh=+i.mh||0;
-      if(i.area){i.per=(i.unit==='SQ'?0.01:1)*k;}
+      if(noPlan)delete i.area;if(i.area){i.per=(i.unit==='SQ'?0.01:1)*k;}
       if(i.runs){i.runs=i.runs.filter(r=>runs[r]);if(!i.runs.length)delete i.runs;else{const L=i.runs.reduce((s,r)=>s+plen(runs[r].pts),0);i.rk=L?i.total/L:1;}}});});
   const W={};detail.forEach(w=>W[w.id]=w);
   const mhOf=w=>w?wtMH(w):0;
@@ -700,7 +706,7 @@ function geomOf(def){
   const simple=[];const sqs=(estSF||sf)/100;
   const fieldMH=['tr','dx','curb','pen'].reduce((s,id)=>s+mhOf(W[id]),0);
   if(sqs>0)simple.push({id:'field',name:'Roofing field',short:'Roofing field',color:WT_COLORS.field,incl:'Tear-off, field install, curbs and penetrations — all MH spread evenly per SQ',
-    items:[{id:'f1',name:'Roof squares complete',unit:'SQ',area:true,per:0.01*k,total:sqs,mh:fieldMH/sqs}]});
+    items:[{id:'f1',name:'Roof squares complete',unit:'SQ',area:!noPlan,per:0.01*k,total:sqs,mh:fieldMH/sqs}]});
   const lin=(w,id,name,incl)=>{if(!w||!mhOf(w))return;const lf=w.items.filter(i=>i.unit==='LF').reduce((s,i)=>s+i.total,0);
     const rs=[].concat(...w.items.filter(i=>i.runs).map(i=>i.runs));
     const it=lf>0?{id:id+'All',name,unit:'LF',total:lf,mh:mhOf(w)/lf}:{id:id+'All',name,unit:'%',total:100,mh:mhOf(w)/100};
@@ -727,6 +733,10 @@ const HOLIDAYS=[].concat(...[0,1,2].map(k=>holidaysFor(+TODAY.slice(0,4)-1+k)));
 
 /* ===================== state ===================== */
 let MODE='d', curDate=TODAY, active='tr', draft=[], lineStart=null, sureDel=null;
+/* drawing completed LF items (lines) and EA items (marks) straight on the plan */
+let drawItem=null, pathDraft=[];
+const hasPlan=()=>!!(PLAN.image||ROOFS.length);
+const drawable=it=>it&&!it.area&&!it.runs&&(it.unit==='LF'||it.unit==='EA');
 const FIRST={get s(){return (MODES.s.wts[0]||{}).id;},get d(){return (MODES.d.wts[0]||{}).id;}};
 const locked=()=>ENTRIES.some(e=>e.mode===MODE);
 const WTS=()=>MODES[MODE].wts;
@@ -779,6 +789,8 @@ function compute(){
   for(const e of ents){
     const w=wts.find(x=>x.id===e.wt); const parts=[];
     if(e.kind==='area'){areaItems(w).forEach(it=>{const cells=rasterNew(e.poly,cov[it.id]);cells.forEach(k=>cov[it.id][k]=1);parts.push([it,cells.length*it.per]);});}
+    else if(e.kind==='path'){const it=itemOf(w,e.item);if(!it){e.parts=[];e.q=0;e.mh=0;continue;}parts.push([it,plen(e.pts)]);}
+    else if(e.kind==='mark'){const it=itemOf(w,e.item);if(!it){e.parts=[];e.q=0;e.mh=0;continue;}parts.push([it,1]);}
     else if(e.kind==='line'){const it=runItem(w,e.run);const b=ivLen(iv[e.run]||[]);iv[e.run]=mergeIv([...(iv[e.run]||[]),[e.t0,e.t1]]);parts.push([it,(ivLen(iv[e.run])-b)*(it.rk||1)]);}
     else {parts.push([itemOf(w,e.item),e.qty]);}
     e.parts=parts.map(([it,q])=>({it:it.id,q,mh:q*it.mh}));
@@ -818,6 +830,9 @@ function drawAerial(g){
   el('rect',{x:BOUNDS.x0-pad,y:BOUNDS.y0-pad,width:BOUNDS.x1-BOUNDS.x0+2*pad,height:BOUNDS.y1-BOUNDS.y0+2*pad,fill:'#3b423e'},g);
   if(PLAN.image)el('image',{href:PLAN.image,x:0,y:0,width:PLAN.wFt,height:PLAN.hFt,preserveAspectRatio:'none'},g);
   else ROOFS.forEach(r=>el('polygon',{points:ptsStr(r),fill:'#a9aba5'},g));
+  if(!PLAN.image&&!ROOFS.length){const cx=(BOUNDS.x0+BOUNDS.x1)/2,cy=(BOUNDS.y0+BOUNDS.y1)/2,fs=(BOUNDS.x1-BOUNDS.x0)/22;
+    const t=el('text',{x:cx,y:cy,'text-anchor':'middle','font-size':fs,fill:'#d6e6dc','font-family':'Barlow,sans-serif'},g);t.textContent='No drawing was sent for this job';
+    const t2=el('text',{x:cx,y:cy+fs*1.5,'text-anchor':'middle','font-size':fs*.75,fill:'#9cc4ae','font-family':'Barlow,sans-serif'},g);t2.textContent='Enter quantities done to date on the right';}
   if(ROOFS.length)el('path',{d:roofPath(),fill:'none',stroke:PLAN.image?'rgba(13,59,39,.85)':'#e9e9e4','stroke-width':2,'vector-effect':'non-scaling-stroke','fill-rule':'evenodd'},g);
 }
 function drawMap(){
@@ -845,6 +860,19 @@ function drawMap(){
       el('polyline',{points:ptsStr(sp),fill:'none',stroke:w.color,'stroke-width':on?8:5,'vector-effect':'non-scaling-stroke','stroke-linecap':'round','stroke-linejoin':'round',opacity:on?1:.75},ov);});
     if(on){const m=pointAt(r.pts,plen(r.pts)/2);const tx=el('text',{x:m[0],y:m[1]-3,'text-anchor':'middle','font-size':12*s,fill:'#fff','font-weight':700,stroke:'rgba(0,0,0,.6)','stroke-width':2.4*s,'paint-order':'stroke','font-family':'Barlow,sans-serif'},ov);tx.textContent=r.name+' · '+fmt(plen(r.pts))+' LF';}
   })));
+  // lines drawn and items marked on the plan
+  WTS().forEach(w=>{const on=active===w.id;
+    ents.filter(e=>e.wt===w.id&&e.kind==='path').forEach(e=>{const nw=e.date===curDate;
+      el('polyline',{points:ptsStr(e.pts),fill:'none',stroke:nw?'#fff':'rgba(0,0,0,.35)','stroke-width':on?13:9,'vector-effect':'non-scaling-stroke','stroke-linecap':'round','stroke-linejoin':'round'},ov);
+      el('polyline',{points:ptsStr(e.pts),fill:'none',stroke:w.color,'stroke-width':on?8:5,'vector-effect':'non-scaling-stroke','stroke-linecap':'round','stroke-linejoin':'round',opacity:on?1:.75},ov);});
+    ents.filter(e=>e.wt===w.id&&e.kind==='mark').forEach(e=>{const nw=e.date===curDate,r=(on?9:7)*s;
+      el('circle',{cx:e.pt[0],cy:e.pt[1],r,fill:w.color,stroke:nw?'#fff':'rgba(0,0,0,.4)','stroke-width':2.5*s,opacity:on?1:.75},ov);
+      const t=el('text',{x:e.pt[0],y:e.pt[1]+r*.38,'text-anchor':'middle','font-size':r*1.1,fill:'#fff','font-weight':700,'font-family':'Barlow,sans-serif'},ov);t.textContent='✓';});
+  });
+  if(pathDraft.length){const w=WT(active);
+    el('polyline',{points:ptsStr(pathDraft),fill:'none',stroke:'#fff','stroke-width':9,'vector-effect':'non-scaling-stroke','stroke-linecap':'round','stroke-linejoin':'round'},ov);
+    el('polyline',{points:ptsStr(pathDraft),fill:'none',stroke:w.color,'stroke-width':5,'stroke-dasharray':'8 5','vector-effect':'non-scaling-stroke','stroke-linecap':'round'},ov);
+    pathDraft.forEach((p,k)=>el('circle',{cx:p[0],cy:p[1],r:(k===pathDraft.length-1?8:5)*s,fill:k===pathDraft.length-1?'#D4A72C':'#fff',stroke:w.color,'stroke-width':2*s},ov));}
   if(draft.length){const w=WT(active);
     if(draft.length>2) el('polygon',{points:ptsStr(draft),fill:w.color,'fill-opacity':.35},ov);
     el('polyline',{points:ptsStr(draft),fill:'none',stroke:'#fff','stroke-width':3,'vector-effect':'non-scaling-stroke'},ov);
@@ -884,6 +912,11 @@ function tap(x,y){if(roBlock())return;
   if(areaItem(w)){
     if(draft.length>2&&Math.hypot(x-draft[0][0],y-draft[0][1])<tol){finishArea();return;}
     draft.push([Math.round(x*2)/2,Math.round(y*2)/2]);refreshDaily();return;}
+  const di=drawItem&&itemOf(w,drawItem);
+  if(di&&drawable(di)&&hasPlan()){const pt=[Math.round(x*2)/2,Math.round(y*2)/2];
+    if(di.unit==='EA'){addEntry({wt:w.id,kind:'mark',item:di.id,pt},true);toast(`${di.name}: +1 marked · ${fmt(C.done[di.id])} of ${fmt(di.total)} done`);return;}
+    if(pathDraft.length&&Math.hypot(x-pathDraft[pathDraft.length-1][0],y-pathDraft[pathDraft.length-1][1])<tol){finishPath();return;}
+    pathDraft.push(pt);refreshDaily();return;}
   let br=null;w.items.filter(i=>i.runs).forEach(i=>i.runs.forEach(rid=>{const p=project(RUNS[rid].pts,x,y);if(p.d<tol&&(!br||p.d<br.d))br={...p,run:rid};}));
   if(!br){toast(w.items.some(i=>i.runs)?'Tap on a dashed line':w.short+': enter counts in the list');return;}
   const tt=Math.round(br.t);
@@ -892,6 +925,8 @@ function tap(x,y){if(roBlock())return;
   if(b-a<1){toast('Tap a second spot further along the line');return;}
   addEntry({wt:w.id,kind:'line',run:br.run,t0:a,t1:b});lineStart=null;
 }
+function finishPath(){if(pathDraft.length<2)return;const w=WT(active),it=itemOf(w,drawItem);if(!it)return;const pts=pathDraft.slice();pathDraft=[];
+  addEntry({wt:w.id,kind:'path',item:it.id,pts},true);toast(`Added ${fmt(plen(pts))} LF · ${it.name} · +${fmt(plen(pts)*it.mh,1)} MH earned`);}
 function finishArea(){if(draft.length<3)return;const poly=draft.slice();draft=[];addEntry({wt:active,kind:'area',poly});}
 function addEntry(e,quiet){if(roBlock())return;e.id=nid++;e.uid=newUid();e.t=Date.now();e.date=curDate;e.mode=MODE;ENTRIES.push(e);refreshAll();
   if(quiet)return;const x=ENTRIES.find(z=>z.id===e.id);const it=dItemAny(x.it);
@@ -929,7 +964,7 @@ function refreshDaily(){
   const cr=document.getElementById('crewReset');if(cr)cr.onclick=ev=>{ev.preventDefault();if(roBlock())return;delete HOURS[curDate];refreshAll();toast('Back to the job default crew');};
   const co=document.getElementById('crewOff');if(co)co.onclick=ev=>{ev.preventDefault();if(roBlock())return;const m=hoursFor(curDate).men||JOB.crew.men;HOURS[curDate]={...rainDay(m),t:Date.now()};refreshAll();toast(`Rain day ${short(curDate)}: ${m} men × ${SHOWUP_HRS} h show-up = ${m*SHOWUP_HRS} MH charged to the job`);};
   $('#trades').innerHTML=WTS().map(w=>{const pc=wtPct(w)*100;
-    const sub=w.items.every(i=>i.area)&&w.items.length>1?w.items.map(i=>`${i.sn} ${fmt(C.done[i.id])}`).join(' · ')+` of ${fmt(w.items[0].total)} SF`:w.items.length===1?`${fmt(C.done[w.items[0].id],dp(w.items[0].unit))} of ${fmt(w.items[0].total)} ${w.items[0].unit}`:(MODE==='s'?`${fmt(w.items.reduce((s,i)=>s+C.done[i.id],0))} of ${fmt(w.items.reduce((s,i)=>s+i.total,0))} ${w.items[0].unit}`:`${w.items.length} items · ${fmt(C.wtEarned[w.id])} of ${fmt(wtMH(w))} MH`);
+    const sub=w.items.every(i=>i.area)&&w.items.length>1?w.items.map(i=>`${i.sn||i.name} ${fmt(C.done[i.id])}`).join(' · ')+` of ${fmt(w.items[0].total)} SF`:w.items.length===1?`${fmt(C.done[w.items[0].id],dp(w.items[0].unit))} of ${fmt(w.items[0].total)} ${w.items[0].unit}`:(MODE==='s'?`${fmt(w.items.reduce((s,i)=>s+C.done[i.id],0))} of ${fmt(w.items.reduce((s,i)=>s+i.total,0))} ${w.items[0].unit}`:`${w.items.length} items · ${fmt(C.wtEarned[w.id])} of ${fmt(wtMH(w))} MH`);
     return `<button class="tr${w.id===active?' on':''}" data-tr="${w.id}"><span class="sw" style="background:${w.color}"></span>
       <span class="nm"><b>${w.short}</b><span>${w.incl?w.incl:sub}</span>${w.incl?`<span style="display:block">${sub}</span>`:''}<div class="bar"><i style="width:${pc}%;background:${w.color}"></i></div></span>
       <span class="pc"><b>${fmt(pc)}%</b>done</span></button>`;}).join('');
@@ -945,13 +980,26 @@ function refreshDaily(){
   } else if(lineStart){hint=`Start set on <b>${RUNS[lineStart.run].name}</b>. Now tap where it ends.`;
     html=`<p>Start set on <b>${RUNS[lineStart.run].name}</b> (${fmt(plen(RUNS[lineStart.run].pts))} LF).</p><div class="btns"><button class="btn gold" id="lWhole">Whole run done</button><button class="btn" id="lCancel">Cancel</button></div>`;
   } else {
-    hint=hasRuns?`<b>${w.short}:</b> tap the start and end of a dashed line, or use the list.`:`<b>${w.short}:</b> enter the count done to date in the list (from the IronClad estimate).`;
-    html=`<p>${hasRuns?'On the photo, tap the start and end of what got installed on a dashed line. Or type':'Type'} the amount done to date in the list${hasRuns?'':', or use − / +'}.</p>`;
+    const canDraw=hasPlan()&&!isRO()&&w.items.some(drawable);
+    if(canDraw&&drawItem===null)drawItem=(w.items.find(drawable)||{}).id||'';
+    const di=drawItem&&itemOf(w,drawItem);
+    if(canDraw&&di&&drawable(di)){
+      if(di.unit==='LF'){const L=plen(pathDraft);
+        hint=pathDraft.length?`<b>${di.name}:</b> ${fmt(L)} LF so far — keep tapping along it, then <b>Done</b> (or tap the last point again).`:`<b>${di.name}:</b> tap along what got installed ${when} — start, each corner, end.`;
+        html=`<p>Drawing <b>${di.name}</b> on the plan.${pathDraft.length?` ${pathDraft.length} point${pathDraft.length>1?'s':''} · <b>${fmt(L)} LF</b> (${fmt(L*di.mh,1)} MH)`:' Tap the start, each corner and the end of what got done.'}</p>
+          <div class="btns">${pathDraft.length?`<button class="btn pri" id="pDone" ${pathDraft.length<2?'disabled':''}>✓ Done</button><button class="btn" id="pUndo">↶ Undo point</button><button class="btn" id="pCancel">Cancel</button>`:`<button class="btn" id="pStop">Stop drawing — type quantities instead</button>`}</div>`;}
+      else{hint=`<b>${di.name}:</b> tap each one completed ${when} on the plan (+1 each).`;
+        html=`<p>Marking <b>${di.name}</b>: each tap on the plan adds 1. To take one back, delete it on the Log tab or use − in the list.</p><div class="btns"><button class="btn" id="pStop">Done marking</button></div>`;}
+    } else {
+      hint=hasRuns?`<b>${w.short}:</b> tap the start and end of a dashed line, or use the list.`:canDraw?`<b>${w.short}:</b> pick ✏ Draw / 📍 Mark next to an item to show it on the plan, or type in the list.`:`<b>${w.short}:</b> enter the amount done to date in the list (from the IronClad estimate).`;
+      html=`<p>${hasRuns?'On the photo, tap the start and end of what got installed on a dashed line. Or type':canDraw?'Use <b>✏ Draw</b> (lines) or <b>📍 Mark</b> (counts) next to an item to show the work on the plan, or type':'Type'} the amount done to date in the list${hasRuns?'':', or use − / +'}.</p>`;
+    }
   }
   // pick list
   html+=`<div class="pl">${w.items.map(it=>{const d=C.done[it.id],ea=it.unit==='EA';
     const src=it.area?'shade on photo':it.runs?'trace on photo':'from the estimate';
-    return `<div class="r"><div class="nm"><b>${it.name}</b><small>Estimate ${fmt(it.total,dp(it.unit))} ${it.unit} · ${it.mh<1?it.mh.toFixed(3):fmt(it.mh,2)} MH/${it.unit} · ${src}</small></div>
+    const dr=hasPlan()&&!isRO()&&drawable(it)?`<button class="drawbtn${drawItem===it.id?' on':''}" data-draw="${it.id}">${it.unit==='LF'?'✏ Draw':'📍 Mark'}</button>`:'';
+    return `<div class="r${drawItem===it.id&&dr?' drawing':''}"><div class="nm"><b>${it.name}</b>${dr}<small>Estimate ${fmt(it.total,dp(it.unit))} ${it.unit} · ${it.mh<1?it.mh.toFixed(3):fmt(it.mh,2)} MH/${it.unit} · ${src}</small></div>
       <div class="in">${ea?`<button data-step="${it.id}" data-v="-1">−</button>`:''}<input data-done="${it.id}" inputmode="decimal" value="${+d.toFixed(dp(it.unit))}">${ea?`<button data-step="${it.id}" data-v="1">+</button>`:''}</div>
       <div class="of">of ${fmt(it.total,dp(it.unit))}<b>${fmt(Math.min(100,d/it.total*100))}%</b></div></div>`;}).join('')}
     <div class="cap">The box is the total done <b>to date</b>. Changing it records the difference on ${short(curDate)}.</div></div>`;
@@ -961,6 +1009,8 @@ function refreshDaily(){
   const on=(id,f)=>{const b=document.getElementById(id);if(b)b.onclick=f;};
   on('aDone',finishArea);on('aUndo',()=>{draft.pop();refreshDaily();});on('aCancel',()=>{draft=[];refreshDaily();});
   on('lCancel',()=>{lineStart=null;refreshDaily();});
+  on('pDone',finishPath);on('pUndo',()=>{pathDraft.pop();refreshDaily();});on('pCancel',()=>{pathDraft=[];refreshDaily();});on('pStop',()=>{pathDraft=[];drawItem='';refreshDaily();});
+  document.querySelectorAll('[data-draw]').forEach(b=>b.onclick=()=>{const id=b.dataset.draw;pathDraft=[];drawItem=drawItem===id?'':id;refreshDaily();});
   on('lWhole',()=>{addEntry({wt:active,kind:'line',run:lineStart.run,t0:0,t1:plen(RUNS[lineStart.run].pts)});lineStart=null;});
   document.querySelectorAll('[data-done]').forEach(i=>i.onchange=()=>{const v=parseFloat(i.value);if(isNaN(v)){refreshDaily();return;}setDone(i.dataset.done,v);});
   document.querySelectorAll('[data-step]').forEach(b=>b.onclick=()=>setDone(b.dataset.step,C.done[b.dataset.step]+(+b.dataset.v)));
@@ -1008,7 +1058,8 @@ function renderMeMenu(){const set=store.get(PM_SETAT_KEY);
    <div class="jmf">Set ${set?short(set.slice(0,10)):'on first sign-in'}. Each PM's phone, iPad and desktop is set to them the first time they open Labor Hound. <b>Only an admin (${(n=>n.length>1?n.slice(0,-1).join(', ')+' or '+n[n.length-1]:n[0])(ADMINS.map(x=>x.name))}) can change it.</b>
    <br><button class="btn" id="adminOpen" style="margin-top:8px;padding:6px 10px">🔑 Admin: change device owner…</button>
    ${isAdmin(ME)&&store.get(PW_PENDING_KEY)===ME?`<br><span style="display:block;margin-top:8px;color:#7a5a00">⚠ Your admin password is only on this device so far.</span><button class="btn gold" id="pwSave" style="margin-top:4px;padding:6px 10px">Save my password to Shared Database…</button>`:''}
-   <br><span style="display:block;margin-top:8px">PM list: Shared Database\\${PM_FILE} (${PM_SRC.from}${PM_SRC.updated?', updated '+short(PM_SRC.updated):''}). <a href="#" id="pmReload">↻ Read again</a></span></div>`;
+   <br><span style="display:block;margin-top:8px">PM list: Shared Database\\${PM_FILE} (${PM_SRC.from}${PM_SRC.updated?', updated '+short(PM_SRC.updated):''}). <a href="#" id="pmReload">↻ Read again</a></span>
+   <span style="display:block;margin-top:8px;color:var(--mut)">Labor Hound · Build ${LH_BUILD}</span></div>`;
   $('#adminOpen').onclick=e=>{e.stopPropagation();toggleMeMenu(false);openAdmin();};
   const ps=document.getElementById('pwSave');if(ps)ps.onclick=async e=>{e.stopPropagation();try{if(await writeAdminsToSharedDb(ME)){toast('Admin password saved to Shared Database');renderMeMenu();}else toast('This device can\'t save to Shared Database — use your desktop');}catch(er){if(er.name!=='AbortError')toast('Could not save: '+er.message);}};
   $('#pmReload').onclick=e=>{e.preventDefault();e.stopPropagation();readPmFile();};}
@@ -1109,7 +1160,7 @@ function refreshLog(){
   $('#logList').innerHTML=`<p class="note" style="margin:0 0 10px">Showing <b>${MODES[MODE].label}</b> entries.</p>`+C.allDays.slice().reverse().map(d=>{const p=C.per[d],h=hoursFor(d);const es=ENTRIES.filter(e=>e.mode===MODE&&e.date===d);
     return `<div class="logday"><div class="h"><b>${nice(d)}${d===JOB.today?' · Today':''}</b><span>${h.rain?'☔ Rain day — ':''}${h.men} men × ${h.hrs} h${h.rain?' show-up':''}${h.def?' (default)':''} = <b>${fmt(p.used,1)} MH</b> · earned ${fmt(p.earned,1)} MH${h.note&&!h.rain?' · '+h.note:''}</span></div>
      <ul>${es.map(e=>{const it=dItemAny(e.it),w=WTS().find(x=>x.id===e.wt);
-       const how=e.kind==='area'?'shaded on the photo':e.kind==='line'?RUNS[e.run].name:'typed in the list';
+       const how=e.kind==='area'?'shaded on the photo':e.kind==='line'?(RUNS[e.run]||{name:'traced run'}).name:e.kind==='path'?'drawn on the plan':e.kind==='mark'?'marked on the plan':'typed in the list';
        const nm=e.parts.length>1?w.name:it.name;
        return `<li><span class="sw2" style="background:${w.color}"></span>${nm} <span style="color:var(--mut)">· ${how}</span><span class="q">${e.q<0?'−':''}${fmt(Math.abs(e.q),dp(it.unit))} ${it.unit}</span><button class="x${sureDel===e.id?' sure':''}" data-del="${e.id}">${sureDel===e.id?'Delete?':'✕'}</button></li>`;}).join('')||'<li style="color:var(--mut)">No work marked</li>'}</ul></div>`;}).join('');
 }
@@ -1118,11 +1169,11 @@ function refreshJob(){
   const src={tr:'Demo/Tear Off (roof area items) + Roof Assembly / Tapered — spread over the roof SF',dx:'Demo/Tear Off items that aren\'t roof area',wall:'Wall Flashing conditions',curb:'Curb Flashing checklist (pick list only)',pen:'Penetrations checklist incl. added items (pick list only)',sm:'Sheet Metal (installation labor)'};
   const d=JOB.def||{},tk=d.takeoff||{},est=d.estimate||{};
   $('#jSent').innerHTML=`Sent ${d.sentAt?new Date(d.sentAt).toLocaleString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'}):'—'}${d.sentBy?' by <b>'+d.sentBy+'</b>':''} from takeoff <b>${tk.file||'—'}</b>${tk.desc?' ('+tk.desc+')':''}.
-    IronClad's man-hours for this takeoff: <b>${fmt(est.totalMH||EST_TOTAL,1)} MH</b>${est.roofSF?` · roof ${fmt(est.roofSF)} SF`:''}${d.plan&&d.plan.source?` · plan: ${d.plan.source}`:''}.
-    Curbs and penetrations come over as pick lists. Accessories (adhesive, primer, sealant, corners, cleats…) are spread into the items they go with, so every estimated man-hour is counted.`;
+    IronClad's man-hours for this takeoff: <b>${fmt(est.totalMH||EST_TOTAL,1)} MH</b>${est.notSentMH>0.05?` (${fmt(est.notSentMH,1)} MH not sent, by the estimator's choice — tracked here: ${fmt(EST_TOTAL,1)} MH)`:''}${est.roofSF?` · roof ${fmt(est.roofSF)} SF`:''}${d.plan&&d.plan.source?` · plan: ${d.plan.source}`:''}.
+    <span style="color:var(--mut)">Labor Hound build ${LH_BUILD}.</span> Curbs and penetrations come over as pick lists. Accessories (adhesive, primer, sealant, corners, cleats…) are spread into the items they go with, so every estimated man-hour is counted.`;
   $('#jTable').innerHTML=`<thead><tr><th>Detailed pick list</th><th class="n">Quantity</th><th class="n">MH / unit</th><th class="n">Est. MH</th><th>Simple group</th><th>From IronClad</th></tr></thead><tbody>`+
    DETAIL.map(w=>`<tr class="grp"><td><span class="sw2" style="background:${w.color}"></span>${w.name}</td><td></td><td></td><td class="n">${fmt(wtMH(w),1)}</td><td>${grp[w.id]||''}</td><td class="note">${src[w.id]||''}</td></tr>`+
-     w.items.map(i=>`<tr class="sub"><td>${i.name}</td><td class="n">${fmt(i.total,i.total<10&&i.total%1?1:0)} ${i.unit}</td><td class="n">${i.mh<1?i.mh.toFixed(3):fmt(i.mh,2)}</td><td class="n">${fmt(i.total*i.mh,1)}</td><td></td><td></td></tr>`).join('')).join('')+
+     w.items.map(i=>`<tr class="sub"><td>${i.name}${i.incl?`<br><small class="note">includes ${i.incl.join(', ')}</small>`:''}</td><td class="n">${fmt(i.total,i.total<10&&i.total%1?1:0)} ${i.unit}</td><td class="n">${i.mh<1?i.mh.toFixed(3):fmt(i.mh,2)}</td><td class="n">${fmt(i.total*i.mh,1)}</td><td></td><td></td></tr>`).join('')).join('')+
    `</tbody><tfoot><tr><td>Total</td><td></td><td></td><td class="n">${fmt(EST_TOTAL,1)}</td><td colspan="2"></td></tr></tfoot>`+
    `<tbody><tr><td colspan="6" style="padding-top:16px"><b>Simple roll-up</b></td></tr>${SIMPLE.map(w=>`<tr class="sub"><td>${w.name} — ${w.incl}</td><td class="n">${fmt(w.items[0].total)} ${w.items[0].unit}</td><td class="n">${w.items[0].mh<1?w.items[0].mh.toFixed(3):fmt(w.items[0].mh,2)}</td><td class="n">${fmt(wtMH(w),1)}</td><td></td><td></td></tr>`).join('')}</tbody>`;
   $('#jcMen').value=JOB.crew.men;$('#jcHrs').value=JOB.crew.hrs;
@@ -1192,7 +1243,7 @@ function refreshFormat(){
 let sureReset=false;
 $('#fmtReset').onclick=()=>{if(roBlock())return;if(!sureReset){sureReset=true;$('#fmtReset').textContent='Tap again to erase all marked work';setTimeout(()=>{sureReset=false;$('#fmtReset').textContent='Start over…';},4000);return;}
   sureReset=false;$('#fmtReset').textContent='Start over…';noteDel(ENTRIES);ENTRIES=[];draft=[];lineStart=null;refreshAll();toast('Marked work erased. Crew hours kept. Pick Simple or Detailed on the Daily tab.');};
-$('#trades').onclick=e=>{const b=e.target.closest('[data-tr]');if(!b)return;active=b.dataset.tr;draft=[];lineStart=null;refreshDaily();};
+$('#trades').onclick=e=>{const b=e.target.closest('[data-tr]');if(!b)return;active=b.dataset.tr;draft=[];lineStart=null;drawItem=null;pathDraft=[];refreshDaily();};
 const lim={men:40,hrs:16};
 function setDay(k,v){if(roBlock()){refreshDaily();return;}const h=hoursFor(curDate);const n=h.rain?rainDay(h.men):{men:h.men,hrs:h.hrs,note:''};n[k]=Math.max(0,Math.min(lim[k],v));
   if(h.rain&&k==='hrs'&&v!==SHOWUP_HRS){n.rain=false;n.note='';}
@@ -1252,6 +1303,11 @@ function reportMapSVG(start,end){
       el('polyline',{points:ptsStr(sp),fill:'none',stroke:nw?'#fff':'rgba(0,0,0,.35)','stroke-width':4.4,'stroke-linecap':'round','stroke-linejoin':'round'},root);
       el('polyline',{points:ptsStr(sp),fill:'none',stroke:w.color,'stroke-width':2.8,'stroke-linecap':'round','stroke-linejoin':'round',opacity:nw?1:.7},root);});
   })));
+  {const sw=Math.max(BOUNDS.x1-BOUNDS.x0,BOUNDS.y1-BOUNDS.y0)/120;
+   WTS().forEach(w=>{ents.filter(e=>e.wt===w.id&&e.kind==='path').forEach(e=>{const nw=e.date>=start;
+      el('polyline',{points:ptsStr(e.pts),fill:'none',stroke:nw?'#fff':'rgba(0,0,0,.35)','stroke-width':sw*1.6,'stroke-linecap':'round','stroke-linejoin':'round'},root);
+      el('polyline',{points:ptsStr(e.pts),fill:'none',stroke:w.color,'stroke-width':sw,'stroke-linecap':'round','stroke-linejoin':'round',opacity:nw?1:.7},root);});
+    ents.filter(e=>e.wt===w.id&&e.kind==='mark').forEach(e=>{const nw=e.date>=start;el('circle',{cx:e.pt[0],cy:e.pt[1],r:sw*1.4,fill:w.color,stroke:nw?'#fff':'rgba(0,0,0,.4)','stroke-width':sw*.4,opacity:nw?1:.7},root);});});}
   return root.outerHTML;
 }
 function weekStats(start,end){
