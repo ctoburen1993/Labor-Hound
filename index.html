@@ -412,7 +412,7 @@ body.presenting .prbar{display:flex;gap:10px;justify-content:center;align-items:
       <div class="sec">
         <div class="seg" id="modeSeg">
           <button data-m="s">Simple<small>Roofing field · Wall flashing · Sheet metal</small></button>
-          <button data-m="d">Detailed<small>5 types, item pick lists</small></button>
+          <button data-m="d">Detailed<small>Item pick lists from IronClad</small></button>
         </div>
         <div class="crewsum" id="modeNote" style="margin-top:6px"></div>
       </div>
@@ -688,10 +688,10 @@ function geomOf(def){
       if(pip(x,y,r)&&!holes.some(h=>pip(x,y,h))){mask[k]=1;sf++;}}});
   // shading the whole traced roof = the estimate's roof SF
   const k=sf&&estSF?estSF/sf:1;
-  const detail=JSON.parse(JSON.stringify(def.detail||[]));
+  const detail=JSON.parse(JSON.stringify(def.detail||[]));const noPlan=!roofs.length&&!p.wFt;
   detail.forEach(w=>{w.color=WT_COLORS[w.id]||'#777';w.short=w.short||w.name;
     w.items.forEach(i=>{i.total=+i.total||0;i.mh=+i.mh||0;
-      if(i.area){i.per=(i.unit==='SQ'?0.01:1)*k;}
+      if(noPlan)delete i.area;if(i.area){i.per=(i.unit==='SQ'?0.01:1)*k;}
       if(i.runs){i.runs=i.runs.filter(r=>runs[r]);if(!i.runs.length)delete i.runs;else{const L=i.runs.reduce((s,r)=>s+plen(runs[r].pts),0);i.rk=L?i.total/L:1;}}});});
   const W={};detail.forEach(w=>W[w.id]=w);
   const mhOf=w=>w?wtMH(w):0;
@@ -700,7 +700,7 @@ function geomOf(def){
   const simple=[];const sqs=(estSF||sf)/100;
   const fieldMH=['tr','dx','curb','pen'].reduce((s,id)=>s+mhOf(W[id]),0);
   if(sqs>0)simple.push({id:'field',name:'Roofing field',short:'Roofing field',color:WT_COLORS.field,incl:'Tear-off, field install, curbs and penetrations — all MH spread evenly per SQ',
-    items:[{id:'f1',name:'Roof squares complete',unit:'SQ',area:true,per:0.01*k,total:sqs,mh:fieldMH/sqs}]});
+    items:[{id:'f1',name:'Roof squares complete',unit:'SQ',area:!noPlan,per:0.01*k,total:sqs,mh:fieldMH/sqs}]});
   const lin=(w,id,name,incl)=>{if(!w||!mhOf(w))return;const lf=w.items.filter(i=>i.unit==='LF').reduce((s,i)=>s+i.total,0);
     const rs=[].concat(...w.items.filter(i=>i.runs).map(i=>i.runs));
     const it=lf>0?{id:id+'All',name,unit:'LF',total:lf,mh:mhOf(w)/lf}:{id:id+'All',name,unit:'%',total:100,mh:mhOf(w)/100};
@@ -818,6 +818,9 @@ function drawAerial(g){
   el('rect',{x:BOUNDS.x0-pad,y:BOUNDS.y0-pad,width:BOUNDS.x1-BOUNDS.x0+2*pad,height:BOUNDS.y1-BOUNDS.y0+2*pad,fill:'#3b423e'},g);
   if(PLAN.image)el('image',{href:PLAN.image,x:0,y:0,width:PLAN.wFt,height:PLAN.hFt,preserveAspectRatio:'none'},g);
   else ROOFS.forEach(r=>el('polygon',{points:ptsStr(r),fill:'#a9aba5'},g));
+  if(!PLAN.image&&!ROOFS.length){const cx=(BOUNDS.x0+BOUNDS.x1)/2,cy=(BOUNDS.y0+BOUNDS.y1)/2,fs=(BOUNDS.x1-BOUNDS.x0)/22;
+    const t=el('text',{x:cx,y:cy,'text-anchor':'middle','font-size':fs,fill:'#d6e6dc','font-family':'Barlow,sans-serif'},g);t.textContent='No drawing was sent for this job';
+    const t2=el('text',{x:cx,y:cy+fs*1.5,'text-anchor':'middle','font-size':fs*.75,fill:'#9cc4ae','font-family':'Barlow,sans-serif'},g);t2.textContent='Enter quantities done to date on the right';}
   if(ROOFS.length)el('path',{d:roofPath(),fill:'none',stroke:PLAN.image?'rgba(13,59,39,.85)':'#e9e9e4','stroke-width':2,'vector-effect':'non-scaling-stroke','fill-rule':'evenodd'},g);
 }
 function drawMap(){
@@ -929,7 +932,7 @@ function refreshDaily(){
   const cr=document.getElementById('crewReset');if(cr)cr.onclick=ev=>{ev.preventDefault();if(roBlock())return;delete HOURS[curDate];refreshAll();toast('Back to the job default crew');};
   const co=document.getElementById('crewOff');if(co)co.onclick=ev=>{ev.preventDefault();if(roBlock())return;const m=hoursFor(curDate).men||JOB.crew.men;HOURS[curDate]={...rainDay(m),t:Date.now()};refreshAll();toast(`Rain day ${short(curDate)}: ${m} men × ${SHOWUP_HRS} h show-up = ${m*SHOWUP_HRS} MH charged to the job`);};
   $('#trades').innerHTML=WTS().map(w=>{const pc=wtPct(w)*100;
-    const sub=w.items.every(i=>i.area)&&w.items.length>1?w.items.map(i=>`${i.sn} ${fmt(C.done[i.id])}`).join(' · ')+` of ${fmt(w.items[0].total)} SF`:w.items.length===1?`${fmt(C.done[w.items[0].id],dp(w.items[0].unit))} of ${fmt(w.items[0].total)} ${w.items[0].unit}`:(MODE==='s'?`${fmt(w.items.reduce((s,i)=>s+C.done[i.id],0))} of ${fmt(w.items.reduce((s,i)=>s+i.total,0))} ${w.items[0].unit}`:`${w.items.length} items · ${fmt(C.wtEarned[w.id])} of ${fmt(wtMH(w))} MH`);
+    const sub=w.items.every(i=>i.area)&&w.items.length>1?w.items.map(i=>`${i.sn||i.name} ${fmt(C.done[i.id])}`).join(' · ')+` of ${fmt(w.items[0].total)} SF`:w.items.length===1?`${fmt(C.done[w.items[0].id],dp(w.items[0].unit))} of ${fmt(w.items[0].total)} ${w.items[0].unit}`:(MODE==='s'?`${fmt(w.items.reduce((s,i)=>s+C.done[i.id],0))} of ${fmt(w.items.reduce((s,i)=>s+i.total,0))} ${w.items[0].unit}`:`${w.items.length} items · ${fmt(C.wtEarned[w.id])} of ${fmt(wtMH(w))} MH`);
     return `<button class="tr${w.id===active?' on':''}" data-tr="${w.id}"><span class="sw" style="background:${w.color}"></span>
       <span class="nm"><b>${w.short}</b><span>${w.incl?w.incl:sub}</span>${w.incl?`<span style="display:block">${sub}</span>`:''}<div class="bar"><i style="width:${pc}%;background:${w.color}"></i></div></span>
       <span class="pc"><b>${fmt(pc)}%</b>done</span></button>`;}).join('');
@@ -1118,11 +1121,11 @@ function refreshJob(){
   const src={tr:'Demo/Tear Off (roof area items) + Roof Assembly / Tapered — spread over the roof SF',dx:'Demo/Tear Off items that aren\'t roof area',wall:'Wall Flashing conditions',curb:'Curb Flashing checklist (pick list only)',pen:'Penetrations checklist incl. added items (pick list only)',sm:'Sheet Metal (installation labor)'};
   const d=JOB.def||{},tk=d.takeoff||{},est=d.estimate||{};
   $('#jSent').innerHTML=`Sent ${d.sentAt?new Date(d.sentAt).toLocaleString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'}):'—'}${d.sentBy?' by <b>'+d.sentBy+'</b>':''} from takeoff <b>${tk.file||'—'}</b>${tk.desc?' ('+tk.desc+')':''}.
-    IronClad's man-hours for this takeoff: <b>${fmt(est.totalMH||EST_TOTAL,1)} MH</b>${est.roofSF?` · roof ${fmt(est.roofSF)} SF`:''}${d.plan&&d.plan.source?` · plan: ${d.plan.source}`:''}.
+    IronClad's man-hours for this takeoff: <b>${fmt(est.totalMH||EST_TOTAL,1)} MH</b>${est.notSentMH>0.05?` (${fmt(est.notSentMH,1)} MH not sent, by the estimator's choice — tracked here: ${fmt(EST_TOTAL,1)} MH)`:''}${est.roofSF?` · roof ${fmt(est.roofSF)} SF`:''}${d.plan&&d.plan.source?` · plan: ${d.plan.source}`:''}.
     Curbs and penetrations come over as pick lists. Accessories (adhesive, primer, sealant, corners, cleats…) are spread into the items they go with, so every estimated man-hour is counted.`;
   $('#jTable').innerHTML=`<thead><tr><th>Detailed pick list</th><th class="n">Quantity</th><th class="n">MH / unit</th><th class="n">Est. MH</th><th>Simple group</th><th>From IronClad</th></tr></thead><tbody>`+
    DETAIL.map(w=>`<tr class="grp"><td><span class="sw2" style="background:${w.color}"></span>${w.name}</td><td></td><td></td><td class="n">${fmt(wtMH(w),1)}</td><td>${grp[w.id]||''}</td><td class="note">${src[w.id]||''}</td></tr>`+
-     w.items.map(i=>`<tr class="sub"><td>${i.name}</td><td class="n">${fmt(i.total,i.total<10&&i.total%1?1:0)} ${i.unit}</td><td class="n">${i.mh<1?i.mh.toFixed(3):fmt(i.mh,2)}</td><td class="n">${fmt(i.total*i.mh,1)}</td><td></td><td></td></tr>`).join('')).join('')+
+     w.items.map(i=>`<tr class="sub"><td>${i.name}${i.incl?`<br><small class="note">includes ${i.incl.join(', ')}</small>`:''}</td><td class="n">${fmt(i.total,i.total<10&&i.total%1?1:0)} ${i.unit}</td><td class="n">${i.mh<1?i.mh.toFixed(3):fmt(i.mh,2)}</td><td class="n">${fmt(i.total*i.mh,1)}</td><td></td><td></td></tr>`).join('')).join('')+
    `</tbody><tfoot><tr><td>Total</td><td></td><td></td><td class="n">${fmt(EST_TOTAL,1)}</td><td colspan="2"></td></tr></tfoot>`+
    `<tbody><tr><td colspan="6" style="padding-top:16px"><b>Simple roll-up</b></td></tr>${SIMPLE.map(w=>`<tr class="sub"><td>${w.name} — ${w.incl}</td><td class="n">${fmt(w.items[0].total)} ${w.items[0].unit}</td><td class="n">${w.items[0].mh<1?w.items[0].mh.toFixed(3):fmt(w.items[0].mh,2)}</td><td class="n">${fmt(wtMH(w),1)}</td><td></td><td></td></tr>`).join('')}</tbody>`;
   $('#jcMen').value=JOB.crew.men;$('#jcHrs').value=JOB.crew.hrs;
