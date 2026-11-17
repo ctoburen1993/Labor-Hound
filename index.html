@@ -578,8 +578,9 @@ body.presenting .prbar{display:flex;gap:10px;justify-content:center;align-items:
 /* ===================== Labor Hound — build history: see the project log =====================
    11172026-1  real app: jobs from IronClad setup files, desktop folder saving, phone Send to office / drag-and-drop
    11172026-2  combined / not-sent lines from IronClad's "What gets sent, and how"; no-drawing jobs
-   11172026-3  draw completed LF items (✏ Draw) and mark EA items (📍 Mark) right on the plan */
-const LH_BUILD='11172026-3';
+   11172026-3  draw completed LF items (✏ Draw) and mark EA items (📍 Mark) right on the plan
+   11172026-4  fix: a job re-sent from IronClad with lines combined / not sent no longer stops the app (old entries for missing lines are skipped) */
+const LH_BUILD='11172026-4';
 const TODAY=(()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');})();
 /* PM list lives in Shared Database\tr-project-managers.json (shared with IronClad).
    This device keeps a copy of the last list it read, so phones / tablets and offline use still work. */
@@ -786,13 +787,24 @@ function compute(){
   const cov={}, iv={}, marked={}, done={}, earnedI={};
   wts.forEach(w=>{areaItems(w).forEach(i=>cov[i.id]=new Uint8Array(GW*GH));w.items.forEach(i=>{done[i.id]=0;earnedI[i.id]=0;});});
   const ents=ENTRIES.filter(e=>e.mode===MODE).sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:a.id-b.id);
+  let orphans=0;
+  // entries for items that aren't in this job's setup any more (re-sent from IronClad with lines combined or not sent) are kept but don't count
+  const findItem=id=>{for(const ww of wts){const it=ww.items.find(x=>x.id===id);if(it)return [ww,it];}return null;};
   for(const e of ents){
-    const w=wts.find(x=>x.id===e.wt); const parts=[];
-    if(e.kind==='area'){areaItems(w).forEach(it=>{const cells=rasterNew(e.poly,cov[it.id]);cells.forEach(k=>cov[it.id][k]=1);parts.push([it,cells.length*it.per]);});}
-    else if(e.kind==='path'){const it=itemOf(w,e.item);if(!it){e.parts=[];e.q=0;e.mh=0;continue;}parts.push([it,plen(e.pts)]);}
-    else if(e.kind==='mark'){const it=itemOf(w,e.item);if(!it){e.parts=[];e.q=0;e.mh=0;continue;}parts.push([it,1]);}
-    else if(e.kind==='line'){const it=runItem(w,e.run);const b=ivLen(iv[e.run]||[]);iv[e.run]=mergeIv([...(iv[e.run]||[]),[e.t0,e.t1]]);parts.push([it,(ivLen(iv[e.run])-b)*(it.rk||1)]);}
-    else {parts.push([itemOf(w,e.item),e.qty]);}
+    const skip=()=>{e.parts=[];e.q=0;e.mh=0;e.it=null;orphans++;};
+    let w=wts.find(x=>x.id===e.wt); const parts=[];
+    if(e.kind==='area'){if(!w||!areaItems(w).length)w=wts.find(x=>areaItems(x).length);if(!w){skip();continue;}
+      areaItems(w).forEach(it=>{const cells=rasterNew(e.poly,cov[it.id]);cells.forEach(k=>cov[it.id][k]=1);parts.push([it,cells.length*it.per]);});}
+    else if(e.kind==='line'){const it=w&&RUNS[e.run]&&runItem(w,e.run);if(!it){skip();continue;}const b=ivLen(iv[e.run]||[]);iv[e.run]=mergeIv([...(iv[e.run]||[]),[e.t0,e.t1]]);parts.push([it,(ivLen(iv[e.run])-b)*(it.rk||1)]);}
+    else {const raw=e.kind==='path'?plen(e.pts):e.kind==='mark'?1:(+e.qty||0);let f=findItem(e.item),q=raw;
+      if(!f){// the line was combined into another when IronClad re-sent the job: move its man-hours to that line
+        const def=JOB.def||{},into=(def.sendRules&&def.sendRules.into)||{},drop=(def.sendRules&&def.sendRules.drop)||{};
+        let id=e.item;const seen=new Set();while(into[id]&&!seen.has(id)){seen.add(id);id=into[id];}
+        let old=null;(def.rawDetail||[]).forEach(ww=>ww.items.forEach(x=>{if(x.id===e.item)old=x;}));
+        f=!drop[e.item]&&!drop[id]&&old?findItem(id):null;
+        if(f&&f[1].mh>0)q=raw*old.mh/f[1].mh;else f=null;}
+      if(!f){skip();continue;}w=f[0];parts.push([f[1],q]);}
+    if(!parts.length){skip();continue;}
     e.parts=parts.map(([it,q])=>({it:it.id,q,mh:q*it.mh}));
     e.q=parts[0][1];e.it=parts[0][0].id;e.mh=e.parts.reduce((s2,x)=>s2+x.mh,0);
     e.parts.forEach(x=>{done[x.it]+=x.q;earnedI[x.it]+=x.mh;if(per[e.date])per[e.date].qty[w.id]+=x.q;});
@@ -808,7 +820,7 @@ function compute(){
   const daysLeft=rateE>0?Math.ceil(remaining/rateE):null, finish=daysLeft!=null?addWork(allDays[allDays.length-1],daysLeft):null;
   const planDays=Math.ceil(EST_TOTAL/Math.max(1,JOB.planCrew.men*JOB.planCrew.hrs)), planFinish=addWork(JOB.start,planDays-1);
   const projTotal=cum.used+(perf>0?remaining/perf:remaining);
-  C={allDays,per,cov,iv,marked,done,earnedI,wtEarned,series,cum,worked,rateE,rateU,perf,remaining,daysLeft,finish,planDays,planFinish,projTotal,
+  C={orphans,allDays,per,cov,iv,marked,done,earnedI,wtEarned,series,cum,worked,rateE,rateU,perf,remaining,daysLeft,finish,planDays,planFinish,projTotal,
      pct:cum.earned/EST_TOTAL, planPct:Math.min(1,allDays.length/planDays), status:perf>=1.02?'good':perf>=0.95?'warn':'bad'};
 }
 const wtPct=w=>Math.min(1,C.wtEarned[w.id]/wtMH(w));
@@ -1159,7 +1171,8 @@ function drawChart(){
 function refreshLog(){
   $('#logList').innerHTML=`<p class="note" style="margin:0 0 10px">Showing <b>${MODES[MODE].label}</b> entries.</p>`+C.allDays.slice().reverse().map(d=>{const p=C.per[d],h=hoursFor(d);const es=ENTRIES.filter(e=>e.mode===MODE&&e.date===d);
     return `<div class="logday"><div class="h"><b>${nice(d)}${d===JOB.today?' · Today':''}</b><span>${h.rain?'☔ Rain day — ':''}${h.men} men × ${h.hrs} h${h.rain?' show-up':''}${h.def?' (default)':''} = <b>${fmt(p.used,1)} MH</b> · earned ${fmt(p.earned,1)} MH${h.note&&!h.rain?' · '+h.note:''}</span></div>
-     <ul>${es.map(e=>{const it=dItemAny(e.it),w=WTS().find(x=>x.id===e.wt);
+     <ul>${es.map(e=>{const it=e.it&&dItemAny(e.it),w=(it&&WTS().find(x=>x.items.includes(it)))||WTS().find(x=>x.id===e.wt)||{name:'',color:'#bbb'};
+       if(!it)return `<li style="color:var(--mut)"><span class="sw2" style="background:#bbb"></span>${e.item||e.wt} · <i>line no longer in this job — doesn't count</i><span class="q">${e.qty!=null?fmt(e.qty):''}</span><button class="x${sureDel===e.id?' sure':''}" data-del="${e.id}">${sureDel===e.id?'Delete?':'✕'}</button></li>`;
        const how=e.kind==='area'?'shaded on the photo':e.kind==='line'?(RUNS[e.run]||{name:'traced run'}).name:e.kind==='path'?'drawn on the plan':e.kind==='mark'?'marked on the plan':'typed in the list';
        const nm=e.parts.length>1?w.name:it.name;
        return `<li><span class="sw2" style="background:${w.color}"></span>${nm} <span style="color:var(--mut)">· ${how}</span><span class="q">${e.q<0?'−':''}${fmt(Math.abs(e.q),dp(it.unit))} ${it.unit}</span><button class="x${sureDel===e.id?' sure':''}" data-del="${e.id}">${sureDel===e.id?'Delete?':'✕'}</button></li>`;}).join('')||'<li style="color:var(--mut)">No work marked</li>'}</ul></div>`;}).join('');
@@ -1170,7 +1183,8 @@ function refreshJob(){
   const d=JOB.def||{},tk=d.takeoff||{},est=d.estimate||{};
   $('#jSent').innerHTML=`Sent ${d.sentAt?new Date(d.sentAt).toLocaleString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'}):'—'}${d.sentBy?' by <b>'+d.sentBy+'</b>':''} from takeoff <b>${tk.file||'—'}</b>${tk.desc?' ('+tk.desc+')':''}.
     IronClad's man-hours for this takeoff: <b>${fmt(est.totalMH||EST_TOTAL,1)} MH</b>${est.notSentMH>0.05?` (${fmt(est.notSentMH,1)} MH not sent, by the estimator's choice — tracked here: ${fmt(EST_TOTAL,1)} MH)`:''}${est.roofSF?` · roof ${fmt(est.roofSF)} SF`:''}${d.plan&&d.plan.source?` · plan: ${d.plan.source}`:''}.
-    <span style="color:var(--mut)">Labor Hound build ${LH_BUILD}.</span> Curbs and penetrations come over as pick lists. Accessories (adhesive, primer, sealant, corners, cleats…) are spread into the items they go with, so every estimated man-hour is counted.`;
+${C.orphans?`<br><b style="color:#8a5a00">⚠ ${C.orphans} earlier entr${C.orphans===1?'y is':'ies are'} for lines that are no longer in this job's setup</b> (IronClad re-sent it with lines combined or not sent), so ${C.orphans===1?'it doesn\'t':'they don\'t'} count. Re-enter that work on the new lines.<br>`:''}
+        <span style="color:var(--mut)">Labor Hound build ${LH_BUILD}.</span> Curbs and penetrations come over as pick lists. Accessories (adhesive, primer, sealant, corners, cleats…) are spread into the items they go with, so every estimated man-hour is counted.`;
   $('#jTable').innerHTML=`<thead><tr><th>Detailed pick list</th><th class="n">Quantity</th><th class="n">MH / unit</th><th class="n">Est. MH</th><th>Simple group</th><th>From IronClad</th></tr></thead><tbody>`+
    DETAIL.map(w=>`<tr class="grp"><td><span class="sw2" style="background:${w.color}"></span>${w.name}</td><td></td><td></td><td class="n">${fmt(wtMH(w),1)}</td><td>${grp[w.id]||''}</td><td class="note">${src[w.id]||''}</td></tr>`+
      w.items.map(i=>`<tr class="sub"><td>${i.name}${i.incl?`<br><small class="note">includes ${i.incl.join(', ')}</small>`:''}</td><td class="n">${fmt(i.total,i.total<10&&i.total%1?1:0)} ${i.unit}</td><td class="n">${i.mh<1?i.mh.toFixed(3):fmt(i.mh,2)}</td><td class="n">${fmt(i.total*i.mh,1)}</td><td></td><td></td></tr>`).join('')).join('')+
@@ -1801,7 +1815,7 @@ function addSetup(d,quiet){
   } else JOBLIST.push(j);
   JOBLIST.sort((a,b)=>a.name.localeCompare(b.name));
   idbSet('setup:'+j.id,d);idbSet('setupIds',JOBLIST.map(x=>x.id));
-  if(JOB&&JOB.id===j.id){setGeom(d);fitView();}
+  if(JOB&&JOB.id===j.id){setGeom(d);if(!WT(active))active=FIRST[MODE];drawItem=null;pathDraft=[];draft=[];lineStart=null;fitView();}
   return {job:old||j,isNew:!old,changed:true};
 }
 async function loadCachedSetups(){const ids=(await idbGet('setupIds'))||[];for(const id of ids){const d=await idbGet('setup:'+id);if(d)addSetup(d,true);}}
