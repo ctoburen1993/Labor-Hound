@@ -509,6 +509,9 @@ td.mrd{font-size:12.5px;line-height:1.5}
 .pchip.cx{background:#fbe9d7;color:#8a4b12}.pchip.srs{background:#e3ecf8;color:#24497a}.pchip.ns{background:#f1f2f1;color:var(--mut);font-weight:600}
 table.mgclick tbody tr[data-row],td.mgcell{cursor:pointer}table.mgclick tbody tr[data-row]:hover,td.mgcell:hover{background:#f2f8f4}
 table.mgx td.mgcell small{display:block;font-size:11px;color:var(--ink2)}
+/* 11182026-9: gold wordmark (the app's --gold #D4A72C); THOMSON ROOFING sub-line unchanged */
+header .brand .nm{color:var(--gold)}
+.pchip.tst{background:#fff1c7;color:#6b5512}.rchk.tstl small{color:var(--mut);font-weight:500}
 </style>
 </head>
 <body>
@@ -716,6 +719,7 @@ table.mgx td.mgcell small{display:block;font-size:11px;color:var(--ink2)}
    11172026-2  combined / not-sent lines from IronClad's "What gets sent, and how"; no-drawing jobs
    11172026-3  draw completed LF items (✏ Draw) and mark EA items (📍 Mark) right on the plan
    11172026-4  fix: a job re-sent from IronClad with lines combined / not sent no longer stops the app (old entries for missing lines are skipped)
+   11182026-9  LABOR HOUND wordmark in gold · Test PM (test: true) for trying the app, left out of ratings and comparisons
    11182026-8  job profile (size Small / Medium / Large, complexity from flashing % and penetrations per SQ, SRS × 1.25) · Management: crew performance by job scenario
    11182026-7  labels: MH earned renamed Estimated MH (pace = estimated ÷ worked MH); whole-job budget labeled Job est. MH / Job total estimated MH
    11182026-6  read notifications for the sender · messages expire after 7 days · 3-day weather · management users open on Management · Not logged today only after 3 PM
@@ -725,12 +729,12 @@ table.mgx td.mgcell small{display:block;font-size:11px;color:var(--ink2)}
    11182026-2  ratings per job; PM current rating = average of current job ratings; Management: current vs calendar-year rating, year picker; job rating on the Progress tab
    11182026-1  Management screen (shared password, charts on PM / crew performance) · PM rating meter in the header (rating v1: days logged + MH pace, 50/50)
    11172026-5  📅 pick any date · color the plan by week / month · 🔍 what was done here, and when (who entered it) · report: any week, whole job, custom dates, color by week / month */
-const LH_BUILD='11182026-8';
+const LH_BUILD='11182026-9';
 const TODAY=(()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');})();
 /* PM list lives in Shared Database\tr-project-managers.json (shared with IronClad).
    This device keeps a copy of the last list it read, so phones / tablets and offline use still work. */
 const PM_FILE='tr-project-managers.json', PM_LIST_KEY='laborHound.pmList';
-const PM_BUILTIN={version:3,updated:'2026-11-17',admins:[{name:'Charlie Toburen',passwordSha256:null},{name:'Drue Poston',passwordSha256:null},{name:'Jay Poston',passwordSha256:null}],projectManagers:[{name:'Charlie Toburen',active:true,admin:true},{name:'Herbie Flick',active:true},{name:'Wade Matthews',active:true},{name:'Drue Poston',active:true,admin:true},{name:'Jay Poston',active:true,admin:true},{name:'Mark Jenkins',active:true}]};
+const PM_BUILTIN={version:3,updated:'2026-11-17',admins:[{name:'Charlie Toburen',passwordSha256:null},{name:'Drue Poston',passwordSha256:null},{name:'Jay Poston',passwordSha256:null}],projectManagers:[{name:'Charlie Toburen',active:true,admin:true},{name:'Herbie Flick',active:true},{name:'Wade Matthews',active:true},{name:'Drue Poston',active:true,admin:true},{name:'Jay Poston',active:true,admin:true},{name:'Mark Jenkins',active:true},{name:'Test',active:true,test:true,note:'Charlie Toburen tries Labor Hound out — left out of ratings and comparisons'}]};
 let PM_SRC={from:'copy on this device',updated:PM_BUILTIN.updated};
 let PMS=PM_BUILTIN.projectManagers.filter(p=>p.active!==false).map(p=>p.name);
 let ADMINS=JSON.parse(JSON.stringify(PM_BUILTIN.admins));
@@ -2074,7 +2078,7 @@ window.RPM.loadLatest=loadLatest;
 
 </script>
 <script>
-/* ===================== Management screen + PM rating meter (11182026-1, per-job ratings 11182026-2, MH pace only 11182026-3, job complete + after-closeout hours 11182026-4, PM dashboard · messages · weather 11182026-5, read notifications · management users 11182026-6, job size / complexity scenarios 11182026-8) =====================
+/* ===================== Management screen + PM rating meter (11182026-1, per-job ratings 11182026-2, MH pace only 11182026-3, job complete + after-closeout hours 11182026-4, PM dashboard · messages · weather 11182026-5, read notifications · management users 11182026-6, job size / complexity scenarios 11182026-8, gold wordmark · Test PM 11182026-9) =====================
    Charlie, Nov 18: a Management screen for admins / upper management (one shared password, soft lock),
    with charts on PM and crew performance, and a rating meter at the top of each PM's Labor Hound.
    Scale: under 40 = Sub Par · 40–60 = Good · over 60 = Great.
@@ -2108,7 +2112,13 @@ let LH_SETTINGS=(()=>{try{return normSettings(JSON.parse(store.get(LH_SETTINGS_K
 const MG={unlocked:false,last:0,charts:[],cache:{},dim:'roofType',where:'device'};
 const who=()=>ME?{name:ME,datumId:null}:null;
 const isMgmtUser=n=>!!n&&(LH_SETTINGS.managementUsers||[]).includes(n);
-const ratedPMs=()=>[...new Set([...PMS,...JOBLIST.map(j=>j.pm)].filter(Boolean))].filter(n=>!isMgmtUser(n));
+/* 11182026-9: PMs marked "test": true in tr-project-managers.json (and the built-in "Test") are left out of ratings / comparisons / "All PMs" */
+let TEST_MEMO={src:null,set:new Set(['Test'])};
+function testPMs(){const raw=store.get(PM_LIST_KEY)||'';if(TEST_MEMO.src!==raw){const set=new Set();
+    try{const d=JSON.parse(raw||'null');(d&&d.projectManagers||[]).forEach(p=>{if(p&&p.test)set.add(p.name);});}catch(e){}set.add('Test');   // the built-in "Test" PM is always a test PM
+    TEST_MEMO={src:raw,set};}return TEST_MEMO.set;}
+const isTestPM=n=>!!n&&testPMs().has(n);
+const ratedPMs=()=>[...new Set([...PMS,...JOBLIST.map(j=>j.pm)].filter(Boolean))].filter(n=>!isMgmtUser(n)&&!isTestPM(n));
 /* newest section wins when the folder copy and this device's copy differ (password and rating are separate sections) */
 function mergeSettings(a,b){const s=normSettings(a),t=normSettings(b);
   if((t.management.setAt||'')>(s.management.setAt||''))s.management=t.management;
@@ -2387,7 +2397,7 @@ function renderMgmt(){const t=document.getElementById('tMgmt');if(!t)return;
   const R=pms.map(n=>{const c=pmCurrent(n);c.yr=pmYear(n,Y);return c;}).sort((a,b)=>(b.rating??-1)-(a.rating??-1)||(b.yr.rating??-1)-(a.yr.rating??-1)||a.name.localeCompare(b.name));
   const rated=R.filter(r=>r.rating!=null||r.yr.rating!=null),S=LH_SETTINGS.rating,M=LH_SETTINGS.management;
   const curJobs=[].concat(...R.map(r=>r.list.filter(j=>j.rating!=null)));
-  const worked=all.filter(s=>s.used>0);const jobColor=id=>SER[JOBLIST.findIndex(j=>j.id===id)%SER.length];
+  const worked=all.filter(s=>s.used>0&&!isTestPM(s.pm));const jobColor=id=>SER[JOBLIST.findIndex(j=>j.id===id)%SER.length];
   const jl=list=>list.length?list.map(j=>`<span class="mgjc"><span class="sw2" style="background:${j.rating==null?ZCOL.none:ZCOL[j.zone]}"></span>${esc(j.job.name)} <b>${j.rating==null?'—':r0(j.rating)}</b>${j.job.finished?' <small>completed</small>':''}${j.acMH?` <small class="mgac">+${fmt(j.acMH)} MH after closeout</small>`:''}</span>`).join(''):'<span class="mut">—</span>';
   const st=s=>s.finished?['Completed '+short(s.end),'none']:s.pct>=0.999?['100% — not marked complete','warn']:!s.started?['Not started','none']:s.status==='good'?['Ahead','good']:s.status==='warn'?['On track','warn']:['Behind','bad'];
   const zchip=r=>`<span class="zs ${r.noJobs||r.rating==null?'none':r.zone}">${r.rating==null&&!r.noJobs?'Not rated yet':r.word}</span>`;
@@ -2418,7 +2428,7 @@ function renderMgmt(){const t=document.getElementById('tMgmt');if(!t)return;
        <p class="note" style="margin-top:8px">Thresholds (lh-settings.json “analysis”): Small ≤ ${LH_SETTINGS.analysis.sizeSmallMaxSqs} SQS · Medium ≤ ${LH_SETTINGS.analysis.sizeMediumMaxSqs} · Large over that. Complex if flashing SQS ÷ roof SQS is over ${LH_SETTINGS.analysis.flashingPctComplex}% or penetrations are over ${LH_SETTINGS.analysis.penPerSqComplex} per SQ (1 per ${Math.round(1/LH_SETTINGS.analysis.penPerSqComplex*10)/10} SQS); SRS jobs count ${LH_SETTINGS.analysis.srsFactor}× on both.</p></div>
    </div>
    <div class="card"><h2>Jobs</h2><div class="tscroll"><table class="t mgt"><thead><tr><th>Job</th><th>PM</th><th>Status</th><th class="n">Complete</th><th class="n">Estimated MH</th><th class="n">Worked MH</th><th class="n">Estimated ÷ worked</th><th>Job details</th></tr></thead><tbody>
-     ${all.map(s=>{const[w,c]=st(s);return `<tr><td><a href="#" class="mgopen" data-goj="${s.id}"><b>${esc(s.name)}</b></a><small>${[s.client,s.qno].filter(Boolean).map(esc).join(' · ')}${s.client||s.qno?' · ':''}start ${short(s.start)}</small></td><td>${esc(s.pm||'—')}</td><td><span class="stt ${c}">${w}</span>${s.finished?`<small>${s.completion&&s.completion.by?'by '+esc(s.completion.by.name)+' · ':''}not current${s.acMH?` · <b class="mgac">+${fmt(s.acMH)} MH after closeout</b>`:''}</small><span class="mgbtns"><button class="btn sm" data-adj="${s.id}">After-closeout hours…</button><button class="btn sm" data-reopen="${s.id}">Reopen</button></span>`:s.active?'':'<small>not counted in ratings</small>'}</td>
+     ${all.map(s=>{const[w,c]=st(s);return `<tr><td><a href="#" class="mgopen" data-goj="${s.id}"><b>${esc(s.name)}</b></a><small>${[s.client,s.qno].filter(Boolean).map(esc).join(' · ')}${s.client||s.qno?' · ':''}start ${short(s.start)}</small></td><td>${esc(s.pm||'—')}${isTestPM(s.pm)?' <span class="pchip tst">Test</span>':''}</td><td><span class="stt ${c}">${w}</span>${s.finished?`<small>${s.completion&&s.completion.by?'by '+esc(s.completion.by.name)+' · ':''}not current${s.acMH?` · <b class="mgac">+${fmt(s.acMH)} MH after closeout</b>`:''}</small><span class="mgbtns"><button class="btn sm" data-adj="${s.id}">After-closeout hours…</button><button class="btn sm" data-reopen="${s.id}">Reopen</button></span>`:s.active?'':'<small>not counted in ratings</small>'}</td>
        <td class="n">${fmt(s.pct*100)}%</td><td class="n">${fmt(s.earned,1)}</td><td class="n">${fmt(s.used,1)}</td><td class="n">${s.used?(s.earned/s.used).toFixed(2):'—'}</td><td>${profileChip(jobProfile(s))}</td></tr>`;}).join('')||'<tr><td colspan="8" class="mut">No jobs yet.</td></tr>'}</tbody></table></div><div id="mgAdj"></div></div>
    <div class="card mgsoon"><h2>Coming with Summit time clock</h2><div class="sub">These need clock-ins by employee from Summit (read only). Nothing is tracked here yet, and no pay data is in Labor Hound.</div>
      <div class="mgph"><div><b>Foreman performance</b><span>Estimated MH ÷ worked MH on the days each foreman ran the crew.</span></div><div><b>Crew performance by crew</b><span>Same measure, grouped by the crew that clocked in.</span></div><div><b>Hourly rate vs performance</b><span>Admins only — pay rates never show on PM phones.</span></div></div>
@@ -2722,7 +2732,7 @@ async function writeReads(n){const read=readsOf(n),seen=store.get(SEEN_KEY(n))||
 const SEEN_KEY=n=>'laborHound.notifSeen.'+n;
 const MSG_DAYS=7;   // Charlie: messages drop off PM dashboards 7 days after they're sent (read or not); Management keeps them, marked Expired
 const msgExpired=m=>Date.now()-new Date(m.at).getTime()>MSG_DAYS*864e5;
-const msgFor=n=>MSGS.messages.filter(m=>(m.to==='all'||(Array.isArray(m.to)&&m.to.includes(n)))&&!msgExpired(m));
+const msgFor=n=>MSGS.messages.filter(m=>((m.to==='all'&&!isTestPM(n))||(Array.isArray(m.to)&&m.to.includes(n)))&&!msgExpired(m));
 async function markRead(id){if(!ME)return;const r=readsOf(ME);if(r[id])return;r[id]=new Date().toISOString();store.set(READ_KEY(ME),JSON.stringify(r));renderDash();await writeReads(ME);}
 /* read status travels in the daily file (Send to office) */
 {const _sn2=snapshot;snapshot=function(){const s=_sn2.apply(this,arguments);if(ME&&JOB&&JOB.pm===ME){const r=readsOf(ME);if(Object.keys(r).length)s.msgRead={pm:{name:ME,datumId:null},read:r};}return s;};}
@@ -2820,7 +2830,7 @@ async function renderMgMsgs(){const c=document.getElementById('mgMsg');if(!c)ret
   pms.forEach(n=>{reads[n]=Object.assign({},reads[n]||{},readsOf(n));});
   const jobs=JOBLIST.slice().sort((a,b)=>a.name.localeCompare(b.name));
   c.innerHTML=`<h2>📨 Messages to PMs</h2><div class="sub">Shows on each PM's dashboard. Saved in <b>TR Labor Hound\\${MSG_FILE}</b>. Phones get new messages when the PM opens that file with “Open a job file” (phase 1).</div>
-   <div class="mgto"><label class="rchk"><input type="checkbox" id="mtAll"> All PMs</label>${pms.map(n=>`<label class="rchk"><input type="checkbox" data-to="${esc(n)}"> ${esc(n)}</label>`).join('')}</div>
+   <div class="mgto"><label class="rchk"><input type="checkbox" id="mtAll"> All PMs</label>${pms.map(n=>`<label class="rchk"><input type="checkbox" data-to="${esc(n)}"> ${esc(n)}</label>`).join('')}${[...testPMs()].filter(n=>PMS.includes(n)||JOBLIST.some(j=>j.pm===n)).map(n=>`<label class="rchk tstl"><input type="checkbox" data-to="${esc(n)}"> ${esc(n)} <small>(test — not in All PMs)</small></label>`).join('')}</div>
    <div class="mgw"><input id="mtSub" placeholder="Subject" style="flex:1;min-width:200px"><select id="mtJob"><option value="">No job link</option>${jobs.map(j=>`<option value="${j.id}">${esc(j.name)}</option>`).join('')}</select></div>
    <textarea id="mtText" rows="3" placeholder="Message" class="mgta"></textarea><div class="mgw"><button class="btn pri" id="mtSend">Send message</button><span class="admmsg" id="mtMsg"></span></div>
    <table class="t mgt"><thead><tr><th>Sent</th><th>Subject</th><th>To</th><th>Read</th></tr></thead><tbody>
@@ -2901,6 +2911,10 @@ Object.assign(window.RPM,{showHome,showMgmtHome,showDash});Object.assign(window.
   let el=document.getElementById('jProfile');if(!el){el=document.createElement('p');el.id='jProfile';el.className='note';p.parentNode.insertBefore(el,p.nextSibling);}
   const pr=jobProfile(JOBLIST.find(j=>j.id===JOB.id)||JOB);
   el.innerHTML=`<b>Job profile:</b> ${profileChip(pr)}${pr.sent&&pr.sqs?` <small>· flashing ${pr.flashPct==null?'—':Math.round(pr.flashPct*10)/10+'%'}${pr.srs&&pr.flashPct!=null?` (× ${pr.factor} SRS = ${Math.round(pr.flashAdj*10)/10}%)`:''} · ${pr.penDensity==null?'—':Math.round(pr.penDensity*100)/100+' pen/SQ'}${pr.srs&&pr.penDensity!=null?` (× ${pr.factor} = ${Math.round(pr.penAdj*100)/100})`:''}</small>`:''}`;};}
+
+/* 11182026-9: a device holding an older PM list copy still offers "Test" in pick-your-name */
+if(!PMS.includes('Test')){PMS.push('Test');try{fillPmSelect();}catch(e){}}
+window.RPM.mg.isTestPM=isTestPM;
 </script>
 </body>
 </html>
