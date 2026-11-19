@@ -376,6 +376,139 @@ body.presenting .prbar{display:flex;gap:10px;justify-content:center;align-items:
 #noJobs .nj{max-width:620px;margin:30px auto}#noJobs code{font-size:13px;background:#f2f5f3;padding:1px 5px;border-radius:5px;overflow-wrap:anywhere}
 .drawbtn{margin-left:8px;font:inherit;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;border:1px solid var(--g);background:#fff;color:var(--g);cursor:pointer;vertical-align:1px}
 .drawbtn.on{background:var(--g);color:#fff}.pl .r.drawing{background:#eef6f1;border-radius:8px}
+.daybar .d{cursor:pointer;position:relative}.daybar .d .cal{font-size:13px;opacity:.75}.dpick{position:absolute;left:50%;bottom:0;width:1px;height:1px;opacity:0;pointer-events:none;border:0;padding:0}
+.mapctl button.on{background:var(--g);color:#fff}
+.legend{pointer-events:auto}.legend .cby{display:inline-flex;align-items:center;gap:5px;font-weight:700;color:var(--g);margin-right:4px}.legend .cby select{font:inherit;font-weight:600;font-size:12px;padding:2px 4px;border-radius:6px;border:1px solid #c9d3cd}
+#infoCard{position:absolute;left:12px;top:64px;z-index:6;background:#fff;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.3);padding:8px 10px;width:min(330px,calc(100% - 80px));max-height:60%;overflow:auto;font-size:13px}
+#infoCard[hidden]{display:none}#infoCard .ih{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;color:var(--g)}#infoCard .ih button{border:0;background:none;font-size:16px;cursor:pointer}
+#infoCard .ir{display:flex;gap:8px;align-items:center;padding:5px 0;border-top:1px solid #eef1ef}#infoCard .ir>i{width:12px;height:12px;border-radius:3px;flex:0 0 auto}#infoCard .ir>div{flex:1}#infoCard .ir small{color:var(--mut)}#infoCard .ir a{font-size:12px;color:var(--g);font-weight:700;white-space:nowrap}
+#rptDates{display:inline-flex;gap:4px;align-items:center;font-size:13px}#rptDates[hidden]{display:none}#rptDates input{font:inherit;padding:4px 6px;border-radius:8px;border:1px solid #c9d3cd}
+/* 11182026-1: PM rating meter + Management screen */
+.pmmeter{display:flex;align-items:center;gap:6px;flex:none;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.28);border-radius:12px;padding:3px 10px 3px 6px;color:#fff;line-height:1}
+.pmmeter[hidden]{display:none}
+.pmmeter:hover{background:rgba(255,255,255,.14)}
+.pmmeter .pmv{display:flex;flex-direction:column;align-items:flex-start;gap:2px}
+.pmmeter .pmv b{font:700 20px "Barlow Condensed","Arial Narrow",Barlow,sans-serif}
+.pmmeter .pmv small{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#d9e6de;white-space:nowrap}
+.pmmeter.z-sub .pmv small{color:#ffb4ae}.pmmeter.z-good .pmv small{color:#ffe08a}.pmmeter.z-great .pmv small{color:#9fe0b8}
+.pmpop{position:fixed;z-index:70;width:360px;max-width:calc(100vw - 20px);background:#fff;color:var(--ink);border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.3);padding:12px 14px;font-size:14px;line-height:1.4}
+.pmpop[hidden]{display:none}
+.pph{display:flex;align-items:center;gap:10px;margin-bottom:6px}.pph>div{flex:1}.pph b{display:block;font-size:18px}.pph span{font-size:12px;color:var(--ink2)}
+.ppx{border:0;background:none;font-size:16px;color:var(--ink2);align-self:flex-start}
+.mgbd>div{padding:5px 0;border-top:1px dashed var(--line)}.mgbd>div:first-child{border-top:0}
+.mgmiss{color:#8a3a2f;font-size:13px}.mgf{font-size:13px}
+.mgsc{display:flex;flex-wrap:wrap;gap:6px;font-size:12px}
+.zs{display:inline-block;font-size:12px;font-weight:700;padding:1px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.zs.sub{color:#b42318}.zs.good{color:#8a6200}.zs.great{color:#1e7a46}.zs.none{color:var(--ink2)}
+.mglink{display:block;margin-top:10px;font-size:12px;color:var(--ink2);text-decoration:none}.mglink:hover{text-decoration:underline}
+#tMgmt .page{background:var(--bg)}
+.mghead{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;justify-content:space-between;margin-bottom:12px}
+.mghead h1{margin:0;font:700 28px "Barlow Condensed","Arial Narrow",Barlow,sans-serif;color:var(--g)}.mghead span{font-size:13px;color:var(--ink2)}
+.mgmeters{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:10px;margin:6px 0 12px}
+.mgm{display:flex;flex-direction:column;align-items:center;gap:1px;border:1px solid var(--line);border-radius:12px;background:#fff;padding:10px 6px 8px;cursor:pointer}
+.mgm:hover{border-color:var(--g)}.mgm>b{font:700 26px/1 "Barlow Condensed","Arial Narrow",Barlow,sans-serif;margin-top:2px}
+.mgm .zw{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}.mgm.z-sub .zw{color:#b42318}.mgm.z-good .zw{color:#8a6200}.mgm.z-great .zw{color:#1e7a46}.mgm.z-none .zw{color:var(--ink2)}
+.mgm .nm{font-weight:600;font-size:14px;margin-top:3px;text-align:center}.mgm small{font-size:11px;color:var(--ink2)}
+table.mgt td small{display:block;font-size:11px;color:var(--ink2)}table.mgt td.miss{font-size:12px;line-height:1.35}table.mgt .mut,.mgt .mut{color:var(--mut)}table.mgt .ok{color:var(--good);font-weight:600}
+.mgbdw{margin-top:12px;background:#f7f9f7;border-radius:10px;padding:10px 12px;font-size:14px}.mgbdw h3{margin:0 0 4px;font-size:16px}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(440px,100%),1fr));gap:0 14px}
+.mgrid .mgwide{grid-column:1/-1}
+.mgc{position:relative;height:240px}
+.mgdims{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.mgsplit{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:14px;align-items:start}
+.mgsoon{border:2px dashed #cfd8d2;box-shadow:none;background:#fafbfa}
+.mgph{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}.mgph>div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;opacity:.8}
+.mgph b{display:block}.mgph span{font-size:13px;color:var(--ink2)}
+.mgw{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0}
+.mgw label{display:inline-flex;align-items:center;gap:6px;font-weight:600;border:1px solid var(--line);border-radius:10px;padding:6px 10px}
+.mgw input{font:600 16px Barlow,system-ui,sans-serif;padding:6px 8px;border:1px solid #cfd8d2;border-radius:8px}.mgw label input{width:70px;text-align:center}
+.mgh3{margin:16px 0 4px;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2)}
+@media (max-width:820px){
+  .pmmeter{order:6;padding:2px 8px 2px 4px}.pmmeter .pmv b{font-size:17px}.pmmeter .pmv small{font-size:10px}
+  .mgsplit{grid-template-columns:1fr}
+  #tMgmt table.t{min-width:560px}
+  .mghead h1{font-size:24px}
+}
+/* 11182026-2: per-job ratings, current vs calendar year */
+.mgj{padding:6px 0;border-top:1px dashed var(--line)}.mgj:first-child{border-top:0}
+.mgjh{display:flex;justify-content:space-between;gap:8px;align-items:center}.mgj small{display:block;font-size:12.5px;color:var(--ink2)}.mgj small.mgmiss{color:#8a3a2f}
+.mgf.note{font-size:12px;color:var(--ink2)}
+.mgcardh{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.mgyr{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px}.mgyr select{font:600 15px Barlow,system-ui,sans-serif;padding:5px 8px;border:1px solid #cfd8d2;border-radius:8px}
+.mgm .mgyrv{margin-top:3px;font-size:12px;color:var(--ink2)}.mgm .mgyrv b{color:var(--ink)}
+td.mgjl{font-size:12.5px;line-height:1.5;max-width:340px}.mgjc{display:inline-block;margin-right:10px;white-space:nowrap}.mgjc small{display:inline;color:var(--mut)}
+.mg2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:16px}.mg2 h4{margin:4px 0 4px;font-size:14px}
+.pjr{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;background:var(--card);border:0;border-radius:14px;padding:10px 18px;box-shadow:0 1px 3px rgba(0,0,0,.06);min-width:150px;color:var(--ink)}
+.pjr[hidden]{display:none}.pjr .pjl{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+.pjr>b{font:700 26px/1 "Barlow Condensed","Arial Narrow",Barlow,sans-serif}.pjr .zw{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.pjr.z-sub .zw{color:#b42318}.pjr.z-good .zw{color:#8a6200}.pjr.z-great .zw{color:#1e7a46}.pjr.z-none .zw{color:var(--ink2)}
+.pjd{font-size:12px;color:var(--ink2);text-align:center;margin-top:4px;line-height:1.35}.pjd[hidden]{display:none}
+.mgdl{color:var(--mut)!important;font-size:12px}
+table.mgt th small{display:block;font-weight:500;text-transform:none;letter-spacing:0}
+/* 11182026-4: job complete + after-closeout hours */
+.cpbar{padding:8px 16px;font-size:14px;position:sticky;top:58px;z-index:19}.cpbar[hidden]{display:none}
+.cpbar.done{background:#e8f4ec;border-bottom:2px solid #1e7a46;color:#173f2a}.cpbar.remind{background:#fff6d6;border-bottom:2px solid var(--gold);color:#5c4500}
+.cpbar a{color:var(--g);font-weight:700;margin-left:6px}
+body.done .side .crew,body.done .pl .in,body.done #crewSum a,body.done .tool .btns,body.done .manual,body.done #modeSeg,body.done #jcMen,body.done .card .crew,body.done #fmtReset,body.done .x{opacity:.45;pointer-events:none}
+.mgac{color:#8a3a2f!important}
+.mgbtns{display:flex;gap:6px;margin-top:4px;flex-wrap:wrap}
+.mgadj h3{display:flex;justify-content:space-between;align-items:center}.mgadj .mgw label input{width:70px}
+#mgAdj .x.sure{width:auto;padding:0 8px}
+.mgacbox{margin-top:8px;padding:8px 10px;border-radius:10px;background:#fbefed;font-size:13px;line-height:1.4}
+/* 11182026-5: dashboard */
+.dashback{display:none;align-items:center;gap:4px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:999px;padding:6px 12px;font-weight:700;font-size:14px;flex:none}
+body:not(.dash) .dashback{display:inline-flex}
+body.dash #hLight,body.dash header .job,body.dash #pmMeter,body.dash nav.tabs,body.dash .robar,body.dash .cpbar,body.dash .hbreak{display:none!important}
+body.dash header .brand{flex:1}
+body.nojobs.dash #tDash{display:block!important}
+#tDash .dpage{background:var(--bg)}
+.dwrap{max-width:1180px;margin:0 auto}
+.dhello{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:2px 0 12px}.dhello h1{margin:0;font:700 28px "Barlow Condensed","Arial Narrow",Barlow,sans-serif;color:var(--g)}.dhello span{color:var(--ink2)}
+.dgrid{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:14px;align-items:start}
+.dcol>.card h2{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.dcol>.card h2 small{font-size:13px;color:var(--ink2);font-weight:600}
+.dmeter{text-align:center}.dmh2{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+.dmbtn{display:flex;flex-direction:column;align-items:center;gap:2px;border:0;background:none;width:100%;padding:6px 0;color:var(--ink)}
+.dmbtn>b{font:700 44px/1 "Barlow Condensed","Arial Narrow",Barlow,sans-serif}.dmbtn .zw{font-weight:700;text-transform:uppercase;letter-spacing:.05em}.dmbtn small{color:var(--ink2);font-size:12px}
+.zw.z-sub{color:#b42318}.zw.z-good{color:#8a6200}.zw.z-great{color:#1e7a46}.zw.z-none{color:var(--ink2)}
+#dMeterBd{text-align:left;font-size:14px}
+.dbadge{background:var(--bad);color:#fff;border-radius:999px;font-size:12px;padding:1px 8px}
+.dmsg{border:1px solid var(--line);border-radius:12px;padding:9px 11px;margin-top:8px;font-size:14px;background:#fff}
+.dmsg.un{border-color:var(--gold);background:#fffaf0;cursor:pointer}.dmh{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}.dmh small,.dmsg .tap{color:var(--ink2);font-size:12px}
+.dmt{margin-top:4px;line-height:1.4;color:var(--ink)}.dmsg a{display:inline-block;margin-top:4px;color:var(--g);font-weight:700;font-size:13px}.dmsg .tap{display:block;margin-top:3px}
+.dmsg:not(.un){opacity:.75}
+#wxPick{margin-left:auto;font:600 13px Barlow,system-ui,sans-serif;padding:4px 6px;border:1px solid #cfd8d2;border-radius:8px;max-width:190px}
+.wx{display:flex;flex-direction:column;gap:6px}.wx.load,.wx.off{color:var(--ink2);font-size:14px}.wx.off small{display:block;font-size:12px}
+.wxt{display:flex;align-items:baseline;gap:10px}.wxt b{font:700 40px/1 "Barlow Condensed","Arial Narrow",Barlow,sans-serif}.wxt span{color:var(--ink2);font-size:13px}
+.wxg{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:14px}.wxold{color:#8a6200;font-size:12px}
+.wx.sm .wxt b{font-size:26px}.wx.sm .wxg{font-size:13px;gap:4px 10px}
+#wxJob{background:#f7f9f7;border:1px solid var(--line);border-radius:12px;padding:8px 10px}
+.djob{display:block;width:100%;text-align:left;border:1px solid var(--line);border-radius:12px;background:#fff;padding:10px 12px;margin-top:8px;color:var(--ink)}
+.djob:hover{border-color:var(--g);background:#f6faf7}.djh{display:flex;justify-content:space-between;gap:8px;align-items:center}.djh b{font-size:16px}
+.djs{font-size:12.5px;color:var(--ink2);margin-top:3px}.djs .nudge{color:#b42318;font-weight:700}.djs .ok{color:var(--good);font-weight:700}
+.djb{display:flex;align-items:center;gap:8px;margin-top:6px}.djb .jb{flex:1;height:7px;background:#e8ece9;border-radius:4px;overflow:hidden}.djb .jb i{display:block;height:100%;background:#1F7A4D}.djb>b{font-size:14px}
+.djr{margin-top:6px;font-size:12.5px;background:#fff6d6;border-radius:8px;padding:4px 8px;color:#5c4500;font-weight:600}
+.djob.past{background:#fafbfa}.dfoot{text-align:center}
+.dashji{background:#f2f8f4}
+.mgto{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.mgto .rchk{padding:5px 9px;font-size:13px}
+.mgta{width:100%;font:15px Barlow,system-ui,sans-serif;padding:8px;border:1px solid #cfd8d2;border-radius:10px;margin:4px 0}
+td.mrd{font-size:12.5px;line-height:1.5}
+@media (max-width:820px){.dgrid{grid-template-columns:1fr}.dashback span{display:none}.dashback{padding:6px 10px}.dhello h1{font-size:24px}#tDash .page{padding:12px 12px 40px}}
+.brand .nm{white-space:nowrap}
+@media (max-width:820px){body:not(.dash) .brand .nm{display:none}}
+/* 11182026-6 */
+.ntcard .ntf{padding:6px 8px;border-radius:8px;font-size:14px;margin-top:4px;background:#f7f9f7}.ntcard .ntf.new{background:#e8f4ec;border-left:4px solid #1e7a46;font-weight:600}
+.wx3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:4px}
+.wxd{border:1px solid var(--line);border-radius:10px;padding:6px 8px;font-size:12.5px;display:flex;flex-direction:column;gap:2px;background:#fff}.wxd.t{border-color:#bcd3c4;background:#f2f8f4}
+.wxd b{font-size:13px}.wxd .wxi{font-size:20px;line-height:1}
+.djs .calm{color:var(--ink2)}
+.mglock{max-width:420px;margin:30px auto;text-align:center}.mglock .glogo{width:64px;height:64px}.mglock h2{justify-content:center}
+.mgopen{color:inherit;text-decoration:none}.mgopen:hover b{text-decoration:underline}
+.rchk.on{background:#eef6f1;border-color:var(--g)}
+/* 11182026-8 */
+.pchip{display:inline-block;font-size:11.5px;font-weight:700;padding:1px 7px;border-radius:999px;background:#eef3ef;color:#2b4a39;margin:1px 4px 1px 0;white-space:nowrap}
+.pchip.cx{background:#fbe9d7;color:#8a4b12}.pchip.srs{background:#e3ecf8;color:#24497a}.pchip.ns{background:#f1f2f1;color:var(--mut);font-weight:600}
+table.mgclick tbody tr[data-row],td.mgcell{cursor:pointer}table.mgclick tbody tr[data-row]:hover,td.mgcell:hover{background:#f2f8f4}
+table.mgx td.mgcell small{display:block;font-size:11px;color:var(--ink2)}
 </style>
 </head>
 <body>
@@ -406,6 +539,7 @@ body.presenting .prbar{display:flex;gap:10px;justify-content:center;align-items:
         <button id="zIn" title="Zoom in">+</button>
         <button id="zOut" title="Zoom out">−</button>
         <button id="zFit" title="Fit roof" style="font-size:16px">⤢</button>
+        <button id="zInfo" title="What was done here, and when?" style="font-size:18px">🔍</button>
       </div>
       <div class="legend" id="legend"></div>
       <div class="sampletag">Pinch / drag to move</div>
@@ -421,7 +555,7 @@ body.presenting .prbar{display:flex;gap:10px;justify-content:center;align-items:
       <div class="sec">
         <div class="daybar">
           <button id="dPrev">‹</button>
-          <div class="d"><b id="dDate"></b><span id="dInfo"></span></div>
+          <div class="d" title="Pick a date"><b id="dDate"></b><span id="dInfo"></span><input type="date" id="dPick" class="dpick" tabindex="-1" aria-label="Pick a date"></div>
           <button id="dNext">›</button>
         </div>
       </div>
@@ -454,8 +588,8 @@ body.presenting .prbar{display:flex;gap:10px;justify-content:center;align-items:
     <div class="hero"><div class="status" id="pStatus"></div></div>
     <div class="kpis" id="pKpis"></div>
     <div class="card">
-      <h2>Man-hours: estimated work done vs. hours worked</h2>
-      <div class="sub">Running totals by work day. <b>Earned</b> = installed quantity × the estimate's MH per unit. Dashed lines = forecast at the current pace.</div>
+      <h2>Man-hours: estimated MH vs. worked MH</h2>
+      <div class="sub">Running totals by work day. <b>Estimated MH</b> = installed quantity × the estimate's MH per unit (MH estimated for the work installed). Dashed lines = forecast at the current pace.</div>
       <div class="chartbox"><canvas id="chMh"></canvas></div>
     </div>
     <div class="card">
@@ -475,6 +609,8 @@ body.presenting .prbar{display:flex;gap:10px;justify-content:center;align-items:
       <select id="rptScope"></select>
       <label class="rchk" id="rptAllLbl"><input type="checkbox" id="rptAll"> Show all projects (every PM)</label>
       <select id="rptWeek"></select>
+      <span id="rptDates" hidden><input type="date" id="rptFrom"> to <input type="date" id="rptTo"></span>
+      <select id="rptColor" title="How the plan is colored"><option value="range">Plan: these dates bright, earlier faded</option><option value="week">Plan: color by week</option><option value="month">Plan: color by month</option></select>
       <button class="btn pri" id="rptPresent">▶ Present</button>
       <button class="btn gold" id="rptPrint">🖨 Print / Save PDF</button>
     </div>
@@ -579,8 +715,17 @@ body.presenting .prbar{display:flex;gap:10px;justify-content:center;align-items:
    11172026-1  real app: jobs from IronClad setup files, desktop folder saving, phone Send to office / drag-and-drop
    11172026-2  combined / not-sent lines from IronClad's "What gets sent, and how"; no-drawing jobs
    11172026-3  draw completed LF items (✏ Draw) and mark EA items (📍 Mark) right on the plan
-   11172026-4  fix: a job re-sent from IronClad with lines combined / not sent no longer stops the app (old entries for missing lines are skipped) */
-const LH_BUILD='11172026-4';
+   11172026-4  fix: a job re-sent from IronClad with lines combined / not sent no longer stops the app (old entries for missing lines are skipped)
+   11182026-8  job profile (size Small / Medium / Large, complexity from flashing % and penetrations per SQ, SRS × 1.25) · Management: crew performance by job scenario
+   11182026-7  labels: MH earned renamed Estimated MH (pace = estimated ÷ worked MH); whole-job budget labeled Job est. MH / Job total estimated MH
+   11182026-6  read notifications for the sender · messages expire after 7 days · 3-day weather · management users open on Management · Not logged today only after 3 PM
+   11182026-5  PM dashboard home screen (rating meter, messages, weather, current / completed jobs) · ← Dashboard + Jobs drop-down · Management: messages to PMs
+   11182026-4  ✓ Mark job complete (stops crew hours; PM undo same day; admin reopen) · Management: after-closeout hours per job (admin file) count against MH pace
+   11182026-3  job rating = MH pace score only (rain show-up hours left out); days logged shown as information; weights setting removed
+   11182026-2  ratings per job; PM current rating = average of current job ratings; Management: current vs calendar-year rating, year picker; job rating on the Progress tab
+   11182026-1  Management screen (shared password, charts on PM / crew performance) · PM rating meter in the header (rating v1: days logged + MH pace, 50/50)
+   11172026-5  📅 pick any date · color the plan by week / month · 🔍 what was done here, and when (who entered it) · report: any week, whole job, custom dates, color by week / month */
+const LH_BUILD='11182026-8';
 const TODAY=(()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');})();
 /* PM list lives in Shared Database\tr-project-managers.json (shared with IronClad).
    This device keeps a copy of the last list it read, so phones / tablets and offline use still work. */
@@ -734,6 +879,15 @@ const HOLIDAYS=[].concat(...[0,1,2].map(k=>holidaysFor(+TODAY.slice(0,4)-1+k)));
 
 /* ===================== state ===================== */
 let MODE='d', curDate=TODAY, active='tr', draft=[], lineStart=null, sureDel=null;
+/* map view: color by kind of work (default), by week (Tue–Mon, like the staff meeting) or by month; "what was done here" taps */
+const VIEW={color:'work',info:false,hits:[]};
+const PAL=['#1F77B4','#FF7F0E','#2CA02C','#D62728','#9467BD','#8C564B','#E377C2','#17BECF','#BCBD22','#5254A3','#AD494A','#7F7F7F'];
+function periodOf(d,mode){if(mode==='month')return d.slice(0,7);const x=dt(d),k=(x.getDay()-2+7)%7;x.setDate(x.getDate()-k);return iso(x);}
+function periodLabel(key,mode){if(mode==='month'){const[y,m]=key.split('-');return new Date(+y,+m-1,1).toLocaleDateString('en-US',{month:'short',year:'numeric'});}
+  const e=dt(key);e.setDate(e.getDate()+6);return short(key)+' – '+short(iso(e));}
+function periodKeys(mode,upTo){const set=new Set();ENTRIES.filter(e=>e.mode===MODE&&(!upTo||e.date<=upTo)).forEach(e=>set.add(periodOf(e.date,mode)));return [...set].sort();}
+function periodColor(d,mode){const keys=periodKeys(mode),i=keys.indexOf(periodOf(d,mode));return PAL[Math.max(0,i)%PAL.length];}
+const entColor=(e,w,mode)=>{mode=mode||VIEW.color;return mode==='week'||mode==='month'?periodColor(e.date,mode):w.color;};
 /* drawing completed LF items (lines) and EA items (marks) straight on the plan */
 let drawItem=null, pathDraft=[];
 const hasPlan=()=>!!(PLAN.image||ROOFS.length);
@@ -860,8 +1014,9 @@ function drawMap(){
   // areas
   WTS().filter(w=>areaItem(w)).forEach(w=>{
     const dim=active===w.id?1:0.45;
-    const gOld=el('g',{'clip-path':'url(#roofClip)',opacity:.5*dim},ov), gNew=el('g',{'clip-path':'url(#roofClip)',opacity:.78*dim},ov);
-    ents.filter(e=>e.wt===w.id&&e.kind==='area').forEach(e=>{const g=e.date===curDate?gNew:gOld;el('polygon',{points:ptsStr(e.poly),fill:w.color},g);if(e.date===curDate)el('polygon',{points:ptsStr(e.poly),fill:'url(#hatch)'},g);});
+    const pv=VIEW.color!=='work';
+    const gOld=el('g',{'clip-path':'url(#roofClip)',opacity:(pv?.72:.5)*(pv?1:dim)},ov), gNew=el('g',{'clip-path':'url(#roofClip)',opacity:(pv?.85:.78)*(pv?1:dim)},ov);
+    ents.filter(e=>e.wt===w.id&&e.kind==='area').forEach(e=>{const g=e.date===curDate?gNew:gOld;el('polygon',{points:ptsStr(e.poly),fill:entColor(e,w)},g);if(e.date===curDate)el('polygon',{points:ptsStr(e.poly),fill:'url(#hatch)'},g);});
   });
   // runs
   WTS().forEach(w=>w.items.filter(i=>i.runs).forEach(it=>it.runs.forEach(rid=>{
@@ -869,16 +1024,16 @@ function drawMap(){
     el('polyline',{points:ptsStr(r.pts),fill:'none',stroke:on?'#fff':'rgba(255,255,255,.55)','stroke-width':on?4:2,'stroke-dasharray':on?'6 5':'3 4','vector-effect':'non-scaling-stroke','stroke-linecap':'round'},ov);
     ents.filter(e=>e.wt===w.id&&e.run===rid).forEach(e=>{const sp=subPath(r.pts,e.t0,e.t1);
       el('polyline',{points:ptsStr(sp),fill:'none',stroke:e.date===curDate?'#fff':'rgba(0,0,0,.35)','stroke-width':on?13:9,'vector-effect':'non-scaling-stroke','stroke-linecap':'round','stroke-linejoin':'round'},ov);
-      el('polyline',{points:ptsStr(sp),fill:'none',stroke:w.color,'stroke-width':on?8:5,'vector-effect':'non-scaling-stroke','stroke-linecap':'round','stroke-linejoin':'round',opacity:on?1:.75},ov);});
+      el('polyline',{points:ptsStr(sp),fill:'none',stroke:entColor(e,w),'stroke-width':on?8:5,'vector-effect':'non-scaling-stroke','stroke-linecap':'round','stroke-linejoin':'round',opacity:on?1:.75},ov);});
     if(on){const m=pointAt(r.pts,plen(r.pts)/2);const tx=el('text',{x:m[0],y:m[1]-3,'text-anchor':'middle','font-size':12*s,fill:'#fff','font-weight':700,stroke:'rgba(0,0,0,.6)','stroke-width':2.4*s,'paint-order':'stroke','font-family':'Barlow,sans-serif'},ov);tx.textContent=r.name+' · '+fmt(plen(r.pts))+' LF';}
   })));
   // lines drawn and items marked on the plan
   WTS().forEach(w=>{const on=active===w.id;
     ents.filter(e=>e.wt===w.id&&e.kind==='path').forEach(e=>{const nw=e.date===curDate;
       el('polyline',{points:ptsStr(e.pts),fill:'none',stroke:nw?'#fff':'rgba(0,0,0,.35)','stroke-width':on?13:9,'vector-effect':'non-scaling-stroke','stroke-linecap':'round','stroke-linejoin':'round'},ov);
-      el('polyline',{points:ptsStr(e.pts),fill:'none',stroke:w.color,'stroke-width':on?8:5,'vector-effect':'non-scaling-stroke','stroke-linecap':'round','stroke-linejoin':'round',opacity:on?1:.75},ov);});
+      el('polyline',{points:ptsStr(e.pts),fill:'none',stroke:entColor(e,w),'stroke-width':on?8:5,'vector-effect':'non-scaling-stroke','stroke-linecap':'round','stroke-linejoin':'round',opacity:on?1:.75},ov);});
     ents.filter(e=>e.wt===w.id&&e.kind==='mark').forEach(e=>{const nw=e.date===curDate,r=(on?9:7)*s;
-      el('circle',{cx:e.pt[0],cy:e.pt[1],r,fill:w.color,stroke:nw?'#fff':'rgba(0,0,0,.4)','stroke-width':2.5*s,opacity:on?1:.75},ov);
+      el('circle',{cx:e.pt[0],cy:e.pt[1],r,fill:entColor(e,w),stroke:nw?'#fff':'rgba(0,0,0,.4)','stroke-width':2.5*s,opacity:on?1:.75},ov);
       const t=el('text',{x:e.pt[0],y:e.pt[1]+r*.38,'text-anchor':'middle','font-size':r*1.1,fill:'#fff','font-weight':700,'font-family':'Barlow,sans-serif'},ov);t.textContent='✓';});
   });
   if(pathDraft.length){const w=WT(active);
@@ -891,7 +1046,17 @@ function drawMap(){
     el('polyline',{points:ptsStr(draft),fill:'none',stroke:w.color,'stroke-width':1.5,'vector-effect':'non-scaling-stroke'},ov);
     draft.forEach((p,k)=>el('circle',{cx:p[0],cy:p[1],r:(k===0&&draft.length>2?9:6)*s,fill:k===0?'#D4A72C':'#fff',stroke:w.color,'stroke-width':2*s},ov));}
   if(lineStart){const p=pointAt(RUNS[lineStart.run].pts,lineStart.t);el('circle',{cx:p[0],cy:p[1],r:10*s,fill:'#D4A72C',stroke:'#fff','stroke-width':3*s},ov);}
-  $('#legend').innerHTML=WTS().map(w=>`<span><i style="background:${w.color}"></i>${w.short}</span>`).join('')+'<span><i style="background:repeating-linear-gradient(45deg,#1F7A4D 0 3px,#9fd0b4 3px 5px)"></i>Today</span>';
+  // "what was done here": outline what was found
+  VIEW.hits.forEach(e=>{const st={fill:'none',stroke:'#FFD400','stroke-width':4,'vector-effect':'non-scaling-stroke','stroke-linejoin':'round','stroke-linecap':'round'};
+    if(e.kind==='area')el('polygon',{points:ptsStr(e.poly),...st},ov);
+    else if(e.kind==='path')el('polyline',{points:ptsStr(e.pts),...st},ov);
+    else if(e.kind==='mark')el('circle',{cx:e.pt[0],cy:e.pt[1],r:13*s,...st},ov);
+    else if(e.kind==='line'&&RUNS[e.run])el('polyline',{points:ptsStr(subPath(RUNS[e.run].pts,e.t0,e.t1)),...st},ov);});
+  const ctl=`<label class="cby">Color <select id="colorBy"><option value="work"${VIEW.color==='work'?' selected':''}>by kind of work</option><option value="week"${VIEW.color==='week'?' selected':''}>by week</option><option value="month"${VIEW.color==='month'?' selected':''}>by month</option></select></label>`;
+  if(VIEW.color==='work')$('#legend').innerHTML=ctl+WTS().map(w=>`<span><i style="background:${w.color}"></i>${w.short}</span>`).join('')+'<span><i style="background:repeating-linear-gradient(45deg,#1F7A4D 0 3px,#9fd0b4 3px 5px)"></i>'+(curDate===TODAY?'Today':short(curDate))+'</span>';
+  else{const keys=periodKeys(VIEW.color,curDate),all=periodKeys(VIEW.color);const show=keys.slice(-12);
+    $('#legend').innerHTML=ctl+(keys.length?(keys.length>12?`<span style="color:var(--mut)">… ${keys.length-12} earlier</span>`:'')+show.map(k=>`<span><i style="background:${PAL[all.indexOf(k)%PAL.length]}"></i>${periodLabel(k,VIEW.color)}</span>`).join(''):'<span style="color:var(--mut)">Nothing marked yet</span>');}
+  const cb=document.getElementById('colorBy');if(cb){cb.onchange=()=>{VIEW.color=cb.value;drawMap();};cb.onpointerdown=e=>e.stopPropagation();}
 }
 
 /* pan / zoom / tap */
@@ -919,7 +1084,7 @@ $('#zIn').onclick=()=>zoomAt(1/1.35);$('#zOut').onclick=()=>zoomAt(1.35);$('#zFi
 /* other PMs' jobs open view only */
 const isRO=()=>!!(JOB&&ME&&JOB.pm!==ME);
 function roBlock(){if(!isRO())return false;toast(`View only — this is ${JOB.pm}'s job`);return true;}
-function tap(x,y){if(roBlock())return;
+function tap(x,y){if(VIEW.info){infoAt(x,y);return;}if(roBlock())return;
   const w=WT(active), tol=24/pxPerFt();
   if(areaItem(w)){
     if(draft.length>2&&Math.hypot(x-draft[0][0],y-draft[0][1])<tol){finishArea();return;}
@@ -937,13 +1102,32 @@ function tap(x,y){if(roBlock())return;
   if(b-a<1){toast('Tap a second spot further along the line');return;}
   addEntry({wt:w.id,kind:'line',run:br.run,t0:a,t1:b});lineStart=null;
 }
+/* tap the plan to see what was done there, and when */
+function infoAt(x,y){const tol=22/pxPerFt(),hits=[];
+  ENTRIES.filter(e=>e.mode===MODE&&e.date<=curDate&&e.parts&&e.parts.length).forEach(e=>{
+    if(e.kind==='area'&&pip(x,y,e.poly))hits.push(e);
+    else if(e.kind==='path'&&project(e.pts,x,y).d<tol)hits.push(e);
+    else if(e.kind==='mark'&&Math.hypot(e.pt[0]-x,e.pt[1]-y)<tol)hits.push(e);
+    else if(e.kind==='line'&&RUNS[e.run]){const p=project(RUNS[e.run].pts,x,y);if(p.d<tol&&p.t>=e.t0-1&&p.t<=e.t1+1)hits.push(e);}});
+  hits.sort((a,b)=>a.date<b.date?1:a.date>b.date?-1:b.id-a.id);VIEW.hits=hits;
+  const how={area:'shaded',path:'drawn',mark:'marked',line:'traced'};
+  let c=document.getElementById('infoCard');if(!c){c=document.createElement('div');c.id='infoCard';document.querySelector('.mapwrap').appendChild(c);}
+  c.innerHTML=`<div class="ih"><b>What was done here</b><button id="infoX">✕</button></div>`+(hits.length?hits.slice(0,8).map(e=>{const it=dItemAny(e.it),w=WTS().find(t=>t.items.includes(it))||{color:'#999',name:''};
+      const nm=e.parts.length>1?w.name:(it?it.name:'');
+      return `<div class="ir"><i style="background:${entColor(e,w)}"></i><div><b>${nice(e.date)}</b> · ${nm}<br><small>${how[e.kind]} · ${fmt(Math.abs(e.q),dp(it?it.unit:''))} ${it?it.unit:''}${e.by?' · '+e.by:''}</small></div>${e.date!==curDate?`<a href="#" data-goday="${e.date}">Show day</a>`:''}</div>`;}).join('')+(hits.length>8?`<div class="ir"><small>…and ${hits.length-8} more</small></div>`:'')
+    :`<div class="ir"><small>Nothing marked here up to ${short(curDate)}.</small></div>`);
+  c.hidden=false;
+  c.querySelectorAll('[data-goday]').forEach(a=>a.onclick=ev=>{ev.preventDefault();curDate=a.dataset.goday;draft=[];lineStart=null;pathDraft=[];refreshDaily();});
+  document.getElementById('infoX').onclick=()=>{c.hidden=true;VIEW.hits=[];drawMap();};
+  drawMap();}
+function setInfo(on){VIEW.info=on;VIEW.hits=[];const b=document.getElementById('zInfo');if(b)b.classList.toggle('on',on);const c=document.getElementById('infoCard');if(c&&!on)c.hidden=true;draft=[];pathDraft=[];lineStart=null;refreshDaily();}
 function finishPath(){if(pathDraft.length<2)return;const w=WT(active),it=itemOf(w,drawItem);if(!it)return;const pts=pathDraft.slice();pathDraft=[];
-  addEntry({wt:w.id,kind:'path',item:it.id,pts},true);toast(`Added ${fmt(plen(pts))} LF · ${it.name} · +${fmt(plen(pts)*it.mh,1)} MH earned`);}
+  addEntry({wt:w.id,kind:'path',item:it.id,pts},true);toast(`Added ${fmt(plen(pts))} LF · ${it.name} · +${fmt(plen(pts)*it.mh,1)} estimated MH`);}
 function finishArea(){if(draft.length<3)return;const poly=draft.slice();draft=[];addEntry({wt:active,kind:'area',poly});}
-function addEntry(e,quiet){if(roBlock())return;e.id=nid++;e.uid=newUid();e.t=Date.now();e.date=curDate;e.mode=MODE;ENTRIES.push(e);refreshAll();
+function addEntry(e,quiet){if(roBlock())return;e.id=nid++;e.uid=newUid();e.t=Date.now();e.by=ME||undefined;e.date=curDate;e.mode=MODE;ENTRIES.push(e);refreshAll();
   if(quiet)return;const x=ENTRIES.find(z=>z.id===e.id);const it=dItemAny(x.it);
   const what=x.parts.length>1?'tear-off & install':it.name;
-  toast(x.q>0?`Added ${fmt(x.q,it.unit==='SQ'?1:0)} ${it.unit} · ${what} · +${fmt(x.mh,1)} MH earned`:'That was already marked — nothing new added');}
+  toast(x.q>0?`Added ${fmt(x.q,it.unit==='SQ'?1:0)} ${it.unit} · ${what} · +${fmt(x.mh,1)} estimated MH`:'That was already marked — nothing new added');}
 const dItemAny=id=>{for(const m of Object.values(MODES))for(const w of m.wts)for(const i of w.items)if(i.id===id)return i;};
 function setDone(itemId,val){ // done-to-date typed / stepped
   if(roBlock()){refreshDaily();return;}
@@ -964,7 +1148,8 @@ const dp=u=>u==='SQ'?1:0;
 function refreshDaily(){
   document.querySelectorAll('#modeSeg button').forEach(b=>b.classList.toggle('on',b.dataset.m===MODE));
   const h=hoursFor(curDate), k=C.allDays.indexOf(curDate), isT=curDate===JOB.today;
-  $('#dDate').textContent=nice(curDate)+(isT?' · Today':'');
+  $('#dDate').innerHTML=nice(curDate)+(isT?' · Today':'')+' <span class="cal">📅</span>';
+  {const dp_=$('#dPick');if(dp_){dp_.min=JOB.start;dp_.max=JOB.today;dp_.value=curDate;}}
   $('#dInfo').textContent=`Work day ${k+1} of ~${C.planDays} planned`;
   $('#dPrev').disabled=k<=0;$('#dNext').disabled=k>=C.allDays.length-1;
   $('#cMen').value=h.men;$('#cHrs').value=h.hrs;
@@ -993,7 +1178,7 @@ function refreshDaily(){
     html=`<p>Start set on <b>${RUNS[lineStart.run].name}</b> (${fmt(plen(RUNS[lineStart.run].pts))} LF).</p><div class="btns"><button class="btn gold" id="lWhole">Whole run done</button><button class="btn" id="lCancel">Cancel</button></div>`;
   } else {
     const canDraw=hasPlan()&&!isRO()&&w.items.some(drawable);
-    if(canDraw&&drawItem===null)drawItem=(w.items.find(drawable)||{}).id||'';
+    if(canDraw&&drawItem===null)drawItem=hasRuns?'':(w.items.find(drawable)||{}).id||'';   // with traced runs, tapping a dashed line comes first
     const di=drawItem&&itemOf(w,drawItem);
     if(canDraw&&di&&drawable(di)){
       if(di.unit==='LF'){const L=plen(pathDraft);
@@ -1015,7 +1200,8 @@ function refreshDaily(){
       <div class="in">${ea?`<button data-step="${it.id}" data-v="-1">−</button>`:''}<input data-done="${it.id}" inputmode="decimal" value="${+d.toFixed(dp(it.unit))}">${ea?`<button data-step="${it.id}" data-v="1">+</button>`:''}</div>
       <div class="of">of ${fmt(it.total,dp(it.unit))}<b>${fmt(Math.min(100,d/it.total*100))}%</b></div></div>`;}).join('')}
     <div class="cap">The box is the total done <b>to date</b>. Changing it records the difference on ${short(curDate)}.</div></div>`;
-  if(isRO())hint=`👁 <b>View only</b> — ${JOB.pm}'s job. The map and lists show progress; only ${JOB.pm.split(' ')[0]} can enter work.`;
+  if(VIEW.info)hint=`🔍 <b>What was done here?</b> Tap the plan to see what was marked there and when. Tap 🔍 again to go back to marking work.`;
+  else if(isRO())hint=`👁 <b>View only</b> — ${JOB.pm}'s job. The map and lists show progress; only ${JOB.pm.split(' ')[0]} can enter work.`;
   $('#tool').innerHTML=html;$('#hint').innerHTML=hint;
   $('#toolH').innerHTML=`2 · Mark what got done <span class="modetag">${MODES[MODE].label.toUpperCase()}</span>`;
   const on=(id,f)=>{const b=document.getElementById(id);if(b)b.onclick=f;};
@@ -1033,8 +1219,8 @@ function refreshDaily(){
   $('#todayList').innerHTML=Object.entries(rows).filter(([,q])=>Math.abs(q)>1e-9).map(([id,q])=>{const it=dItemAny(id),ww=WTS().find(x=>x.items.includes(it));
     return `<div><span><span class="sw2" style="background:${ww.color}"></span>${it.name}</span><b>${q>0?'':'−'}${fmt(Math.abs(q),dp(it.unit))} ${it.unit}</b></div>`;}).join('')||'<div><span style="color:var(--mut)">Nothing marked yet</span></div>';
   const used=p?p.used:0, earned=p?p.earned:0, r=used?earned/used:0;
-  $('#todayMini').innerHTML=`<div>MH earned<b>${fmt(earned,1)}</b></div><div>MH worked<b>${fmt(used,1)}</b></div>
-    <div style="grid-column:1/-1">${used?`${light(r>=1.02?'good':r>=0.95?'warn':'bad','xs h')} <b style="display:inline;font-size:14px">${r>=1.02?'Ahead':r>=0.95?'On pace':'Behind'}</b> for the day — <b style="display:inline;font-size:14px">${fmt(r*100)}%</b> of hours worked were earned`:'Enter crew hours to compare'}</div>`;
+  $('#todayMini').innerHTML=`<div>Estimated MH<b>${fmt(earned,1)}</b></div><div>MH worked<b>${fmt(used,1)}</b></div>
+    <div style="grid-column:1/-1">${used?`${light(r>=1.02?'good':r>=0.95?'warn':'bad','xs h')} <b style="display:inline;font-size:14px">${r>=1.02?'Ahead':r>=0.95?'On pace':'Behind'}</b> for the day — <b style="display:inline;font-size:14px">${fmt(r*100)}%</b> estimated MH per worked MH`:'Enter crew hours to compare'}</div>`;
   drawMap();
 }
 
@@ -1125,16 +1311,16 @@ function refreshProgress(){
   const[ic,tx,cl]=statusText(),c=C,over=c.projTotal-EST_TOTAL,late=!!c.finish&&c.finish>c.planFinish;
   $('#pStatus').className='status '+cl;
   $('#pStatus').innerHTML=`${light(c.worked.length||locked()?cl:'none','lg')}<div class="stx"><div class="big cond">${c.worked.length||locked()?tx.toUpperCase():'NOT STARTED'} · ${fmt(c.pct*100)}% COMPLETE</div>
-   <p>For every <b>10 hours</b> worked, the crew has put in <b>${(c.perf*10).toFixed(1)} hours</b> of estimated work. At this pace the job will use about <b>${fmt(c.projTotal)} MH</b> against <b>${fmt(EST_TOTAL)} MH</b> estimated (${over>=0?'<b style="color:var(--bad)">'+fmt(over)+' MH over</b>':'<b style="color:var(--good)">'+fmt(-over)+' MH under</b>'}).
+   <p>For every <b>10 hours</b> worked, the crew has put in <b>${(c.perf*10).toFixed(1)} hours</b> of estimated work. At this pace the job will use about <b>${fmt(c.projTotal)} MH</b> against <b>${fmt(EST_TOTAL)} MH</b> job total estimated (${over>=0?'<b style="color:var(--bad)">'+fmt(over)+' MH over</b>':'<b style="color:var(--good)">'+fmt(-over)+' MH under</b>'}).
    ${c.finish?`Forecast finish <b>${nice(c.finish)}</b> (${c.daysLeft} work days left at the last 5 days' pace) — planned <b>${nice(c.planFinish)}</b>.`:`Forecast finish shows once work has been marked on days with crew hours — planned <b>${nice(c.planFinish)}</b>.`}
-   <br><small>Tracking: <b>${MODES[MODE].label}</b>${MODE==='s'?' — roofing field only earns when squares are complete (torn off, roofed, curbs and penetrations flashed), so it can run behind early in a job.':''}</small></p></div>`;
+   <br><small>Tracking: <b>${MODES[MODE].label}</b>${MODE==='s'?' — roofing field only counts estimated MH when squares are complete (torn off, roofed, curbs and penetrations flashed), so it can run behind early in a job.':''}</small></p></div>`;
   const k=(l,v,s,scl='')=>`<div class="kpi"><div class="l">${l}</div><div class="v">${v}</div><div class="s ${scl}">${s}</div></div>`;
   const left=EST_TOTAL-c.cum.used;
   $('#pKpis').innerHTML=k('Percent complete',fmt(c.pct*100)+'%',`Schedule says ${fmt(c.planPct*100)}% by now`,c.pct<c.planPct-0.02?'bad':'good')+
-    k('MH worked',fmt(c.cum.used),`Earned ${fmt(c.cum.earned)} MH of work`)+
-    k('MH left in budget',fmt(left),`Work left needs ~${fmt(c.remaining/c.perf)} MH at this pace`,left<c.remaining/c.perf?'bad':'good')+
+    k('MH worked',fmt(c.cum.used),`Estimated MH for the work installed: ${fmt(c.cum.earned)}`)+
+    k('Job MH budget left',fmt(left),`Work left needs ~${fmt(c.remaining/c.perf)} MH at this pace`,left<c.remaining/c.perf?'bad':'good')+
     k('Forecast finish',c.finish?short(c.finish):'—',`Planned ${short(c.planFinish)}${late?' — '+(n=>n+' work day'+(n===1?'':'s')+' late')(workdays(c.planFinish,c.finish).length-1):''}`,late?'bad':'good')+
-    k('Forecast total MH',fmt(c.projTotal),`${over>=0?'+':''}${fmt(over)} vs ${fmt(EST_TOTAL)} estimated`,over>0?'bad':'good');
+    k('Forecast total MH',fmt(c.projTotal),`${over>=0?'+':''}${fmt(over)} vs ${fmt(EST_TOTAL)} job total estimated MH`,over>0?'bad':'good');
   let rows='';
   WTS().forEach(w=>{const em=wtMH(w),ea=C.wtEarned[w.id],pc=Math.min(1,ea/em);
     const qty=w.items.length===1||MODE==='s'?`${fmt(w.items.reduce((s,i)=>s+C.done[i.id],0),dp(w.items[0].unit))} / ${fmt(w.items.reduce((s,i)=>s+i.total,0))} ${w.items[0].unit}`:'';
@@ -1142,7 +1328,7 @@ function refreshProgress(){
       <td><span class="pbar"><i style="width:${pc*100}%;background:${w.color}"></i></span>${fmt(pc*100)}%</td><td class="n">${fmt(em,1)}</td><td class="n">${fmt(ea,1)}</td><td class="n">${fmt(em-ea,1)}</td></tr>`;
     if(w.items.length>1) w.items.forEach(it=>{const d=C.done[it.id];rows+=`<tr class="sub"><td>${it.name}</td><td class="n">${fmt(d,dp(it.unit))} / ${fmt(it.total)} ${it.unit}</td><td>${fmt(Math.min(100,d/it.total*100))}%</td><td class="n">${fmt(it.total*it.mh,1)}</td><td class="n">${fmt(C.earnedI[it.id],1)}</td><td class="n">${fmt(it.total*it.mh-C.earnedI[it.id],1)}</td></tr>`;});
   });
-  $('#pTable').innerHTML=`<thead><tr><th>Work</th><th class="n">Installed / total</th><th>Complete</th><th class="n">Est. MH</th><th class="n">Earned MH</th><th class="n">MH of work left</th></tr></thead>
+  $('#pTable').innerHTML=`<thead><tr><th>Work</th><th class="n">Installed / total</th><th>Complete</th><th class="n">Job est. MH</th><th class="n">Estimated MH (installed)</th><th class="n">Est. MH of work left</th></tr></thead>
    <tbody>${rows}</tbody><tfoot><tr><td>Total</td><td></td><td>${fmt(c.pct*100)}%</td><td class="n">${fmt(EST_TOTAL,1)}</td><td class="n">${fmt(c.cum.earned,1)}</td><td class="n">${fmt(c.remaining,1)}</td></tr>
    <tr><td colspan="3" style="font-weight:500;color:var(--ink2)">Crew hours worked to date (all work)</td><td></td><td class="n">${fmt(c.cum.used,1)}</td><td></td></tr></tfoot>`;
   drawChart();
@@ -1155,10 +1341,10 @@ function drawChart(){
   const F={family:'Barlow, system-ui, sans-serif'};
   const data={labels:L,datasets:[
     {label:'Hours worked',data:pad(c.series.map(s=>s.used)),borderColor:'#A86F12',backgroundColor:'#A86F12',borderWidth:2,pointRadius:0,pointHoverRadius:5,tension:.15},
-    {label:'Work earned (est. MH)',data:pad(c.series.map(s=>s.earned)),borderColor:'#1F7A4D',backgroundColor:'#1F7A4D',borderWidth:2,pointRadius:0,pointHoverRadius:5,tension:.15},
+    {label:'Estimated MH (work installed)',data:pad(c.series.map(s=>s.earned)),borderColor:'#1F7A4D',backgroundColor:'#1F7A4D',borderWidth:2,pointRadius:0,pointHoverRadius:5,tension:.15},
     {label:'Hours worked — forecast',data:lead(fU,c.cum.used),borderColor:'#A86F12',borderDash:[6,5],borderWidth:2,pointRadius:0,pointHoverRadius:4},
-    {label:'Work earned — forecast',data:lead(fE,c.cum.earned),borderColor:'#1F7A4D',borderDash:[6,5],borderWidth:2,pointRadius:0,pointHoverRadius:4},
-    {label:'Estimated MH ('+fmt(EST_TOTAL)+')',data:L.map(()=>EST_TOTAL),borderColor:'#8a8f8c',borderDash:[2,4],borderWidth:1.5,pointRadius:0,pointHoverRadius:0}]};
+    {label:'Estimated MH — forecast',data:lead(fE,c.cum.earned),borderColor:'#1F7A4D',borderDash:[6,5],borderWidth:2,pointRadius:0,pointHoverRadius:4},
+    {label:'Job total estimated MH ('+fmt(EST_TOTAL)+')',data:L.map(()=>EST_TOTAL),borderColor:'#8a8f8c',borderDash:[2,4],borderWidth:1.5,pointRadius:0,pointHoverRadius:0}]};
   const opt={responsive:true,maintainAspectRatio:false,animation:false,interaction:{mode:'index',intersect:false},
     plugins:{legend:{position:'top',align:'start',labels:{boxWidth:14,boxHeight:3,font:F,color:'#55605a'}},
       tooltip:{backgroundColor:'#1d2420',titleFont:F,bodyFont:F,filter:i=>i.raw!=null&&i.datasetIndex!==4,callbacks:{label:i=>` ${i.dataset.label}: ${fmt(i.raw)} MH`}}},
@@ -1170,7 +1356,7 @@ function drawChart(){
 /* ===================== log / job ===================== */
 function refreshLog(){
   $('#logList').innerHTML=`<p class="note" style="margin:0 0 10px">Showing <b>${MODES[MODE].label}</b> entries.</p>`+C.allDays.slice().reverse().map(d=>{const p=C.per[d],h=hoursFor(d);const es=ENTRIES.filter(e=>e.mode===MODE&&e.date===d);
-    return `<div class="logday"><div class="h"><b>${nice(d)}${d===JOB.today?' · Today':''}</b><span>${h.rain?'☔ Rain day — ':''}${h.men} men × ${h.hrs} h${h.rain?' show-up':''}${h.def?' (default)':''} = <b>${fmt(p.used,1)} MH</b> · earned ${fmt(p.earned,1)} MH${h.note&&!h.rain?' · '+h.note:''}</span></div>
+    return `<div class="logday"><div class="h"><b>${nice(d)}${d===JOB.today?' · Today':''}</b><span>${h.rain?'☔ Rain day — ':''}${h.men} men × ${h.hrs} h${h.rain?' show-up':''}${h.def?' (default)':''} = <b>${fmt(p.used,1)} MH</b> worked · ${fmt(p.earned,1)} estimated MH${h.note&&!h.rain?' · '+h.note:''}</span></div>
      <ul>${es.map(e=>{const it=e.it&&dItemAny(e.it),w=(it&&WTS().find(x=>x.items.includes(it)))||WTS().find(x=>x.id===e.wt)||{name:'',color:'#bbb'};
        if(!it)return `<li style="color:var(--mut)"><span class="sw2" style="background:#bbb"></span>${e.item||e.wt} · <i>line no longer in this job — doesn't count</i><span class="q">${e.qty!=null?fmt(e.qty):''}</span><button class="x${sureDel===e.id?' sure':''}" data-del="${e.id}">${sureDel===e.id?'Delete?':'✕'}</button></li>`;
        const how=e.kind==='area'?'shaded on the photo':e.kind==='line'?(RUNS[e.run]||{name:'traced run'}).name:e.kind==='path'?'drawn on the plan':e.kind==='mark'?'marked on the plan':'typed in the list';
@@ -1185,7 +1371,7 @@ function refreshJob(){
     IronClad's man-hours for this takeoff: <b>${fmt(est.totalMH||EST_TOTAL,1)} MH</b>${est.notSentMH>0.05?` (${fmt(est.notSentMH,1)} MH not sent, by the estimator's choice — tracked here: ${fmt(EST_TOTAL,1)} MH)`:''}${est.roofSF?` · roof ${fmt(est.roofSF)} SF`:''}${d.plan&&d.plan.source?` · plan: ${d.plan.source}`:''}.
 ${C.orphans?`<br><b style="color:#8a5a00">⚠ ${C.orphans} earlier entr${C.orphans===1?'y is':'ies are'} for lines that are no longer in this job's setup</b> (IronClad re-sent it with lines combined or not sent), so ${C.orphans===1?'it doesn\'t':'they don\'t'} count. Re-enter that work on the new lines.<br>`:''}
         <span style="color:var(--mut)">Labor Hound build ${LH_BUILD}.</span> Curbs and penetrations come over as pick lists. Accessories (adhesive, primer, sealant, corners, cleats…) are spread into the items they go with, so every estimated man-hour is counted.`;
-  $('#jTable').innerHTML=`<thead><tr><th>Detailed pick list</th><th class="n">Quantity</th><th class="n">MH / unit</th><th class="n">Est. MH</th><th>Simple group</th><th>From IronClad</th></tr></thead><tbody>`+
+  $('#jTable').innerHTML=`<thead><tr><th>Detailed pick list</th><th class="n">Quantity</th><th class="n">MH / unit</th><th class="n">Job est. MH</th><th>Simple group</th><th>From IronClad</th></tr></thead><tbody>`+
    DETAIL.map(w=>`<tr class="grp"><td><span class="sw2" style="background:${w.color}"></span>${w.name}</td><td></td><td></td><td class="n">${fmt(wtMH(w),1)}</td><td>${grp[w.id]||''}</td><td class="note">${src[w.id]||''}</td></tr>`+
      w.items.map(i=>`<tr class="sub"><td>${i.name}${i.incl?`<br><small class="note">includes ${i.incl.join(', ')}</small>`:''}</td><td class="n">${fmt(i.total,i.total<10&&i.total%1?1:0)} ${i.unit}</td><td class="n">${i.mh<1?i.mh.toFixed(3):fmt(i.mh,2)}</td><td class="n">${fmt(i.total*i.mh,1)}</td><td></td><td></td></tr>`).join('')).join('')+
    `</tbody><tfoot><tr><td>Total</td><td></td><td></td><td class="n">${fmt(EST_TOTAL,1)}</td><td colspan="2"></td></tr></tfoot>`+
@@ -1193,7 +1379,7 @@ ${C.orphans?`<br><b style="color:#8a5a00">⚠ ${C.orphans} earlier entr${C.orpha
   $('#jcMen').value=JOB.crew.men;$('#jcHrs').value=JOB.crew.hrs;
   const changed=Object.values(HOURS).filter(h=>!h.kept).length;
   $('#jcSum').innerHTML=`<b>${JOB.crew.men} men × ${JOB.crew.hrs} h = ${JOB.crew.men*JOB.crew.hrs} MH per work day</b>. ${changed} day${changed===1?'':'s'} changed on the Daily tab keep their own numbers. Changing the default applies from today on — earlier days keep the crew they had.`;
-  $('#jPlan').innerHTML=`Planned from IronClad's crew <b>${JOB.planCrew.men} men × ${JOB.planCrew.hrs} h = ${JOB.planCrew.men*JOB.planCrew.hrs} MH/day</b> → <b>${C.planDays} work days</b>, start ${nice(JOB.start)}, planned finish <b>${nice(C.planFinish)}</b>. Weekends and ${JOB.holidays.map(short).join(', ')} are skipped. The planned finish stays on IronClad's crew; a bigger crew or longer days show up as an earlier forecast finish. The forecast finish uses the average MH earned over the last 5 days with hours (rain days left out).<br><br>
+  $('#jPlan').innerHTML=`Planned from IronClad's crew <b>${JOB.planCrew.men} men × ${JOB.planCrew.hrs} h = ${JOB.planCrew.men*JOB.planCrew.hrs} MH/day</b> → <b>${C.planDays} work days</b>, start ${nice(JOB.start)}, planned finish <b>${nice(C.planFinish)}</b>. Weekends and ${JOB.holidays.map(short).join(', ')} are skipped. The planned finish stays on IronClad's crew; a bigger crew or longer days show up as an earlier forecast finish. The forecast finish uses the average estimated MH per day over the last 5 days with hours (rain days left out).<br><br>
    <b>Simple vs Detailed:</b> both use the same estimate and the same crew hours; Simple rolls the detailed types into three groups.`;
   refreshFormat();
 }
@@ -1270,6 +1456,10 @@ function setJobCrew(k,v){if(roBlock()){refreshJob();return;}v=Math.max(1,Math.mi
   JOB.crew[k]=v;refreshAll();}
 document.querySelectorAll('[data-jc]').forEach(b=>b.onclick=()=>setJobCrew(b.dataset.jc,JOB.crew[b.dataset.jc]+(+b.dataset.v)));
 ['jcMen','jcHrs'].forEach(id=>$('#'+id).onchange=e=>setJobCrew(id==='jcMen'?'men':'hrs',parseFloat(e.target.value)||0));
+$('#dPick').onchange=e=>{const v=e.target.value;if(!v)return;const days=C.allDays;let d=days.filter(x=>x<=v).pop()||days[0];
+  if(d!==v&&v>=JOB.start)toast(`${short(v)} isn't a work day — showing ${nice(d)}`);curDate=d;draft=[];lineStart=null;pathDraft=[];refreshDaily();};
+document.querySelector('.daybar .d').onclick=()=>{const i=$('#dPick');try{i.showPicker();}catch(e){i.focus();i.click();}};
+$('#zInfo').onclick=()=>setInfo(!VIEW.info);
 $('#dPrev').onclick=()=>{const k=C.allDays.indexOf(curDate);if(k>0){curDate=C.allDays[k-1];draft=[];lineStart=null;refreshDaily();}};
 $('#dNext').onclick=()=>{const k=C.allDays.indexOf(curDate);if(k<C.allDays.length-1){curDate=C.allDays[k+1];draft=[];lineStart=null;refreshDaily();}};
 $('#logList').onclick=e=>{const b=e.target.closest('[data-del]');if(!b)return;if(roBlock())return;const id=+b.dataset.del;if(sureDel===id){noteDel(ENTRIES.filter(x=>x.id===id));ENTRIES=ENTRIES.filter(x=>x.id!==id);sureDel=null;refreshAll();toast('Entry deleted');}else{sureDel=id;refreshLog();}};
@@ -1280,7 +1470,7 @@ $('#pmGate').hidden=!!ME;
 window.RPM={hashPw,get ADMINS(){return ADMINS},sha256,openAdmin,isRO,get ME(){return ME},get PMS(){return PMS},setMe,hoursFor,get HOURS(){return HOURS},get C(){return C},get MODE(){return MODE},get JOB(){return JOB},locked,openJob,ENTRIES:()=>ENTRIES,EST_TOTAL,SIMPLE,DETAIL,tap,setDone};
 
 /* ===================== Meeting report (Tuesday staff meeting) ===================== */
-const RPT={scope:'job',allPm:false,week:0,pages:[],charts:[],present:false,idx:0};
+const RPT={scope:'job',allPm:false,week:0,from:null,to:null,color:'range',pages:[],charts:[],present:false,idx:0};
 const NOTES={}; // job id -> meeting notes
 function addDays(s,n){const d=dt(s);d.setDate(d.getDate()+n);return iso(d);}
 /* report week: Tuesday meeting. On a Tuesday the week is last Tue–Mon; other days it's this week so far (since Tuesday). */
@@ -1293,7 +1483,16 @@ function weekRange(back){
   const meeting=addDays(start,7);
   return {start,end,meeting};
 }
-function weekOptions(){const o=[];for(let b=0;b<6;b++){const w=weekRange(b);o.push(`<option value="${b}"${b===RPT.week?' selected':''}>${b===0&&w.end===TODAY?'This week so far':'Week'} ${short(w.start)} – ${short(w.end)} (meeting ${short(w.meeting)})</option>`);}return o.join('');}
+/* the dates the report covers: a Tuesday-meeting week (any week back to the job start), the whole job to date, or custom dates */
+function rptRange(){
+  if(RPT.week==='all'){const st=reportJobIds().map(id=>(JOBLIST.find(j=>j.id===id)||{}).start).filter(Boolean).sort()[0]||TODAY;
+    return {start:st,end:TODAY,meeting:null,label:'Whole job to date',thisLbl:'Whole job to date',nowLbl:'Marked'};}
+  if(RPT.week==='custom'){const f=RPT.from||addDays(TODAY,-30),t=RPT.to||TODAY;const a=f<=t?f:t,b=f<=t?t:f;
+    return {start:a,end:b,meeting:null,label:`${short(a)} – ${short(b)}`,thisLbl:'These dates',nowLbl:'These dates'};}
+  const w=weekRange(+RPT.week||0);return {...w,label:`Week ${short(w.start)} – ${short(w.end)}`,thisLbl:'This week',nowLbl:'This week'};
+}
+function weeksBack(){const st=JOBLIST.map(j=>j.start).filter(Boolean).sort()[0]||TODAY;const n=Math.ceil((dt(TODAY)-dt(st))/(7*864e5))+1;return Math.max(1,Math.min(156,n));}
+function weekOptions(){const o=[`<option value="all"${RPT.week==='all'?' selected':''}>Whole job to date</option>`,`<option value="custom"${RPT.week==='custom'?' selected':''}>Custom dates…</option>`];for(let b=0;b<weeksBack();b++){const w=weekRange(b);o.push(`<option value="${b}"${b===RPT.week?' selected':''}>${b===0&&w.end===TODAY?'This week so far':'Week'} ${short(w.start)} – ${short(w.end)} (meeting ${short(w.meeting)})</option>`);}return o.join('');}
 
 /* static roof plan for the report: earlier work faded, this week's work bright + hatched */
 function reportMapSVG(start,end){
@@ -1305,23 +1504,24 @@ function reportMapSVG(start,end){
   const hat=el('pattern',{id:uid+'h',width:3,height:3,patternUnits:'userSpaceOnUse',patternTransform:'rotate(45)'},defs);
   el('line',{x1:0,y1:0,x2:0,y2:3,stroke:'#fff','stroke-width':1.1,'stroke-opacity':.75},hat);
   drawAerial(el('g',{},root));
-  const ents=ENTRIES.filter(e=>e.mode===MODE&&e.date<=end);
+  const ents=ENTRIES.filter(e=>e.mode===MODE&&e.date<=end);const pm=RPT.color==='week'||RPT.color==='month'?RPT.color:null;
+  const fillOf=(e,w)=>pm?periodColor(e.date,pm):w.color;
   WTS().filter(w=>areaItem(w)).forEach(w=>{
-    const gOld=el('g',{'clip-path':`url(#${uid}c)`,opacity:.42},root),gNew=el('g',{'clip-path':`url(#${uid}c)`,opacity:.85},root);
-    ents.filter(e=>e.wt===w.id&&e.kind==='area').forEach(e=>{const nw=e.date>=start;const g=nw?gNew:gOld;
-      el('polygon',{points:ptsStr(e.poly),fill:w.color},g);if(nw)el('polygon',{points:ptsStr(e.poly),fill:`url(#${uid}h)`},g);});
+    const gOld=el('g',{'clip-path':`url(#${uid}c)`,opacity:pm?.75:.42},root),gNew=el('g',{'clip-path':`url(#${uid}c)`,opacity:.85},root);
+    ents.filter(e=>e.wt===w.id&&e.kind==='area').forEach(e=>{const nw=e.date>=start&&RPT.week!=='all';const g=nw?gNew:gOld;
+      el('polygon',{points:ptsStr(e.poly),fill:fillOf(e,w)},g);if(nw)el('polygon',{points:ptsStr(e.poly),fill:`url(#${uid}h)`},g);});
   });
   WTS().forEach(w=>w.items.filter(i=>i.runs).forEach(it=>it.runs.forEach(rid=>{const r=RUNS[rid];
     el('polyline',{points:ptsStr(r.pts),fill:'none',stroke:'rgba(255,255,255,.8)','stroke-width':1.1,'stroke-dasharray':'2.5 2','stroke-linecap':'round'},root);
     ents.filter(e=>e.wt===w.id&&e.run===rid).forEach(e=>{const sp=subPath(r.pts,e.t0,e.t1),nw=e.date>=start;
       el('polyline',{points:ptsStr(sp),fill:'none',stroke:nw?'#fff':'rgba(0,0,0,.35)','stroke-width':4.4,'stroke-linecap':'round','stroke-linejoin':'round'},root);
-      el('polyline',{points:ptsStr(sp),fill:'none',stroke:w.color,'stroke-width':2.8,'stroke-linecap':'round','stroke-linejoin':'round',opacity:nw?1:.7},root);});
+      el('polyline',{points:ptsStr(sp),fill:'none',stroke:fillOf(e,w),'stroke-width':2.8,'stroke-linecap':'round','stroke-linejoin':'round',opacity:nw?1:.7},root);});
   })));
   {const sw=Math.max(BOUNDS.x1-BOUNDS.x0,BOUNDS.y1-BOUNDS.y0)/120;
    WTS().forEach(w=>{ents.filter(e=>e.wt===w.id&&e.kind==='path').forEach(e=>{const nw=e.date>=start;
       el('polyline',{points:ptsStr(e.pts),fill:'none',stroke:nw?'#fff':'rgba(0,0,0,.35)','stroke-width':sw*1.6,'stroke-linecap':'round','stroke-linejoin':'round'},root);
-      el('polyline',{points:ptsStr(e.pts),fill:'none',stroke:w.color,'stroke-width':sw,'stroke-linecap':'round','stroke-linejoin':'round',opacity:nw?1:.7},root);});
-    ents.filter(e=>e.wt===w.id&&e.kind==='mark').forEach(e=>{const nw=e.date>=start;el('circle',{cx:e.pt[0],cy:e.pt[1],r:sw*1.4,fill:w.color,stroke:nw?'#fff':'rgba(0,0,0,.4)','stroke-width':sw*.4,opacity:nw?1:.7},root);});});}
+      el('polyline',{points:ptsStr(e.pts),fill:'none',stroke:fillOf(e,w),'stroke-width':sw,'stroke-linecap':'round','stroke-linejoin':'round',opacity:nw?1:.7},root);});
+    ents.filter(e=>e.wt===w.id&&e.kind==='mark').forEach(e=>{const nw=e.date>=start;el('circle',{cx:e.pt[0],cy:e.pt[1],r:sw*1.4,fill:fillOf(e,w),stroke:nw?'#fff':'rgba(0,0,0,.4)','stroke-width':sw*.4,opacity:nw?1:.7},root);});});}
   return root.outerHTML;
 }
 function weekStats(start,end){
@@ -1344,28 +1544,28 @@ function jobPage(w){
     return `<tr><td><span class="sw2" style="background:${t.color}"></span>${t.short}</td><td><span class="pbar"><i style="width:${pc*100}%;background:${t.color}"></i></span>${fmt(pc*100)}%</td><td class="n">${fmt(em)}</td><td class="n">${fmt(ea)}</td><td class="n">${fmt(em-ea)}</td></tr>`;}).join('');
   return `<div class="rpage" data-job="${JOB.id}">
    <div class="rhead"><img src="${logo}" alt="TR"><div class="rt"><b>${JOB.name}</b><span>${[JOB.client,JOB.qno].filter(Boolean).join(' · ')} · PM ${JOB.pm} · ${locked()?MODES[MODE].label+' tracking':'format not picked'}</span></div>
-     <div class="rr"><b>LABOR HOUND · JOB PROGRESS</b><span>Week ${short(w.start)} – ${short(w.end)} · staff meeting ${nice(w.meeting)}</span></div></div>
+     <div class="rr"><b>LABOR HOUND · JOB PROGRESS</b><span>${w.label}${w.meeting?' · staff meeting '+nice(w.meeting):' · printed '+nice(TODAY)}</span></div></div>
    <div class="rbody">
     <div class="rmap"><div class="rmapbox">${reportMapSVG(w.start,w.end)}</div>
-      <div class="rleg">${WTS().map(t=>`<span><i style="background:${t.color}"></i>${t.short}</span>`).join('')}<span><i class="hat"></i>This week</span><span><i style="background:#888;opacity:.45"></i>Earlier</span><span><i class="dash"></i>Not done yet</span></div></div>
+      <div class="rleg">${RPT.color==='week'||RPT.color==='month'?'':WTS().map(t=>`<span><i style="background:${t.color}"></i>${t.short}</span>`).join('')}${RPT.color==='week'||RPT.color==='month'?(()=>{const all=periodKeys(RPT.color),ks=periodKeys(RPT.color,w.end);return ks.slice(-12).map(k=>`<span><i style="background:${PAL[all.indexOf(k)%PAL.length]}"></i>${periodLabel(k,RPT.color)}</span>`).join('')+(RPT.week==='all'?'':'<span><i class="hat"></i>'+w.nowLbl+'</span>');})():`<span><i class="hat"></i>${w.nowLbl}</span><span><i style="background:#888;opacity:.45"></i>Earlier</span>`}<span><i class="dash"></i>Not done yet</span></div></div>
     <div class="rside">
       <div class="rstat ${st}">${light(st,'lg')}<div><div class="rbig">${stWord(st).toUpperCase()}</div><div class="rpc">${fmt(c.pct*100)}% complete</div>
         <div class="rsm">${started?`${(c.perf*10).toFixed(1)} h of estimated work per 10 h worked`:'No work marked yet'}</div></div></div>
       <div class="rk">
         <div><span>MH worked</span><b>${fmt(c.cum.used)}</b></div>
-        <div><span>MH earned</span><b>${fmt(c.cum.earned)}</b></div>
-        <div><span>MH left in budget</span><b class="${left<c.remaining/Math.max(.01,c.perf)?'bad':''}">${fmt(left)}</b></div>
-        <div><span>Forecast total MH</span><b class="${over>0?'bad':'good'}">${fmt(c.projTotal)}</b><em>${over>=0?'+':''}${fmt(over)} vs ${fmt(EST_TOTAL)} est.</em></div>
+        <div><span>Estimated MH</span><b>${fmt(c.cum.earned)}</b></div>
+        <div><span>Job MH budget left</span><b class="${left<c.remaining/Math.max(.01,c.perf)?'bad':''}">${fmt(left)}</b></div>
+        <div><span>Forecast total MH</span><b class="${over>0?'bad':'good'}">${fmt(c.projTotal)}</b><em>${over>=0?'+':''}${fmt(over)} vs ${fmt(EST_TOTAL)} job est.</em></div>
         <div><span>Forecast finish</span><b class="${late?'bad':'good'}">${c.finish?short(c.finish):'—'}</b><em>planned ${short(c.planFinish)}${late?` · ${lateDays} day${lateDays===1?'':'s'} late`:''}</em></div>
         <div><span>Schedule says</span><b>${fmt(c.planPct*100)}%</b><em>by today</em></div>
       </div>
-      <div class="rweek"><div class="rwh">${light(wk.status,'xs h')} <b>This week</b> · ${wk.days} work day${wk.days===1?'':'s'}${wk.rain?` · ${wk.rain} rain`:''} · earned ${fmt(wk.earned)} of ${fmt(wk.used)} MH worked</div>
-        <table class="rt2"><thead><tr><th>Installed this week</th><th class="n">Qty</th><th class="n">MH</th></tr></thead><tbody>${wkRows}</tbody></table></div>
+      <div class="rweek"><div class="rwh">${light(wk.status,'xs h')} <b>${w.thisLbl}</b> · ${wk.days} work day${wk.days===1?'':'s'}${wk.rain?` · ${wk.rain} rain`:''} · ${fmt(wk.earned)} estimated MH for ${fmt(wk.used)} MH worked</div>
+        <table class="rt2"><thead><tr><th>Installed — ${w.thisLbl.toLowerCase()}</th><th class="n">Qty</th><th class="n">MH</th></tr></thead><tbody>${wkRows}</tbody></table></div>
     </div>
    </div>
    <div class="rfoot">
-    <div class="rchart"><div class="rct">Man-hours to date — worked vs. earned (dashed = forecast)</div><div class="rcbox"><canvas></canvas></div></div>
-    <div class="rtab"><table class="rt2"><thead><tr><th>Work</th><th>Complete</th><th class="n">Est. MH</th><th class="n">Earned</th><th class="n">Left</th></tr></thead><tbody>${rows}</tbody>
+    <div class="rchart"><div class="rct">Man-hours to date — worked MH vs. estimated MH (dashed = forecast)</div><div class="rcbox"><canvas></canvas></div></div>
+    <div class="rtab"><table class="rt2"><thead><tr><th>Work</th><th>Complete</th><th class="n">Job est. MH</th><th class="n">Estimated</th><th class="n">Left</th></tr></thead><tbody>${rows}</tbody>
       <tfoot><tr><td>Total</td><td>${fmt(c.pct*100)}%</td><td class="n">${fmt(EST_TOTAL)}</td><td class="n">${fmt(c.cum.earned)}</td><td class="n">${fmt(c.remaining)}</td></tr></tfoot></table>
       <div class="rnotes"><b>PM notes</b><div class="rn" contenteditable="${isRO()?'false':'true'}" data-notes="${JOB.id}" data-ph="Notes for the meeting (issues, weather, crew, change orders)…">${NOTES[JOB.id]||''}</div></div></div>
    </div>
@@ -1378,16 +1578,16 @@ function chartDataFor(){const c=C,labels=c.series.map(s=>short(s.d)),n=labels.le
   return {L,used:pad(c.series.map(s=>s.used)),earned:pad(c.series.map(s=>s.earned)),fU:lead(fU,c.cum.used),fE:lead(fE,c.cum.earned),est:EST_TOTAL};}
 function summaryPage(w,rows){const logo=document.querySelector('.brand .logo').src;
   return `<div class="rpage rsum"><div class="rhead"><img src="${logo}" alt="TR"><div class="rt"><b>Job Progress</b><span>${RPT.allPm?'All projects — every PM':'Projects for '+ME} · ${rows.length} job${rows.length===1?'':'s'}</span></div>
-    <div class="rr"><b>LABOR HOUND</b><span>Week ${short(w.start)} – ${short(w.end)} · meeting ${nice(w.meeting)}</span></div></div>
-   <table class="rt2 rsumt"><thead><tr><th></th><th>Job</th><th>PM</th><th class="n">Complete</th><th class="n">MH worked</th><th class="n">MH earned</th><th class="n">Forecast MH</th><th>Forecast finish</th><th>This week</th></tr></thead>
+    <div class="rr"><b>LABOR HOUND</b><span>${w.label}${w.meeting?' · meeting '+nice(w.meeting):''}</span></div></div>
+   <table class="rt2 rsumt"><thead><tr><th></th><th>Job</th><th>PM</th><th class="n">Complete</th><th class="n">MH worked</th><th class="n">Estimated MH</th><th class="n">Forecast MH</th><th>Forecast finish</th><th>${w.thisLbl}</th></tr></thead>
    <tbody>${rows.map(r=>`<tr><td>${light(r.st,'sm')}</td><td><b>${r.name}</b><br><small>${[r.client,r.qno].filter(Boolean).join(' · ')}</small></td><td>${r.pm}</td><td class="n"><b>${fmt(r.pct*100)}%</b><br><small>plan ${fmt(r.planPct*100)}%</small></td>
      <td class="n">${fmt(r.used)}</td><td class="n">${fmt(r.earned)}</td><td class="n ${r.st==='none'?'':r.over>0?'bad':'good'}">${fmt(r.proj)}<br><small>${r.st==='none'?'estimate':(r.over>=0?'+':'')+fmt(r.over)+' vs est.'}</small></td>
-     <td class="${r.late?'bad':''}">${r.finish?short(r.finish):'—'}<br><small>planned ${short(r.plan)}</small></td><td>${r.wU?`${light(r.wst,'xs h')} ${fmt(r.wE)} of ${fmt(r.wU)} MH`:'<span style="color:var(--mut)">No hours this week</span>'}</td></tr>`).join('')}</tbody></table>
-   <div class="rpf">Stop light: green = ahead (≥ 1.02 MH earned per MH worked), yellow = on track (0.95–1.02), red = behind (below 0.95). Each job has its own page after this one.</div></div>`;}
+     <td class="${r.late?'bad':''}">${r.finish?short(r.finish):'—'}<br><small>planned ${short(r.plan)}</small></td><td>${r.wU?`${light(r.wst,'xs h')} ${fmt(r.wE)} of ${fmt(r.wU)} MH`:'<span style="color:var(--mut)">No hours</span>'}</td></tr>`).join('')}</tbody></table>
+   <div class="rpf">Stop light: green = ahead (≥ 1.02 estimated MH per MH worked), yellow = on track (0.95–1.02), red = behind (below 0.95). Each job has its own page after this one.</div></div>`;}
 function reportJobIds(){if(RPT.scope==='job')return [JOB.id];return (RPT.allPm?JOBLIST:JOBLIST.filter(j=>j.pm===ME)).map(j=>j.id);}
 function buildReport(){
   RPT.charts.forEach(ch=>ch.destroy());RPT.charts=[];
-  const w=weekRange(RPT.week),ids=reportJobIds();
+  const w=rptRange(),ids=reportJobIds();
   const keep={JOB,ENTRIES,HOURS,MODE,active},keepC=C;saveState();
   const pages=[],charts=[],rows=[];
   ids.forEach(id=>{useState(stateOf(id));compute();pages.push(jobPage(w));charts.push(chartDataFor());
@@ -1401,9 +1601,9 @@ function buildReport(){
   $('#rptPages').querySelectorAll('.rpage[data-job] canvas').forEach((cv,i)=>{const d=charts[i];if(!window.Chart)return;
     RPT.charts.push(new Chart(cv,{type:'line',data:{labels:d.L,datasets:[
       {label:'Hours worked',data:d.used,borderColor:'#A86F12',borderWidth:2,pointRadius:0,tension:.15},
-      {label:'Work earned',data:d.earned,borderColor:'#1F7A4D',borderWidth:2,pointRadius:0,tension:.15},
+      {label:'Estimated MH',data:d.earned,borderColor:'#1F7A4D',borderWidth:2,pointRadius:0,tension:.15},
       {label:'Worked — forecast',data:d.fU,borderColor:'#A86F12',borderDash:[5,4],borderWidth:1.5,pointRadius:0},
-      {label:'Earned — forecast',data:d.fE,borderColor:'#1F7A4D',borderDash:[5,4],borderWidth:1.5,pointRadius:0},
+      {label:'Estimated MH — forecast',data:d.fE,borderColor:'#1F7A4D',borderDash:[5,4],borderWidth:1.5,pointRadius:0},
       {label:'Estimate',data:d.L.map(()=>d.est),borderColor:'#8a8f8c',borderDash:[2,3],borderWidth:1,pointRadius:0}]},
      options:{responsive:true,maintainAspectRatio:false,animation:false,devicePixelRatio:2,
       plugins:{legend:{position:'bottom',labels:{boxWidth:12,boxHeight:2,font:F,color:'#55605a'}},tooltip:{enabled:false}},
@@ -1414,6 +1614,8 @@ function buildReport(){
 }
 function refreshReportControls(){
   $('#rptWeek').innerHTML=weekOptions();
+  $('#rptDates').hidden=RPT.week!=='custom';if(RPT.week==='custom'){$('#rptFrom').value=RPT.from;$('#rptTo').value=RPT.to;}
+  $('#rptColor').value=RPT.color;
   const mine=JOBLIST.filter(j=>j.pm===ME).length;
   const n=RPT.allPm?JOBLIST.length:mine;
   $('#rptScope').innerHTML=`<option value="job"${RPT.scope==='job'?' selected':''}>This job — ${JOB.name}</option><option value="mine"${RPT.scope!=='job'?' selected':''}>${RPT.allPm?'All projects':'My projects'} (${n}) + summary</option>`;
@@ -1431,7 +1633,10 @@ function stopPresent(){RPT.present=false;document.body.classList.remove('present
   if(document.fullscreenElement&&document.exitFullscreen)document.exitFullscreen().catch(()=>{});}
 $('#rptScope').onchange=e=>{RPT.scope=e.target.value;buildReport();};
 $('#rptAll').onchange=e=>{RPT.allPm=e.target.checked;RPT.scope='mine';refreshReportControls();buildReport();};
-$('#rptWeek').onchange=e=>{RPT.week=+e.target.value;buildReport();};
+$('#rptWeek').onchange=e=>{const v=e.target.value;RPT.week=v==='all'||v==='custom'?v:+v;
+  if(v==='custom'){if(!RPT.from)RPT.from=addDays(TODAY,-30);if(!RPT.to)RPT.to=TODAY;}refreshReportControls();buildReport();};
+$('#rptFrom').onchange=e=>{RPT.from=e.target.value;buildReport();};$('#rptTo').onchange=e=>{RPT.to=e.target.value;buildReport();};
+$('#rptColor').onchange=e=>{RPT.color=e.target.value;buildReport();};
 $('#rptPresent').onclick=startPresent;
 $('#rptPrint').onclick=()=>{window.print();};
 $('#prPrev').onclick=()=>{RPT.idx--;showPresentPage();};
@@ -1659,7 +1864,7 @@ async function importFiles(files){const got=[];
   for(const g of work)await importData(g.d,g.name);
   if(added.length&&!work.length){const r=added[added.length-1],j=r.job;
     showMsg(r.isNew?'📥 Job added':r.changed?'📥 Job updated':'Already up to date',`<p><b>${esc(j.name)}</b>${j.client?' · '+esc(j.client):''}</p>
-      <p class="note">${r.changed?`Sent from IronClad ${j.def.sentAt?whenStr(j.def.sentAt):''}${j.def.sentBy?' by '+esc(j.def.sentBy):''} · PM ${esc(j.pm||'—')} · ${fmt(EST_TOTAL,1)} MH estimated.`:'This setup file is already loaded.'}</p>
+      <p class="note">${r.changed?`Sent from IronClad ${j.def.sentAt?whenStr(j.def.sentAt):''}${j.def.sentBy?' by '+esc(j.def.sentBy):''} · PM ${esc(j.pm||'—')} · ${fmt(EST_TOTAL,1)} MH estimated for the whole job.`:'This setup file is already loaded.'}</p>
       ${isPhone()?`<p class="note">If work has already been entered at the office, also open the job's newest dated file (<code>${esc(safeName(j.name))} MMDDYYYY.json</code>).</p>`:''}`);}
 }
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -1867,6 +2072,835 @@ function hideNoJobs(){if(document.body.classList.contains('nojobs')){document.bo
 window.RPM.addSetup=addSetup;window.RPM.importFiles=importFiles;window.RPM.JOBLIST=()=>JOBLIST;window.RPM.refreshJobs=refreshJobs;
 window.RPM.loadLatest=loadLatest;
 
+</script>
+<script>
+/* ===================== Management screen + PM rating meter (11182026-1, per-job ratings 11182026-2, MH pace only 11182026-3, job complete + after-closeout hours 11182026-4, PM dashboard · messages · weather 11182026-5, read notifications · management users 11182026-6, job size / complexity scenarios 11182026-8) =====================
+   Charlie, Nov 18: a Management screen for admins / upper management (one shared password, soft lock),
+   with charts on PM and crew performance, and a rating meter at the top of each PM's Labor Hound.
+   Scale: under 40 = Sub Par · 40–60 = Good · over 60 = Great.
+   Wraps existing functions (refreshHeader, renderMeMenu, showNoJobs, importFiles, connectFolder); nothing else is rewritten.
+   Labor Hound still shows no prices / pay data and sends nothing to Summit. */
+const LH_SETTINGS_FILE='lh-settings.json', LH_SETTINGS_KEY='laborHound.settings';
+const MG_IDLE_MS=30*60*1000;   // Management locks again after 30 minutes with no taps / keys (and on every reload)
+const RATING_DEFAULT={version:1,
+  basis:'mhPace',                               // Charlie, Nov 18 (11182026-3): job rating = MH pace score only. Old "weights" in a file are ignored.
+  deductions:null,                              // FUTURE (not built): leaks / callbacks after completion, e.g. {perCallback:10, perLeak:10} points off the job rating
+  windowDays:30,                                // days logged: the last 30 calendar days
+  zones:{subParBelow:40,greatAbove:60},         // < 40 Sub Par · 40–60 Good · > 60 Great
+  pacePoints:[[0.75,0],[0.95,40],[1.02,60],[1.20,100]]};  // earned ÷ worked → pace score (lines up with the stop light)
+const MGMT_USERS_DEFAULT=['Charlie Toburen','Jay Poston','Mark Jenkins'];
+/* 11182026-8 (Charlie): job size and complexity thresholds for the scenario analysis */
+const ANALYSIS_DEFAULT={version:1,sizeSmallMaxSqs:100,sizeMediumMaxSqs:500,flashingPctComplex:25,penPerSqComplex:0.5,srsFactor:1.25,setBy:null,setAt:null};
+function settingsDefault(){return {app:'Labor Hound',kind:'settings',version:1,updatedAt:null,updatedBy:null,
+  management:{passwordSha256:null,salt:null,setBy:null,setAt:null},rating:JSON.parse(JSON.stringify(RATING_DEFAULT)),
+  managementUsers:MGMT_USERS_DEFAULT.slice(),managementUsersSetBy:null,managementUsersSetAt:null,analysis:{...ANALYSIS_DEFAULT}};}
+/* 11182026-6 (Charlie): these people land on Management instead of a PM dashboard and are left out of PM ratings / pickers */
+function normSettings(d){const s=settingsDefault();if(!d||d.app!=='Labor Hound'||d.kind!=='settings')return s;
+  s.updatedAt=d.updatedAt||null;s.updatedBy=d.updatedBy||null;
+  if(d.management)Object.assign(s.management,d.management);
+  if(d.rating){const r=d.rating;Object.assign(s.rating,r);s.rating.basis='mhPace';
+    s.rating.zones=Object.assign({},RATING_DEFAULT.zones,r.zones||{});if(!Array.isArray(r.pacePoints)||r.pacePoints.length<2)s.rating.pacePoints=RATING_DEFAULT.pacePoints.slice();}
+  if(d.analysis&&typeof d.analysis==='object')s.analysis=Object.assign({},ANALYSIS_DEFAULT,d.analysis);
+  if(Array.isArray(d.managementUsers)){s.managementUsers=d.managementUsers.slice();s.managementUsersSetBy=d.managementUsersSetBy||null;s.managementUsersSetAt=d.managementUsersSetAt||null;}
+  Object.keys(d).forEach(k=>{if(!(k in s))s[k]=d[k];});   // keep anything a later build adds
+  return s;}
+let LH_SETTINGS=(()=>{try{return normSettings(JSON.parse(store.get(LH_SETTINGS_KEY)||'null'));}catch(e){return settingsDefault();}})();
+const MG={unlocked:false,last:0,charts:[],cache:{},dim:'roofType',where:'device'};
+const who=()=>ME?{name:ME,datumId:null}:null;
+const isMgmtUser=n=>!!n&&(LH_SETTINGS.managementUsers||[]).includes(n);
+const ratedPMs=()=>[...new Set([...PMS,...JOBLIST.map(j=>j.pm)].filter(Boolean))].filter(n=>!isMgmtUser(n));
+/* newest section wins when the folder copy and this device's copy differ (password and rating are separate sections) */
+function mergeSettings(a,b){const s=normSettings(a),t=normSettings(b);
+  if((t.management.setAt||'')>(s.management.setAt||''))s.management=t.management;
+  if((t.rating.setAt||'')>(s.rating.setAt||''))s.rating=t.rating;
+  if((t.analysis.setAt||'')>(s.analysis.setAt||''))s.analysis=t.analysis;
+  if((t.managementUsersSetAt||'')>(s.managementUsersSetAt||'')){s.managementUsers=t.managementUsers;s.managementUsersSetBy=t.managementUsersSetBy;s.managementUsersSetAt=t.managementUsersSetAt;}
+  if((t.updatedAt||'')>(s.updatedAt||'')){s.updatedAt=t.updatedAt;s.updatedBy=t.updatedBy;}
+  return s;}
+const settingsText=s=>JSON.stringify(s,null,1)+'\n';
+async function readSettingsFolder(){       // desktop: TR Labor Hound\lh-settings.json (the folder root, beside the job folders)
+  if(!(await canWrite(SAVE.lhDir)))return false;let d=null;
+  try{const fh=await SAVE.lhDir.getFileHandle(LH_SETTINGS_FILE);d=JSON.parse(await (await fh.getFile()).text());}catch(e){if(e.name!=='NotFoundError')console.warn('settings',e);}
+  const before=settingsText(LH_SETTINGS);
+  if(d&&d.kind==='settings')LH_SETTINGS=mergeSettings(LH_SETTINGS,d);
+  store.set(LH_SETTINGS_KEY,JSON.stringify(LH_SETTINGS));MG.where='folder';
+  if(!d||settingsText(normSettings(d))!==settingsText(LH_SETTINGS)){ // this device had something newer (or no file yet): write it back
+    if(LH_SETTINGS.management.passwordSha256||LH_SETTINGS.rating.setAt)await writeSettingsFolder();}
+  if(before!==settingsText(LH_SETTINGS)){MG.cache={};updateMeter();if(mgOn())renderMgmt();}
+  return true;}
+async function writeSettingsFolder(){if(!(await canWrite(SAVE.lhDir)))return false;
+  try{const fh=await SAVE.lhDir.getFileHandle(LH_SETTINGS_FILE,{create:true});const w=await fh.createWritable();await w.write(settingsText(LH_SETTINGS));await w.close();MG.where='folder';return true;}
+  catch(e){toast('Could not save '+LH_SETTINGS_FILE+': '+e.message);return false;}}
+async function saveSettings(){LH_SETTINGS.updatedAt=new Date().toISOString();LH_SETTINGS.updatedBy=who();
+  store.set(LH_SETTINGS_KEY,JSON.stringify(LH_SETTINGS));const ok=await writeSettingsFolder();if(!ok)MG.where='device';return ok;}
+const mgHash=(salt,pw)=>sha256('lhmgmt:'+salt+':'+pw);
+const newSalt=()=>{const a=new Uint8Array(16);(window.crypto||{}).getRandomValues?crypto.getRandomValues(a):a.forEach((x,i)=>a[i]=Math.random()*256|0);return [...a].map(b=>b.toString(16).padStart(2,'0')).join('');};
+
+/* ---------- per-job numbers (uses the app's own compute(), cached until the job changes) ---------- */
+function jobSig(st){const E=st.ENTRIES||[];return [st.MODE,E.length,E.reduce((m,e)=>Math.max(m,e.t||0),0),JSON.stringify(st.HOURS||{}),JSON.stringify(st.JOB.crew),(st.JOB.def||{}).sentAt,TODAY,JSON.stringify(st.JOB.completion||null),(a=>a.updatedAt+'/'+a.afterCloseout.length+'/'+a.reopens.length)(adjOf(st.JOB.id))].join('|');}
+function jobStats(id){
+  const j=JOBLIST.find(x=>x.id===id);if(!j)return null;
+  const cur=!!(JOB&&JOB.id===id);const st=cur?{ENTRIES,HOURS,MODE,JOB}:stateOf(id);
+  const key=jobSig(st);if(MG.cache[id]&&MG.cache[id].key===key)return MG.cache[id].v;
+  const keep={JOB,ENTRIES,HOURS,MODE,active},keepC=C;let v=null;
+  if(!cur){saveState();useState(st);}
+  try{compute();
+    const dates=new Set(ENTRIES.map(e=>e.date));
+    const days=C.allDays.map(d=>{const h=hoursFor(d),logged=dates.has(d),rain=!!(HOURS[d]&&HOURS[d].rain);
+      return {d,ok:logged||rain,rain,skip:(+h.men===0)||(d===TODAY&&!logged&&!rain),e:C.per[d].earned,u:C.per[d].used,ru:rain?C.per[d].used:0};});   // Men 0 = nobody worked; today isn't over yet
+    const pct=EST_TOTAL>0?C.pct:0;
+    // 11182026-4: a job is finished only when its PM marks it complete (button). Days after that date aren't charged (hoursFor wrapper).
+    const end=doneDate(),finished=!!end;
+    if(end)days.forEach(x=>{if(x.d>end){x.after=true;x.skip=true;}});
+    // after-closeout hours (admin, Management): added to worked MH on their dates, earned unchanged
+    const ac=adjOf(id).afterCloseout.map(x=>({d:x.date,e:0,u:acMH(x),ru:0,ok:true,skip:true,ac:true,why:x.reason}));
+    const live=days.filter(x=>!x.after).concat(ac).sort((p,q)=>p.d<q.d?-1:p.d>q.d?1:0);
+    const acTot=ac.reduce((t,x)=>t+x.u,0),used=live.reduce((t,x)=>t+x.u,0);
+    const weekly={};let ce=0,cu=0;live.forEach(x=>{ce+=x.e;cu+=x.u;if(cu>0)weekly[periodOf(x.d,'week')]=ce/cu;});
+    const rainU=live.reduce((t,x)=>t+x.ru,0),callbacks=[].concat((j.def&&j.def.callbacks)||[],(STATES[id]&&STATES[id].JOB&&STATES[id].JOB.callbacks)||[]);
+    v={id,last:[...dates].filter(d=>d<=TODAY).sort().pop()||null,name:j.name,pm:j.pm,client:j.client,qno:j.qno,start:j.start,end,est:EST_TOTAL,pct,earned:C.cum.earned,used,rainU,callbacks,acMH:acTot,ac,
+       completion:JOB.completion||null,status:C.status,started:C.worked.length>0||locked(),finished,active:!finished&&j.start<=TODAY,days:days.concat(ac),weekly,
+       analysis:(j.def&&j.def.analysis)||null};
+  }finally{if(!cur){if(keep.JOB)useState(keep);C=keepC;}}
+  MG.cache[id]={key,v};return v;}
+
+/* ---------- PM rating (11182026-3: MH pace only) ----------
+   Active (current) job = has a setup from IronClad, started (start ≤ today), and not marked complete by its PM (11182026-4).
+                 A completed job is never current — not even with after-closeout hours; it counts in its year rating.
+   Worked MH for the rating = crew hours charged on the job's work days, LEAVING OUT the show-up hours of days the PM marked
+                 rain (2 h × men) — weather isn't the crew's fault. The job's own Progress tab / stop light still count them.
+                 A completed job isn't charged crew hours after its completion date. After-closeout hours added by an admin
+                 (Management) are added to worked MH on their dates (earned unchanged), lowering the pace.
+   Job rating  = MH pace score of earned ÷ worked (job to date for "current"; only that calendar year's days for a year rating),
+                 mapped ≤ 0.75 → 0 · 0.95 → 40 · 1.02 → 60 · ≥ 1.20 → 100, straight lines between (0.95 / 1.02 = the stop light's lines).
+                 No worked hours yet → "Not rated yet".
+                 FUTURE HOOK (no UI yet): minus deductions for leaks / callbacks after completion —
+                 settings rating.deductions = {perCallback, perLeak} (points) × the job's callbacks: [{date, kind:"leak"|"callback", note}]
+                 (job.callbacks / setup.callbacks, both absent today → no deduction). Rating is floored at 0.
+   Days logged = INFORMATION ONLY (not in the rating): work days (no weekends / company holidays; Men 0 skipped; today only once
+                 entered) with progress entered or marked rain ÷ work days — last 30 days (current) or the calendar year.
+   PM current  = plain average of his current jobs' ratings (not-rated jobs left out). PM year = average of the year ratings of
+                 every job with work days in that year, finished jobs included.
+   Zones       = under 40 Sub Par · 40–60 Good · over 60 Great (judged on the whole number shown). */
+function paceScore(r){const P=LH_SETTINGS.rating.pacePoints.slice().sort((a,b)=>a[0]-b[0]);if(r==null||!isFinite(r))return null;
+  if(r<=P[0][0])return P[0][1];if(r>=P[P.length-1][0])return P[P.length-1][1];
+  for(let i=1;i<P.length;i++)if(r<=P[i][0]){const[a,ya]=P[i-1],[b,yb]=P[i];return ya+(yb-ya)*(r-a)/(b-a);}return null;}
+function zoneOf(x){const z=LH_SETTINGS.rating.zones;if(x==null)return {k:'none',w:'Not rated yet'};x=Math.round(x);   // judged on the whole number shown on the meter
+  
+  return x<z.subParBelow?{k:'sub',w:'Sub Par'}:x>z.greatAbove?{k:'great',w:'Great'}:{k:'good',w:'Good'};}
+/* one job's rating. Y = null → current (pace job to date, days logged last 30 days); Y = year → that calendar year only */
+function deductionFor(s){const D=LH_SETTINGS.rating.deductions;if(!D||!s.callbacks||!s.callbacks.length)return 0;
+  return s.callbacks.reduce((a,c)=>a+(+(c&&c.kind==='leak'?D.perLeak:D.perCallback)||0),0);}
+function jobRating(s,Y){const R=LH_SETTINGS.rating;let days,e,u,ru;
+  if(Y==null){const from=addDays(TODAY,-(R.windowDays-1));days=s.days.filter(x=>!x.skip&&x.d>=from);e=s.earned;u=s.used;ru=s.rainU;}
+  else{const yd=s.days.filter(x=>!x.after&&x.d.slice(0,4)===String(Y));days=yd.filter(x=>!x.skip);e=yd.reduce((a,x)=>a+x.e,0);u=yd.reduce((a,x)=>a+x.u,0);ru=yd.reduce((a,x)=>a+x.ru,0);}
+  const wd=days.length,ok=days.filter(x=>x.ok).length,missed=days.filter(x=>!x.ok).map(x=>x.d);
+  const acm=Y==null?s.acMH:s.days.filter(x=>x.ac&&x.d.slice(0,4)===String(Y)).reduce((a,x)=>a+x.u,0);
+  const pu=u-ru,ratio=pu>0?e/pu:null,ps=ratio==null?null:paceScore(ratio),ded=ps==null?0:deductionFor(s);
+  const rating=ps==null?null:Math.max(0,ps-ded),z=zoneOf(rating);
+  return {job:s,year:Y,workDays:wd,logged:ok,missed,daysPct:wd?ok/wd:null,earned:e,used:u,rainU:ru,paceUsed:pu,ratio,paceScore:ps,deduction:ded,acMH:acm,rating,zone:z.k,word:z.w};}
+function avgOf(name,jobs,list){const rated=list.filter(r=>r.rating!=null);
+  const rating=rated.length?rated.reduce((a,r)=>a+r.rating,0)/rated.length:null,z=zoneOf(rating);
+  return {name,jobs,list,rated,rating,zone:z.k,word:jobs.length?z.w:'No jobs yet',noJobs:!jobs.length};}
+/* PM current rating = simple average of the job ratings of his current (active) jobs; "Not rated yet" jobs are left out */
+function pmCurrent(name){const jobs=JOBLIST.filter(j=>j.pm===name).map(j=>jobStats(j.id)).filter(Boolean),act=jobs.filter(s=>s.active);
+  const r=avgOf(name,jobs,act.map(s=>jobRating(s)));r.active=act;return r;}
+/* PM calendar-year rating = average of the year ratings of every job of his with work days in that year (finished jobs too) */
+function pmYear(name,Y){const jobs=JOBLIST.filter(j=>j.pm===name).map(j=>jobStats(j.id)).filter(Boolean);
+  const r=avgOf(name,jobs,jobs.map(s=>jobRating(s,Y)).filter(x=>x.workDays>0));r.year=Y;return r;}
+const pmRating=pmCurrent;
+/* ---------- the meter (semicircle gauge) ---------- */
+const ZCOL={sub:'#d03b3b',good:'#fab219',great:'#0ca30c',none:'#9aa39e'};
+function gaugeSVG(v,opt={}){const cx=50,cy=50,R=38,W=opt.w||64,needle=opt.needle||'#1d2420',z=LH_SETTINGS.rating.zones;
+  const P=x=>{const t=Math.PI*(1-Math.max(0,Math.min(100,x))/100);return [cx+R*Math.cos(t),cy-R*Math.sin(t)];};
+  const arc=(a,b,c)=>{const[p,q]=[P(a),P(b)];return `<path d="M${p[0].toFixed(2)} ${p[1].toFixed(2)}A${R} ${R} 0 0 1 ${q[0].toFixed(2)} ${q[1].toFixed(2)}" stroke="${c}" stroke-width="13" fill="none"/>`;};
+  const off=v==null;const g=c=>off?'#cfd6d2':c;
+  let s=`<svg class="gauge" viewBox="0 2 100 54" width="${W}" height="${W*0.54}" aria-hidden="true">`+
+    arc(0,z.subParBelow-0.6,g(ZCOL.sub))+arc(z.subParBelow+0.6,z.greatAbove-0.6,g(ZCOL.good))+arc(z.greatAbove+0.6,100,g(ZCOL.great));
+  if(!off){const t=Math.PI*(1-Math.max(0,Math.min(100,v))/100),L=R-3;
+    s+=`<line x1="${cx}" y1="${cy}" x2="${(cx+L*Math.cos(t)).toFixed(2)}" y2="${(cy-L*Math.sin(t)).toFixed(2)}" stroke="${needle}" stroke-width="4" stroke-linecap="round"/>`;}
+  return s+`<circle cx="${cx}" cy="${cy}" r="6" fill="${off?'#cfd6d2':needle}"/></svg>`;}
+const r0=x=>x==null?'—':String(Math.round(x));
+const pctTxt=x=>x==null?'—':Math.round(x*100)+'%';
+const nameList=n=>n.length>1?n.slice(0,-1).join(', ')+' or '+n[n.length-1]:n[0]||'';
+function jobLine(j,own,multi){const s=j.job;
+  if(j.rating==null)return `<div class="mgj"><div class="mgjh"><b>${esc(s.name)}</b><span class="zs none">Not rated yet</span></div><small>No hours worked ${j.year?'in '+j.year:'yet'} — left out of the average.</small></div>`;
+  const ms=j.missed.slice(0,5).map(short).join(', ')+(j.missed.length>5?` and ${j.missed.length-5} more`:'');
+  return `<div class="mgj"><div class="mgjh"><b>${esc(s.name)}</b><span class="zs ${j.zone}">${r0(j.rating)} · ${j.word}</span></div>
+    <small>MH pace ${j.ratio==null?'— (no hours yet)':`${j.ratio.toFixed(2)} (${fmt(j.earned)} estimated ÷ ${fmt(j.paceUsed)} worked MH${j.rainU?`, ${fmt(j.rainU)} rain show-up left out`:''}) → ${r0(j.paceScore)}`}${s.finished?' · finished':''}</small>
+    ${j.acMH?`<small class="mgac">${fmt(j.acMH)} MH charged after ${own?'you':'the PM'} closed the job</small>`:''}
+    <small class="mgdl">Days logged ${j.workDays?`${j.logged} of ${j.workDays} (${pctTxt(j.daysPct)})`:'—'} — not part of the rating</small>
+    ${ms?`<small class="mgmiss">Missed: ${ms}</small>`:''}</div>`;}
+function breakdownHTML(r,own,label){
+  const who=own?'You have':esc(r.name)+' has';
+  if(r.noJobs)return `<p class="note">${who} no jobs from IronClad yet, so there's no rating.</p>`;
+  if(!r.list.length)return `<p class="note">${r.year?`No work days in ${r.year}.`:`No current jobs right now${r.jobs.length?' (finished or not started yet)':''}.`}</p>`;
+  const nums=r.rated.map(x=>r0(x.rating));
+  return `<div class="mgbd">${r.list.map(j=>jobLine(j,own)).join('')}
+   <div class="mgf">${label||(own?'Your rating':'Current rating')} = ${r.rated.length?`average of ${r.rated.length} job${r.rated.length===1?'':'s'}${r.rated.length>1?` = (${nums.join(' + ')}) ÷ ${r.rated.length}`:''} = <b>${r0(r.rating)}</b> · ${r.word}`:'not rated yet'}</div>
+   <div class="mgf note">Each job's rating = its MH pace score (estimated MH ÷ worked MH, ${r.year?'within '+r.year:'job to date'}; rain show-up hours left out). Days logged is shown for information only. ${own&&r.list.some(j=>j.missed.length)?'For a missed day, go back to it (📅 on the Daily tab) and enter the work, or set Men to 0 if nobody worked.':''}</div>
+   <div class="mgsc"><span class="zs sub">Sub Par under 40</span><span class="zs good">Good 40–60</span><span class="zs great">Great over 60</span></div></div>`;}
+
+/* header meter: the signed-in PM's own rating only */
+function ensureMeter(){let b=document.getElementById('pmMeter');if(b)return b;
+  b=document.createElement('button');b.id='pmMeter';b.className='pmmeter';b.title='My rating — tap for the breakdown';
+  const anchor=document.querySelector('header .jobpick');anchor.parentNode.insertBefore(b,anchor);
+  const pop=document.createElement('div');pop.id='pmPop';pop.className='pmpop';pop.hidden=true;document.body.appendChild(pop);
+  b.onclick=e=>{e.stopPropagation();toggleMeterPop();};pop.onclick=e=>e.stopPropagation();
+  document.addEventListener('click',()=>{if(!pop.hidden)pop.hidden=true;});return b;}
+function updateMeter(){if(!document.querySelector('header .jobpick'))return;const b=ensureMeter();
+  if(!ME||isMgmtUser(ME)){b.hidden=true;return;}b.hidden=false;
+  let r;try{r=pmRating(ME);}catch(e){console.warn('rating',e);return;}MG.mine=r;
+  b.className='pmmeter z-'+(r.noJobs?'none':r.zone);
+  b.innerHTML=gaugeSVG(r.rating,{w:58,needle:'#ffffff'})+`<span class="pmv"><b>${r.rating==null?'—':r0(r.rating)}</b><small>${r.word}</small></span>`;
+  b.setAttribute('aria-label',`My rating: ${r.rating==null?r.word:r0(r.rating)+', '+r.word}`);
+  const pop=document.getElementById('pmPop');if(!pop.hidden)fillMeterPop();}
+function fillMeterPop(){const r=MG.mine||pmRating(ME),pop=document.getElementById('pmPop');
+  const Y0=TODAY.slice(0,4),acj=pmYear(ME,Y0).list.filter(j=>j.acMH>0&&j.job.finished);
+  pop.innerHTML=`<div class="pph">${gaugeSVG(r.rating,{w:84})}<div><b>${r.rating==null?r.word:r0(r.rating)+' · '+r.word}</b><span>My rating — ${esc(ME||'')}</span></div><button class="ppx" aria-label="Close">✕</button></div>${breakdownHTML(r,true)}${acj.length?`<div class="mgacbox">${acj.map(j=>`<b>${esc(j.job.name)}</b> (completed ${short(j.job.end)}): <b class="mgac">${fmt(j.acMH)} MH charged after you closed the job</b> — job rating ${r0(j.rating)}, counts in your ${Y0} rating.`).join('<br>')}</div>`:''}
+    <p class="note" style="margin:8px 0 0;font-size:12px">Only you see your rating. It's your crews' pace against the estimate's man-hours (estimated MH ÷ worked MH) — rain show-up hours don't count against it. Keep entering progress every work day so the pace stays right.</p>`;
+  pop.querySelector('.ppx').onclick=()=>pop.hidden=true;}
+function toggleMeterPop(){const pop=document.getElementById('pmPop'),b=document.getElementById('pmMeter');
+  if(!pop.hidden){pop.hidden=true;return;}fillMeterPop();pop.hidden=false;toggleMeToo();
+  const rc=b.getBoundingClientRect(),narrow=window.innerWidth<=820;pop.style.top=Math.round(rc.bottom+8)+'px';
+  if(narrow){pop.style.left='10px';pop.style.right='10px';}else{pop.style.left='auto';pop.style.right=Math.max(10,Math.round(window.innerWidth-rc.right))+'px';}}
+function toggleMeToo(){try{toggleMeMenu(false);toggleJobMenu(false);}catch(e){}}
+
+/* ---------- wrappers on the existing app ---------- */
+{const _rh=refreshHeader;refreshHeader=function(){_rh.apply(this,arguments);updateMeter();};}
+{const _nj=showNoJobs;showNoJobs=function(){_nj.apply(this,arguments);updateMeter();};}
+{const _rm=renderMeMenu;renderMeMenu=function(){_rm.apply(this,arguments);const f=$('#meMenu .jmf');if(!f)return;
+  const a=document.createElement('a');a.href='#';a.id='mgmtOpen';a.className='mglink';a.textContent='Management…';
+  a.onclick=e=>{e.preventDefault();e.stopPropagation();toggleMeMenu(false);openMgmt();};f.appendChild(a);};}
+{const _if=importFiles;importFiles=async function(files){const rest=[];   // phones / iPads: "Open a job file" also takes lh-settings.json
+  for(const f of [...files]){let d=null;try{d=JSON.parse(await f.text());}catch(e){}
+    if(d&&d.app==='Labor Hound'&&d.kind==='settings'){LH_SETTINGS=mergeSettings(LH_SETTINGS,d);store.set(LH_SETTINGS_KEY,JSON.stringify(LH_SETTINGS));MG.cache={};updateMeter();
+      await writeSettingsFolder();toast('Labor Hound settings brought in');}else rest.push(f);}
+  if(rest.length)return _if(rest);};}
+/* Progress tab: this job's own rating, for the job's PM only (other PMs never see it) */
+{const _rp=refreshProgress;refreshProgress=function(){_rp.apply(this,arguments);
+  let el=document.getElementById('pJobRate');if(!el){el=document.createElement('button');el.id='pJobRate';el.className='pjr';const h=document.querySelector('#tProg .hero');if(!h)return;h.appendChild(el);
+    el.onclick=()=>{const d=document.getElementById('pJobRateD');d.hidden=!d.hidden;};}
+  if(!JOB||!ME||JOB.pm!==ME){el.hidden=true;return;}
+  let j;try{const s=jobStats(JOB.id);j=jobRating(s);j.cur=s.active;}catch(e){console.warn(e);el.hidden=true;return;}
+  el.hidden=false;el.className='pjr z-'+(j.rating==null?'none':j.zone);
+  el.innerHTML=`<span class="pjl">This job's rating</span>${gaugeSVG(j.rating,{w:96})}<b>${j.rating==null?'—':r0(j.rating)}</b><span class="zw">${j.rating==null?'Not rated yet':j.word}</span>
+    <div id="pJobRateD" class="pjd" hidden>${j.rating==null?'No hours worked yet.':`MH pace ${j.ratio.toFixed(2)} estimated MH per hour worked → ${r0(j.paceScore)}${j.rainU?`<br>${fmt(j.rainU)} MH rain show-up left out`:''}`}<br><span class="mgdl">Days logged ${j.workDays?j.logged+' of '+j.workDays:'—'} (last ${LH_SETTINGS.rating.windowDays} days) — not part of the rating</span>${j.cur?'':'<br><i>Finished — not in your current rating</i>'}</div>`;};}
+{const _cf=connectFolder;connectFolder=async function(which){const r=await _cf.apply(this,arguments);if(which==='lh'){await readSettingsFolder();updateMeter();if(mgOn())renderMgmt();}return r;};}
+
+/* ---------- management: unlock (shared password, this session only) ---------- */
+const mgOn=()=>{const t=document.getElementById('tMgmt');return !!(t&&t.classList.contains('on')&&MG.unlocked);};
+function mgGate(){let g=document.getElementById('mgGate');if(g)return g;
+  g=document.createElement('div');g.className='gate';g.id='mgGate';g.hidden=true;g.style.zIndex=115;
+  g.innerHTML=`<div class="gbox" id="mgBox"></div>`;document.body.appendChild(g);g.onclick=e=>{if(e.target===g)closeGate();};return g;}
+function closeGate(){mgGate().hidden=true;}
+function openMgmt(){
+  if(MG.unlocked&&Date.now()-MG.last<MG_IDLE_MS){showMgmt();return;}MG.unlocked=false;
+  const g=mgGate(),box=$('#mgBox'),M=LH_SETTINGS.management,admins=ADMINS.map(a=>a.name.split(' ')[0]);
+  if(M.passwordSha256){
+    box.innerHTML=`<h2>🔒 Management</h2><p>For admins and upper management. Enter the management password.</p>
+      <input id="mgPw" type="password" autocomplete="off" placeholder="Management password" class="pin" style="letter-spacing:.05em;font-size:20px">
+      <div class="admmsg" id="mgMsg"></div>
+      <div class="btns" style="justify-content:center;margin-top:10px"><button class="btn pri" id="mgGo">Open</button><button class="btn" id="mgCancel">Cancel</button></div>`;
+    $('#mgGo').onclick=()=>{const pw=$('#mgPw').value;if(mgHash(M.salt,pw)!==M.passwordSha256){$('#mgMsg').textContent='Wrong password.';$('#mgPw').select();return;}
+      MG.unlocked=true;MG.last=Date.now();closeGate();showMgmt();};
+    $('#mgPw').onkeydown=e=>{if(e.key==='Enter')$('#mgGo').click();};setTimeout(()=>$('#mgPw').focus(),50);
+  } else if(!isAdmin(ME)){
+    box.innerHTML=`<h2>🔒 Management</h2><p>No management password has been set yet. An admin (${nameList(admins)}) sets the first one.</p>
+      ${!SAVE.lhDir&&isPhone()?`<p class="note">On a phone or iPad: use <b>Open a job file…</b> and pick <b>${LH_SETTINGS_FILE}</b> in OneDrive › TR Labor Hound to bring the password over.</p>`:''}
+      <div class="btns" style="justify-content:center"><button class="btn" id="mgCancel">Close</button></div>`;
+  } else {
+    box.innerHTML=`<h2>🔑 Set the management password</h2><p>No management password yet. As an admin, set the <b>one shared password</b> for admins and upper management. It's saved in <b>TR Labor Hound\\${LH_SETTINGS_FILE}</b> as a scrambled hash, never as plain text.</p>
+      <input id="mgAd" type="password" autocomplete="off" placeholder="Your admin password (${esc(ME)})" class="pin" style="letter-spacing:.05em;font-size:17px">
+      <input id="mgN1" type="password" autocomplete="new-password" placeholder="New management password" class="pin" style="letter-spacing:.05em;font-size:17px;margin-top:8px">
+      <input id="mgN2" type="password" autocomplete="new-password" placeholder="Type it again" class="pin" style="letter-spacing:.05em;font-size:17px;margin-top:8px">
+      <div class="admmsg" id="mgMsg"></div>
+      <div class="btns" style="justify-content:center;margin-top:10px"><button class="btn pri" id="mgSet">Save &amp; open</button><button class="btn" id="mgCancel">Cancel</button></div>`;
+    $('#mgSet').onclick=async()=>{const r=adminRec(ME),a=$('#mgAd').value,p1=$('#mgN1').value,p2=$('#mgN2').value;
+      if(!r||!r.passwordSha256){$('#mgMsg').textContent='Set your own admin password first (your name › Admin).';return;}
+      if(hashPw(ME,a)!==r.passwordSha256){$('#mgMsg').textContent='Your admin password is wrong.';return;}
+      if(p1.length<6){$('#mgMsg').textContent='Use at least 6 characters.';return;}
+      if(p1!==p2){$('#mgMsg').textContent='The two passwords don\'t match.';return;}
+      await setMgmtPw(p1);MG.unlocked=true;MG.last=Date.now();closeGate();showMgmt();};
+  }
+  const c=document.getElementById('mgCancel');if(c)c.onclick=closeGate;g.hidden=false;}
+async function setMgmtPw(pw){const salt=newSalt();
+  LH_SETTINGS.management={passwordSha256:mgHash(salt,pw),salt,setBy:who(),setAt:new Date().toISOString()};
+  const ok=await saveSettings();toast(ok?'Management password saved to the Labor Hound folder':'Management password saved on this device — connect the Labor Hound folder to share it');return ok;}
+function lockMgmt(msg){MG.unlocked=false;if(mgOn()){const b=document.querySelector('#tabs button[data-t="tToday"]');if(b&&JOB)b.click();else document.getElementById('tMgmt').classList.remove('on');}
+  MG.charts.forEach(c=>c.destroy());MG.charts=[];const t=document.getElementById('tMgmt');if(t)t.innerHTML='';if(msg)toast(msg);}
+['pointerdown','keydown','wheel','touchstart'].forEach(ev=>window.addEventListener(ev,()=>{if(MG.unlocked)MG.last=Date.now();},{passive:true,capture:true}));
+setInterval(()=>{if(MG.unlocked&&Date.now()-MG.last>MG_IDLE_MS)lockMgmt('Management locked after 30 minutes idle');},20000);
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&MG.unlocked&&Date.now()-MG.last>MG_IDLE_MS)lockMgmt('Management locked after 30 minutes idle');});
+
+function showMgmt(){let t=document.getElementById('tMgmt');
+  if(!t){t=document.createElement('section');t.className='tab';t.id='tMgmt';document.querySelector('main').appendChild(t);}
+  document.querySelectorAll('#tabs button').forEach(x=>x.classList.remove('on'));document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===t));
+  renderMgmt();window.scrollTo(0,0);}
+
+/* ---------- management: the screen ---------- */
+const SER=['#2a78d6','#eb6834','#1baf7a','#eda100','#e87ba4','#008300','#6250d6','#e34948'];   // fixed categorical order (validated palette)
+/* ---------- job profile (Charlie, Nov 18) ----------
+   From the setup's "analysis" block only (jobs without it = "Not sent"; nothing is guessed from the estimate lines).
+   Size:        Small ≤ 100 SQS · Medium > 100 and ≤ 500 · Large > 500   (100 = Small, 500 = Medium)
+   Flashing %:  flashingSqs ÷ sqs × 100        complex if (× 1.25 for SRS) > 25      (exactly 25 = not complex)
+   Penetrations: penetrations ÷ sqs (per SQ)    complex if (× 1.25 for SRS) > 0.5     (exactly 1 per 2 SQS = not complex)
+   Complexity:  Complex if either test is over (which one is kept), else Normal. Thresholds from lh-settings.json "analysis".
+   Complexity hours are already in the estimate, so estimated ÷ worked compares fairly; ratings are NOT adjusted. */
+function jobProfile(job){const T=Object.assign({},ANALYSIS_DEFAULT,LH_SETTINGS.analysis||{});
+  const a=job&&((job.def&&job.def.analysis)||job.analysis);if(!a)return {sent:false,size:'Not sent',complexity:'Not sent',label:'Job details not sent'};
+  const sqs=+a.sqs,ok=a.sqs!=null&&a.sqs!==''&&isFinite(sqs)&&sqs>0,srs=a.srs==='srs',f=srs?(+T.srsFactor||1):1;
+  const size=!ok?'Unknown size':sqs<=T.sizeSmallMaxSqs?'Small':sqs<=T.sizeMediumMaxSqs?'Medium':'Large';
+  const flashPct=ok&&a.flashingSqs!=null&&a.flashingSqs!==''?(+a.flashingSqs)/sqs*100:null,penDensity=ok&&a.penetrations!=null&&a.penetrations!==''?(+a.penetrations)/sqs:null;
+  const flashAdj=flashPct==null?null:flashPct*f,penAdj=penDensity==null?null:penDensity*f;
+  const trips=[];if(flashAdj!=null&&flashAdj>T.flashingPctComplex+1e-9)trips.push('flashing');if(penAdj!=null&&penAdj>T.penPerSqComplex+1e-9)trips.push('penetrations');
+  const known=flashAdj!=null||penAdj!=null,complexity=!ok||!known?'Unknown':trips.length?'Complex':'Normal';
+  const cx=complexity==='Complex'?(trips.length===2?'Complex — both':'Complex — '+trips[0]):complexity;
+  const why=trips.map(t=>t==='flashing'?`flashing ${Math.round(flashAdj*10)/10}%`:`${(Math.round(penAdj*100)/100)} pen/SQ`).join(', ');
+  const roof=a.roofTypeGroup||a.roofType||'Not picked';
+  return {sent:true,sqs:ok?sqs:null,size,flashPct,penDensity,flashAdj,penAdj,srs,factor:f,trips,complexity,cx,roof,
+    label:`${size}${ok?` (${fmt(sqs)} SQ)`:''} · ${complexity}${why?` (${why})`:''}${srs?' · SRS':''}`};}
+const profileChip=p=>!p.sent?'<span class="pchip ns">Job details not sent</span>':`<span class="pchip">${esc(p.size)}</span><span class="pchip ${p.complexity==='Complex'?'cx':''}">${esc(p.complexity)}${p.trips.length?` (${p.trips.map(t=>t==='flashing'?`flashing ${Math.round(p.flashAdj*10)/10}%`:`${Math.round(p.penAdj*100)/100} pen/SQ`).join(', ')})`:''}</span>${p.srs?'<span class="pchip srs">SRS</span>':''}`;
+const pv=(s,k)=>{const a=s.analysis;if(!a)return 'Not sent';const p=jobProfile({analysis:a});return k(p,a)||'Not picked';};
+const DIMS=[
+  ['size','Size',s=>pv(s,p=>p.size)],
+  ['complexity','Complexity',s=>pv(s,p=>p.cx)],
+  ['srs','SRS vs non-SRS',s=>pv(s,(p,a)=>({srs:'SRS','non-srs':'Non-SRS'})[a.srs]||a.srs)],
+  ['roofType','Roof type',s=>pv(s,p=>p.roof)],
+  ['tearOff','Tear-off / recover',s=>pv(s,(p,a)=>({'tear-off':'Tear-off',partial:'Partial tear-off','partial-tear-off':'Partial tear-off',recover:'Recover',new:'New'})[a.tearOff]||a.tearOff)],
+  ['publicPrivate','Public / private',s=>pv(s,(p,a)=>({public:'Public',private:'Private'})[a.publicPrivate]||a.publicPrivate)],
+  ['contractWith','GC / owner',s=>pv(s,(p,a)=>({gc:'GC',owner:'Owner'})[a.contractWith]||a.contractWith)],
+  ['newOrReroof','New / reroof',s=>pv(s,(p,a)=>({new:'New construction',reroof:'Reroof'})[a.newOrReroof]||a.newOrReroof)]];
+const ORDER={size:['Small','Medium','Large','Unknown size'],complexity:['Normal','Complex — flashing','Complex — penetrations','Complex — both','Unknown']};
+const ratioCol=r=>r>=1.02?ZCOL.great:r>=0.95?ZCOL.good:ZCOL.sub;
+function chartOn(id,cfg){const c=document.getElementById(id);if(!c||!window.Chart)return;const ch=new Chart(c,cfg);MG.charts.push(ch);return ch;}
+const baseOpts=(extra={})=>Object.assign({responsive:true,maintainAspectRatio:false,animation:false,
+  plugins:{legend:{display:false,labels:{boxWidth:12,boxHeight:12,font:{family:'Barlow, system-ui, sans-serif',size:12}}},tooltip:{titleFont:{family:'Barlow, system-ui, sans-serif'},bodyFont:{family:'Barlow, system-ui, sans-serif'}}},
+  scales:{x:{grid:{display:false},ticks:{font:{family:'Barlow, system-ui, sans-serif',size:12},color:'#55605a'}},y:{grid:{color:'#eef1ef'},border:{display:false},ticks:{font:{family:'Barlow, system-ui, sans-serif',size:12},color:'#55605a'}}}},extra);
+function renderMgmt(){const t=document.getElementById('tMgmt');if(!t)return;
+  if(!MG.unlocked){if(ME&&isMgmtUser(ME)&&t.classList.contains('on'))showMgmtHome();return;}   // never draw Management while locked
+  MG.charts.forEach(c=>c.destroy());MG.charts=[];
+  const all=JOBLIST.map(j=>jobStats(j.id)).filter(Boolean);
+  const pms=ratedPMs();
+  const years=[...new Set(all.map(s=>s.start.slice(0,4)).concat([TODAY.slice(0,4)]))].filter(y=>y<=TODAY.slice(0,4)).sort().reverse();
+  if(!MG.year||!years.includes(MG.year))MG.year=TODAY.slice(0,4);const Y=MG.year;
+  const R=pms.map(n=>{const c=pmCurrent(n);c.yr=pmYear(n,Y);return c;}).sort((a,b)=>(b.rating??-1)-(a.rating??-1)||(b.yr.rating??-1)-(a.yr.rating??-1)||a.name.localeCompare(b.name));
+  const rated=R.filter(r=>r.rating!=null||r.yr.rating!=null),S=LH_SETTINGS.rating,M=LH_SETTINGS.management;
+  const curJobs=[].concat(...R.map(r=>r.list.filter(j=>j.rating!=null)));
+  const worked=all.filter(s=>s.used>0);const jobColor=id=>SER[JOBLIST.findIndex(j=>j.id===id)%SER.length];
+  const jl=list=>list.length?list.map(j=>`<span class="mgjc"><span class="sw2" style="background:${j.rating==null?ZCOL.none:ZCOL[j.zone]}"></span>${esc(j.job.name)} <b>${j.rating==null?'—':r0(j.rating)}</b>${j.job.finished?' <small>completed</small>':''}${j.acMH?` <small class="mgac">+${fmt(j.acMH)} MH after closeout</small>`:''}</span>`).join(''):'<span class="mut">—</span>';
+  const st=s=>s.finished?['Completed '+short(s.end),'none']:s.pct>=0.999?['100% — not marked complete','warn']:!s.started?['Not started','none']:s.status==='good'?['Ahead','good']:s.status==='warn'?['On track','warn']:['Behind','bad'];
+  const zchip=r=>`<span class="zs ${r.noJobs||r.rating==null?'none':r.zone}">${r.rating==null&&!r.noJobs?'Not rated yet':r.word}</span>`;
+  t.innerHTML=`<div class="page"><div class="wrap">
+   <div class="mghead"><div><h1>📊 Management</h1><span>PM ratings and crew performance · all jobs ${SAVE.lhDir?'in the Labor Hound folder':'on this '+(isPhone()?devWord():'computer')} · ${all.length} job${all.length===1?'':'s'}. Unlocked for this session — locks after 30 minutes idle.</span></div>
+     <div class="btns"><button class="btn" id="mgBack">‹ Dashboard</button>${SAVE.lhDir?'<button class="btn" id="mgRe">↻ Read folder again</button>':''}<button class="btn" id="mgLock">🔒 Lock</button></div></div>
+   <div class="card"><div class="mgcardh"><h2>PM ratings</h2><label class="mgyr">Calendar year <select id="mgYear">${years.map(y=>`<option${y===Y?' selected':''}>${y}</option>`).join('')}</select></label></div>
+     <div class="sub">Each job is rated on <b>MH pace only</b> — estimated MH ÷ worked MH, rain show-up hours left out (the crew doesn't pick the job or the weather). <b>Current projects</b> = average of the PM's current jobs (pace job to date). <b>${Y}</b> = average of every job with work days in ${Y}, finished jobs too (pace within ${Y}). Every job counts the same. Days logged is information only. <span class="zs sub">Sub Par under ${S.zones.subParBelow}</span> <span class="zs good">Good ${S.zones.subParBelow}–${S.zones.greatAbove}</span> <span class="zs great">Great over ${S.zones.greatAbove}</span></div>
+     <div class="mgmeters">${R.map(r=>`<button class="mgm z-${r.noJobs?'none':r.zone}" data-pm="${esc(r.name)}">${gaugeSVG(r.rating,{w:104})}<b>${r.rating==null?'—':r0(r.rating)}</b><span class="zw">${r.rating==null&&!r.noJobs?'Not rated yet':r.word}</span><span class="nm">${esc(r.name)}</span><small>${r.active.length} current job${r.active.length===1?'':'s'}</small><small class="mgyrv">${Y}: <b>${r.yr.rating==null?'—':r0(r.yr.rating)}</b> ${r.yr.rating==null?'':r.yr.word}</small></button>`).join('')}</div>
+     <div class="tscroll"><table class="t mgt"><thead><tr><th>PM</th><th class="n">Current</th><th>Zone</th><th>Current projects (job ratings)</th><th class="n">Days logged<small>info · last ${S.windowDays} days</small></th><th class="n">${Y}</th><th>Zone</th><th>Jobs in ${Y}</th></tr></thead><tbody>
+     ${R.map(r=>`<tr data-row="${esc(r.name)}"><td><b>${esc(r.name)}</b><small><a href="#" data-pmd="${esc(r.name)}">Details</a></small></td><td class="n"><b>${r0(r.rating)}</b></td><td>${zchip(r)}</td><td class="mgjl">${jl(r.list)}</td>
+       <td class="n">${(w=>w?`${pctTxt(r.list.reduce((a,j)=>a+j.logged,0)/w)}<small>${r.list.reduce((a,j)=>a+j.logged,0)} of ${w}</small>`:'—')(r.list.reduce((a,j)=>a+j.workDays,0))}</td>
+       <td class="n"><b>${r0(r.yr.rating)}</b></td><td>${r.yr.list.length?zchip(r.yr):'<span class="mut">no work days</span>'}</td><td class="mgjl">${jl(r.yr.list)}</td></tr>`).join('')}</tbody></table></div>
+     <div id="mgBd"></div></div>
+   <div class="mgrid">
+     <div class="card"><h2>PM ratings — current vs ${Y}</h2><div class="sub">Current projects average and the ${Y} average for each PM. Hover for the zone.</div><div class="mgc" style="height:${Math.max(180,60+rated.length*46)}px"><canvas id="mgcRate"></canvas></div></div>
+     <div class="card"><h2>Job ratings — current projects</h2><div class="sub">Each current job's own rating = its MH pace score (bar color = zone). Hover for pace and days logged.</div><div class="mgc" style="height:${Math.max(180,40+curJobs.length*30)}px"><canvas id="mgcDays"></canvas></div></div>
+     <div class="card"><h2>Estimated MH vs worked MH — by PM</h2><div class="sub">Current jobs, job to date. Estimated MH = installed quantity × the estimate's MH per unit.</div><div class="mgc"><canvas id="mgcPm"></canvas></div></div>
+     <div class="card"><h2>Estimated MH vs worked MH — by job</h2><div class="sub">Every job with hours worked (finished jobs too).</div><div class="mgc" style="height:${Math.max(180,50+worked.length*38)}px"><canvas id="mgcJob"></canvas></div></div>
+     <div class="card mgwide"><h2>Crew performance by job over time</h2><div class="sub">Estimated MH ÷ worked MH, job to date, at the end of each Tue–Mon week. 1.00 = on the estimate · on track 0.95–1.02 · ahead above 1.02.</div><div class="mgc" style="height:300px"><canvas id="mgcTime"></canvas></div></div>
+     <div class="card mgwide" id="mgScn"><h2>Crew performance by job scenario</h2><div class="sub">Estimated MH ÷ worked MH and the average job rating for every job with hours, grouped by the job details IronClad sends (size, complexity, roof type…). <b>Complexity hours are already in the estimate, so estimated MH ÷ worked MH compares fairly across simple and complex jobs.</b> Ratings are not adjusted for complexity. Jobs sent before IronClad 11182026-1 count as <b>Not sent</b>. Tap a row or cell to see its jobs.</div>
+       <div class="mgdims">${DIMS.map(d=>`<button class="btn sm${MG.dim===d[0]?' pri':''}" data-dim="${d[0]}">${d[1]}</button>`).join('')}</div>
+       <div class="mgsplit"><div class="mgc" style="height:260px"><canvas id="mgcDim"></canvas></div><div class="tscroll"><table class="t mgt mgclick" id="mgDimT"></table></div></div>
+       <div class="mgsplit" style="margin-top:14px"><div><h3 class="mgh3">Size × complexity</h3><div class="tscroll"><table class="t mgt mgx mgclick" id="mgXsize"></table></div></div><div><h3 class="mgh3">Roof type × complexity</h3><div class="tscroll"><table class="t mgt mgx mgclick" id="mgXroof"></table></div></div></div>
+       <h3 class="mgh3">By PM × scenario</h3><div class="tscroll"><table class="t mgt mgx mgclick" id="mgXpm"></table></div>
+       <div class="mgph" style="margin-top:10px"><div><b>By crew / foreman — available when Summit's time clock is connected</b><span>Same tables, grouped by the crew that clocked in, to help pick which crew goes on which kind of job.</span></div></div>
+       <div id="mgScnJobs"></div>
+       <p class="note" style="margin-top:8px">Thresholds (lh-settings.json “analysis”): Small ≤ ${LH_SETTINGS.analysis.sizeSmallMaxSqs} SQS · Medium ≤ ${LH_SETTINGS.analysis.sizeMediumMaxSqs} · Large over that. Complex if flashing SQS ÷ roof SQS is over ${LH_SETTINGS.analysis.flashingPctComplex}% or penetrations are over ${LH_SETTINGS.analysis.penPerSqComplex} per SQ (1 per ${Math.round(1/LH_SETTINGS.analysis.penPerSqComplex*10)/10} SQS); SRS jobs count ${LH_SETTINGS.analysis.srsFactor}× on both.</p></div>
+   </div>
+   <div class="card"><h2>Jobs</h2><div class="tscroll"><table class="t mgt"><thead><tr><th>Job</th><th>PM</th><th>Status</th><th class="n">Complete</th><th class="n">Estimated MH</th><th class="n">Worked MH</th><th class="n">Estimated ÷ worked</th><th>Job details</th></tr></thead><tbody>
+     ${all.map(s=>{const[w,c]=st(s);return `<tr><td><a href="#" class="mgopen" data-goj="${s.id}"><b>${esc(s.name)}</b></a><small>${[s.client,s.qno].filter(Boolean).map(esc).join(' · ')}${s.client||s.qno?' · ':''}start ${short(s.start)}</small></td><td>${esc(s.pm||'—')}</td><td><span class="stt ${c}">${w}</span>${s.finished?`<small>${s.completion&&s.completion.by?'by '+esc(s.completion.by.name)+' · ':''}not current${s.acMH?` · <b class="mgac">+${fmt(s.acMH)} MH after closeout</b>`:''}</small><span class="mgbtns"><button class="btn sm" data-adj="${s.id}">After-closeout hours…</button><button class="btn sm" data-reopen="${s.id}">Reopen</button></span>`:s.active?'':'<small>not counted in ratings</small>'}</td>
+       <td class="n">${fmt(s.pct*100)}%</td><td class="n">${fmt(s.earned,1)}</td><td class="n">${fmt(s.used,1)}</td><td class="n">${s.used?(s.earned/s.used).toFixed(2):'—'}</td><td>${profileChip(jobProfile(s))}</td></tr>`;}).join('')||'<tr><td colspan="8" class="mut">No jobs yet.</td></tr>'}</tbody></table></div><div id="mgAdj"></div></div>
+   <div class="card mgsoon"><h2>Coming with Summit time clock</h2><div class="sub">These need clock-ins by employee from Summit (read only). Nothing is tracked here yet, and no pay data is in Labor Hound.</div>
+     <div class="mgph"><div><b>Foreman performance</b><span>Estimated MH ÷ worked MH on the days each foreman ran the crew.</span></div><div><b>Crew performance by crew</b><span>Same measure, grouped by the crew that clocked in.</span></div><div><b>Hourly rate vs performance</b><span>Admins only — pay rates never show on PM phones.</span></div></div>
+     <div class="mgph" style="margin-top:10px"><div><b>Leaks / callbacks after completion — coming later</b><span>A deduction from the job's rating for leaks or callbacks after the job is done.</span></div></div></div>
+   <div class="card"><h2>Rating settings</h2>
+     <div class="sub">Saved in <b>TR Labor Hound\\${LH_SETTINGS_FILE}</b> ${MG.where==='folder'?'(Labor Hound folder)':'(on this device only — connect the Labor Hound folder to share)'}. </div>
+     <p class="note"><b>Job rating = MH pace score only</b> (Charlie, Nov 18) — no weights to set. Rain show-up hours (days the PM marked rain) are left out of worked MH for the rating.</p>
+     <p class="note">Pace score: estimated MH ÷ worked MH of ${S.pacePoints.map(p=>p[0].toFixed(2)+' → '+p[1]).join(' · ')} (straight lines between). Days logged (information only) counts company work days; days with Men set to 0 are skipped.</p>
+     <h3 class="mgh3">Management password</h3>
+     <p class="note">One shared password for admins and upper management. ${M.setAt?`Set ${whenStr(M.setAt)}${M.setBy?' by '+esc(M.setBy.name):''}.`:''} It only hides this screen in the app (a soft lock for phase 1) — the job files themselves aren't encrypted.</p>
+     ${isAdmin(ME)?`<div class="mgw"><input id="mgC1" type="password" autocomplete="new-password" placeholder="New management password"><input id="mgC2" type="password" autocomplete="new-password" placeholder="Type it again"><button class="btn" id="mgCGo">Change password</button></div><div class="admmsg" id="mgCMsg"></div>`
+       :`<p class="note">Only an admin (${nameList(ADMINS.map(a=>a.name))}) can change it.</p>`}
+   </div>
+  </div></div>`;
+  // events
+  $('#mgBack').onclick=()=>showDash();
+  $('#mgLock').onclick=()=>lockMgmt('Management locked');
+  const re=document.getElementById('mgRe');if(re)re.onclick=async()=>{await refreshJobs(false);for(const j of JOBLIST)await loadLatest(j.id,false);await readSettingsFolder();await readAllAdj();MG.cache={};if(JOB)refreshAll();renderMgmt();toast('Read the Labor Hound folder again');};
+  const det=n=>{const r=R.find(x=>x.name===n);MG.detail=n;const hd=x=>x.rating==null?(x.noJobs?x.word:'Not rated yet'):r0(x.rating)+' · '+x.word;
+    $('#mgBd').innerHTML=`<div class="mgbdw"><h3>${esc(r.name)}</h3><div class="mg2"><div><h4>Current projects — ${hd(r)}</h4>${breakdownHTML(r,false,'Current projects rating')}</div><div><h4>${Y} — ${hd(r.yr)}</h4>${breakdownHTML(r.yr,false,Y+' rating')}</div></div></div>`;$('#mgBd').scrollIntoView({block:'nearest'});};
+  t.querySelectorAll('[data-pm]').forEach(b=>b.onclick=()=>det(b.dataset.pm));t.querySelectorAll('[data-pmd]').forEach(a=>a.onclick=e=>{e.preventDefault();det(a.dataset.pmd);});
+  if(MG.detail&&R.some(x=>x.name===MG.detail))det(MG.detail);
+  t.querySelectorAll('[data-adj]').forEach(b=>b.onclick=()=>{MG.adjOpen=b.dataset.adj;renderAdjPanel();});
+  t.querySelectorAll('[data-reopen]').forEach(b=>b.onclick=()=>reopenJob(b.dataset.reopen,b));
+  if(MG.adjOpen)renderAdjPanel();
+  t.querySelectorAll('[data-goj]').forEach(a=>a.onclick=e=>{e.preventDefault();goJob(a.dataset.goj);});
+  if(isMgmtUser(ME)){const mb=document.getElementById('mgBack');if(mb)mb.hidden=true;}
+  $('#mgYear').onchange=e=>{MG.year=e.target.value;const sc=t.querySelector('.page').scrollTop;renderMgmt();t.querySelector('.page').scrollTop=sc;};
+  t.querySelectorAll('[data-dim]').forEach(b=>b.onclick=()=>{MG.dim=b.dataset.dim;t.querySelectorAll('[data-dim]').forEach(x=>x.classList.toggle('pri',x===b));drawDim(worked);});
+  const cg=document.getElementById('mgCGo');if(cg)cg.onclick=async()=>{const a=$('#mgC1').value,b=$('#mgC2').value;
+    if(!isAdmin(ME)){$('#mgCMsg').textContent='Only an admin can change it.';return;}
+    if(a.length<6){$('#mgCMsg').textContent='Use at least 6 characters.';return;}if(a!==b){$('#mgCMsg').textContent='The two passwords don\'t match.';return;}
+    await setMgmtPw(a);renderMgmt();$('#mgCMsg')&&($('#mgCMsg').textContent='');toast('Management password changed');};
+  // charts
+  const zc=r=>ZCOL[r.zone]||ZCOL.none;
+  chartOn('mgcRate',{type:'bar',data:{labels:rated.map(r=>r.name),datasets:[{label:'Current projects',data:rated.map(r=>r.rating==null?null:+r.rating.toFixed(1)),backgroundColor:SER[0],borderRadius:4,barThickness:14},
+      {label:Y+' (calendar year)',data:rated.map(r=>r.yr.rating==null?null:+r.yr.rating.toFixed(1)),backgroundColor:SER[1],borderRadius:4,barThickness:14}]},
+    options:baseOpts({indexAxis:'y',scales:{x:{min:0,max:100,grid:{color:c=>[40,60].includes(+c.tick.value)?'#b9c4bd':'#eef1ef'},ticks:{stepSize:20,font:{family:'Barlow, system-ui, sans-serif'}}},y:{grid:{display:false},ticks:{font:{family:'Barlow, system-ui, sans-serif',size:13},color:'#1d2420'}}},
+      plugins:{legend:{display:true,position:'top',labels:{boxWidth:12,font:{family:'Barlow, system-ui, sans-serif'}}},tooltip:{callbacks:{label:c=>{const r=c.datasetIndex?rated[c.dataIndex].yr:rated[c.dataIndex];return c.raw==null?' not rated':` ${c.dataset.label}: ${Math.round(c.raw)} · ${r.word} (${r.rated.length} job${r.rated.length===1?'':'s'})`;}}}}})});
+  chartOn('mgcDays',{type:'bar',data:{labels:curJobs.map(j=>(j.job.name.length>26?j.job.name.slice(0,25)+'…':j.job.name)),datasets:[{label:'Job rating',data:curJobs.map(j=>+j.rating.toFixed(1)),backgroundColor:curJobs.map(j=>ZCOL[j.zone]),borderRadius:4,barThickness:16}]},
+    options:baseOpts({indexAxis:'y',scales:{x:{min:0,max:100,grid:{color:c=>[40,60].includes(+c.tick.value)?'#b9c4bd':'#eef1ef'},ticks:{stepSize:20,font:{family:'Barlow, system-ui, sans-serif'}}},y:{grid:{display:false},ticks:{font:{family:'Barlow, system-ui, sans-serif',size:12},color:'#1d2420'}}},
+      plugins:{legend:{display:false},tooltip:{callbacks:{title:it=>{const j=curJobs[it[0].dataIndex];return j.job.name+' · '+j.job.pm;},label:c=>{const j=curJobs[c.dataIndex];return [` ${Math.round(j.rating)} · ${j.word}`,` MH pace ${j.ratio==null?'—':j.ratio.toFixed(2)+' → '+r0(j.paceScore)}`,` Days logged ${j.logged} of ${j.workDays} (info)`];}}}}})});
+  R.forEach(r=>{r.earned=r.active.reduce((a,s)=>a+s.earned,0);r.used=r.active.reduce((a,s)=>a+s.used,0);});
+  const pmW=R.filter(r=>r.used>0);
+  chartOn('mgcPm',{type:'bar',data:{labels:pmW.map(r=>r.name),datasets:[{label:'Worked MH',data:pmW.map(r=>Math.round(r.used)),backgroundColor:SER[0],borderRadius:4},{label:'Estimated MH',data:pmW.map(r=>Math.round(r.earned)),backgroundColor:SER[1],borderRadius:4}]},
+    options:baseOpts({plugins:{legend:{display:true,position:'top',labels:{boxWidth:12,font:{family:'Barlow, system-ui, sans-serif'}}},tooltip:{callbacks:{footer:it=>{const r=pmW[it[0].dataIndex];return 'Estimated ÷ worked MH '+(r.earned/r.used).toFixed(2);}}}}})});
+  chartOn('mgcJob',{type:'bar',data:{labels:worked.map(s=>s.name.length>28?s.name.slice(0,27)+'…':s.name),datasets:[{label:'Worked MH',data:worked.map(s=>Math.round(s.used)),backgroundColor:SER[0],borderRadius:4},{label:'Estimated MH',data:worked.map(s=>Math.round(s.earned)),backgroundColor:SER[1],borderRadius:4}]},
+    options:baseOpts({indexAxis:'y',scales:{x:{grid:{color:'#eef1ef'},ticks:{font:{family:'Barlow, system-ui, sans-serif'}}},y:{grid:{display:false},ticks:{font:{family:'Barlow, system-ui, sans-serif',size:12},color:'#1d2420'}}},
+      plugins:{legend:{display:true,position:'top',labels:{boxWidth:12,font:{family:'Barlow, system-ui, sans-serif'}}},tooltip:{callbacks:{title:it=>worked[it[0].dataIndex].name+' · '+worked[it[0].dataIndex].pm,footer:it=>{const s=worked[it[0].dataIndex];return 'Estimated ÷ worked MH '+(s.earned/s.used).toFixed(2);}}}}})});
+  // over time: active jobs first, at most 8 lines (fixed color per job)
+  const tj=worked.slice().sort((a,b)=>(b.active-a.active)||(b.start<a.start?-1:1)).slice(0,8);
+  const wk=[...new Set([].concat(...tj.map(s=>Object.keys(s.weekly))))].sort().slice(-26);
+  chartOn('mgcTime',{type:'line',data:{labels:wk.map(k=>short(k)),datasets:tj.map(s=>({label:s.name,data:wk.map(k=>s.weekly[k]!=null?+s.weekly[k].toFixed(3):null),borderColor:jobColor(s.id),backgroundColor:jobColor(s.id),borderWidth:2,pointRadius:3,pointHoverRadius:5,spanGaps:false,tension:0.2}))},
+    options:baseOpts({interaction:{mode:'index',intersect:false},scales:{x:{grid:{display:false},title:{display:true,text:'Week starting (Tue)',font:{family:'Barlow, system-ui, sans-serif'}}},y:{suggestedMin:0.7,suggestedMax:1.25,grid:{color:c=>[0.95,1,1.02].includes(+c.tick.value)?'#b9c4bd':'#eef1ef'},ticks:{callback:v=>(+v).toFixed(2),font:{family:'Barlow, system-ui, sans-serif'}}}},
+      plugins:{legend:{display:true,position:'top',labels:{boxWidth:12,font:{family:'Barlow, system-ui, sans-serif'}}},tooltip:{callbacks:{label:c=>` ${c.dataset.label}: ${c.raw==null?'—':c.raw.toFixed(2)}`}}}})});
+  drawDim(worked);}
+function grp(list,key){const G={};list.forEach(s=>{const k=key(s);const g=G[k]||(G[k]={k,n:0,e:0,u:0,jobs:[],rs:[]});g.n++;g.e+=s.earned;g.u+=s.used;g.jobs.push(s);const r=jobRating(s).rating;if(r!=null)g.rs.push(r);});return G;}
+const gRatio=g=>g.u>0?g.e/g.u:null,gRate=g=>g.rs.length?g.rs.reduce((a,b)=>a+b,0)/g.rs.length:null;
+function sortKeys(keys,dim){const ord=ORDER[dim]||[];const sp=x=>x==='Not sent'?3:x==='Not picked'||x==='Unknown'||x==='Unknown size'?2:0;
+  return keys.sort((a,b)=>{if(sp(a)!==sp(b))return sp(a)-sp(b);const ia=ord.indexOf(a),ib=ord.indexOf(b);if(ia>-1||ib>-1)return (ia<0?99:ia)-(ib<0?99:ib);return a.localeCompare(b);});}
+const cellHTML=(g,key)=>g?`<td class="n mgcell" data-cell="${esc(key)}"><span class="sw2" style="background:${g.k==='Not sent'?'#c3c9c5':ratioCol(gRatio(g))}"></span>${gRatio(g).toFixed(2)}<small>${g.n} job${g.n===1?'':'s'}</small></td>`:'<td class="n mut">—</td>';
+function showCellJobs(title,jobs){const h=document.getElementById('mgScnJobs');if(!h)return;
+  h.innerHTML=`<div class="mgbdw"><h3>${esc(title)} <button class="ppx" id="scnX" aria-label="Close">✕</button></h3><table class="t mgt"><thead><tr><th>Job</th><th>PM</th><th>Profile</th><th class="n">Estimated ÷ worked</th><th class="n">Job rating</th></tr></thead><tbody>${jobs.map(s=>{const r=jobRating(s);return `<tr><td><a href="#" class="mgopen" data-goj="${s.id}"><b>${esc(s.name)}</b></a></td><td>${esc(s.pm)}</td><td>${profileChip(jobProfile(s))}</td><td class="n">${s.used?(s.earned/s.used).toFixed(2):'—'}</td><td class="n">${r.rating==null?'—':r0(r.rating)}</td></tr>`;}).join('')}</tbody></table></div>`;
+  h.querySelector('#scnX').onclick=()=>h.innerHTML='';h.querySelectorAll('[data-goj]').forEach(a=>a.onclick=e=>{e.preventDefault();goJob(a.dataset.goj);});h.scrollIntoView({block:'nearest'});}
+function drawDim(worked){const d=DIMS.find(x=>x[0]===MG.dim)||DIMS[0];const G=grp(worked,d[2]);
+  const rows=sortKeys(Object.keys(G),d[0]).map(k=>G[k]);
+  const old=MG.charts.find(c=>c.canvas&&c.canvas.id==='mgcDim');if(old){old.destroy();MG.charts=MG.charts.filter(c=>c!==old);}
+  chartOn('mgcDim',{type:'bar',data:{labels:rows.map(g=>`${g.k} (${g.n})`),datasets:[{label:'Estimated ÷ worked MH',data:rows.map(g=>+gRatio(g).toFixed(3)),
+      backgroundColor:rows.map(g=>g.k==='Not sent'?'#c3c9c5':ratioCol(gRatio(g))),borderRadius:4,maxBarThickness:46}]},
+    options:baseOpts({scales:{x:{grid:{display:false},ticks:{font:{family:'Barlow, system-ui, sans-serif',size:12},color:'#1d2420'}},y:{suggestedMin:0,suggestedMax:1.2,grid:{color:c=>[0.95,1,1.02].includes(+c.tick.value)?'#b9c4bd':'#eef1ef'},ticks:{callback:v=>(+v).toFixed(2),font:{family:'Barlow, system-ui, sans-serif'}}}},
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>{const g=rows[c.dataIndex];return ` ${gRatio(g).toFixed(2)} estimated MH per hour worked · ${g.n} job${g.n===1?'':'s'}`;},footer:it=>rows[it[0].dataIndex].jobs.slice(0,6).map(s=>s.name).join('\n')}}}})});
+  const tb=document.getElementById('mgDimT');if(tb){tb.innerHTML=`<thead><tr><th>${d[1]}</th><th class="n">Jobs</th><th class="n">Estimated MH</th><th class="n">Worked MH</th><th class="n">Estimated ÷ worked</th><th class="n">Avg job rating</th></tr></thead><tbody>`+
+    (rows.map(g=>`<tr data-row="${esc(g.k)}"><td>${esc(g.k)}</td><td class="n">${g.n}</td><td class="n">${fmt(g.e)}</td><td class="n">${fmt(g.u)}</td><td class="n"><span class="sw2" style="background:${g.k==='Not sent'?'#c3c9c5':ratioCol(gRatio(g))}"></span>${gRatio(g).toFixed(2)}</td><td class="n">${gRate(g)==null?'—':r0(gRate(g))}</td></tr>`).join('')||'<tr><td colspan="6" class="mut">No jobs with hours yet.</td></tr>')+'</tbody>';
+    tb.querySelectorAll('[data-row]').forEach(r=>r.onclick=()=>showCellJobs(`${d[1]}: ${r.dataset.row}`,G[r.dataset.row].jobs));}
+  drawCross(worked);}
+/* combined views: size × complexity, roof type × complexity, PM × scenario */
+function drawCross(worked){const sent=worked.filter(s=>s.analysis);const sz=DIMS[0][2],cx=s=>pv(s,p=>p.complexity),rf=DIMS[3][2];
+  const cross=(id,rowKey,rowDim,title)=>{const t=document.getElementById(id);if(!t)return;const cols=['Normal','Complex'];const G={};
+    sent.forEach(s=>{const r=rowKey(s),c=cx(s);(G[r]=G[r]||{});const g=G[r][c]||(G[r][c]={k:r+' · '+c,n:0,e:0,u:0,jobs:[],rs:[]});g.n++;g.e+=s.earned;g.u+=s.used;g.jobs.push(s);});
+    const rows=sortKeys(Object.keys(G),rowDim);
+    t.innerHTML=`<thead><tr><th>${title}</th>${cols.map(c=>`<th class="n">${c}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr><td>${esc(r)}</td>${cols.map(c=>cellHTML(G[r][c],r+'|'+c)).join('')}</tr>`).join('')||'<tr><td colspan="3" class="mut">No jobs with job details yet.</td></tr>'}</tbody>`;
+    t.querySelectorAll('[data-cell]').forEach(td=>td.onclick=()=>{const [r,c]=td.dataset.cell.split('|');showCellJobs(`${r} · ${c}`,G[r][c].jobs);});};
+  cross('mgXsize',sz,'size','Size');cross('mgXroof',rf,'roofType','Roof type');
+  const t=document.getElementById('mgXpm');if(!t)return;const cols=['Small','Medium','Large','Normal','Complex','SRS'];
+  const colKey={Small:s=>sz(s)==='Small',Medium:s=>sz(s)==='Medium',Large:s=>sz(s)==='Large',Normal:s=>cx(s)==='Normal',Complex:s=>cx(s)==='Complex',SRS:s=>s.analysis.srs==='srs'};
+  const pms=[...new Set(sent.map(s=>s.pm))].sort();const G={};
+  pms.forEach(p=>{G[p]={};cols.forEach(c=>{const js=sent.filter(s=>s.pm===p&&colKey[c](s));if(js.length){const g={k:p+' · '+c,n:js.length,e:js.reduce((a,s)=>a+s.earned,0),u:js.reduce((a,s)=>a+s.used,0),jobs:js,rs:[]};G[p][c]=g;}});});
+  t.innerHTML=`<thead><tr><th>PM</th>${cols.map(c=>`<th class="n">${c}</th>`).join('')}</tr></thead><tbody>${pms.map(p=>`<tr><td>${esc(p)}</td>${cols.map(c=>cellHTML(G[p][c],p+'|'+c)).join('')}</tr>`).join('')||'<tr><td colspan="7" class="mut">No jobs with job details yet.</td></tr>'}</tbody>`;
+  t.querySelectorAll('[data-cell]').forEach(td=>td.onclick=()=>{const [p,c]=td.dataset.cell.split('|');showCellJobs(`${p} · ${c}`,G[p][c].jobs);});}
+
+/* start-up: settings from the folder once the app has read its folder handle */
+(async()=>{for(let i=0;i<200&&!window.LH_READY;i++)await new Promise(r=>setTimeout(r,50));try{await readSettingsFolder();}catch(e){}updateMeter();})();
+window.RPM.mg={jobProfile,get settings(){return LH_SETTINGS},pmRating,pmCurrent,pmYear,jobRating,jobStats,paceScore,zoneOf,openMgmt,lockMgmt,readSettingsFolder,
+  get unlocked(){return MG.unlocked},idle(ms){MG.last=Date.now()-ms;},clearCache(){MG.cache={};}};
+
+/* ===================== 11182026-4: Mark job complete + after-closeout hours =====================
+   Completion (Charlie, Nov 18): the job's PM taps "Mark job complete". Saved with the daily file as
+     completion: {date, by:{name,datumId:null}, at, t}   (undo / reopen-by-PM: {date:null, undone:true, by, at, t}); newer t wins on merge.
+   After the completion date no crew hours are charged, the job leaves "current" (rating, meter) and work entry is locked.
+   The PM can undo on the day he marked it; after that an admin reopens it from Management.
+   Admin data (reopens, after-closeout hours) lives in  <Job folder>\<Job> - Admin adjustments.json  — never in the PM's daily file:
+     {app:"Labor Hound", kind:"adminAdjustments", version:1, job:{id,name,qno,jobNo}, updatedAt, updatedBy,
+      afterCloseout:[{id, date, men, hrs, mh, reason:"punch"|"notFinished"|"warranty"|"other", note, by:{name,datumId}, at}],
+      reopens:[{at, by:{name,datumId}, note}], deleted:[ids]}
+   An admin reopen counts when it is newer than the PM's completion; the PM marking complete again later wins again. */
+const CP={bypass:false};
+const ADJ={};
+const ADJ_KEY=id=>'laborHound.adminAdj.'+id;
+const adjFileName=j=>`${safeName(j.name)} - Admin adjustments.json`;
+const REASONS={punch:'Punch list',notFinished:'Not really finished',warranty:'Warranty / leak',other:'Other'};
+const acMH=x=>x.mh!=null&&x.mh!==''?+x.mh||0:(+x.men||0)*(+x.hrs||0);
+function normAdj(d,id){const j=JOBLIST.find(x=>x.id===id)||{};
+  const a={app:'Labor Hound',kind:'adminAdjustments',version:1,job:{id,name:j.name||'',qno:j.qno||'',jobNo:''},updatedAt:null,updatedBy:null,afterCloseout:[],reopens:[],deleted:[]};
+  if(d&&d.kind==='adminAdjustments'){Object.assign(a,d);a.afterCloseout=(d.afterCloseout||[]).slice();a.reopens=(d.reopens||[]).slice();a.deleted=(d.deleted||[]).slice();}
+  return a;}
+function adjOf(id){if(!ADJ[id]){let d=null;try{d=JSON.parse(store.get(ADJ_KEY(id))||'null');}catch(e){}ADJ[id]=normAdj(d,id);}return ADJ[id];}
+function mergeAdj(a,b){const del=new Set([...(a.deleted||[]),...(b.deleted||[])]),m=new Map(),rm=new Map();
+  [...a.afterCloseout,...b.afterCloseout].forEach(x=>{if(!del.has(x.id))m.set(x.id,x);});
+  [...a.reopens,...b.reopens].forEach(x=>rm.set(x.at+'|'+((x.by&&x.by.name)||''),x));
+  const o={...a,afterCloseout:[...m.values()].sort((x,y)=>x.date<y.date?-1:x.date>y.date?1:0),reopens:[...rm.values()].sort((x,y)=>x.at<y.at?-1:1),deleted:[...del]};
+  if((b.updatedAt||'')>(a.updatedAt||'')){o.updatedAt=b.updatedAt;o.updatedBy=b.updatedBy;}return o;}
+const adjText=a=>JSON.stringify(a,null,1)+'\n';
+async function writeAdj(id){const j=JOBLIST.find(x=>x.id===id);if(!j||!(await canWrite(SAVE.lhDir)))return false;
+  try{await writeJson(SAVE.lhDir,folderOf(j),adjFileName(j),adjText(adjOf(id)));return true;}catch(e){toast('Could not save admin adjustments: '+e.message);return false;}}
+async function readAdjFolder(id){const j=JOBLIST.find(x=>x.id===id);if(!j||!(await canWrite(SAVE.lhDir)))return false;let d=null;
+  try{const sub=await SAVE.lhDir.getDirectoryHandle(folderOf(j));const fh=await sub.getFileHandle(adjFileName(j));d=JSON.parse(await (await fh.getFile()).text());}
+  catch(e){if(e.name!=='NotFoundError')console.warn('adjustments',e);}
+  const loc=adjOf(id);
+  if(d&&d.kind==='adminAdjustments'&&d.job&&d.job.id===id){ADJ[id]=mergeAdj(loc,normAdj(d,id));store.set(ADJ_KEY(id),JSON.stringify(ADJ[id]));
+    if(adjText(normAdj(d,id))!==adjText(ADJ[id]))await writeAdj(id);}
+  else if(loc.updatedAt)await writeAdj(id);     // made on this device while the folder wasn't reachable
+  return true;}
+async function readAllAdj(){for(const j of JOBLIST.slice())await readAdjFolder(j.id);MG.cache={};}
+async function saveAdj(id){const a=adjOf(id);a.updatedAt=new Date().toISOString();a.updatedBy=who();store.set(ADJ_KEY(id),JSON.stringify(a));MG.cache={};
+  const ok=await writeAdj(id);if(JOB)refreshAll();return ok;}
+/* the job's effective completion date (null = open). J = a job state's JOB (defaults to the open job) */
+function doneDate(J){J=J||JOB;if(!J)return null;const c=J.completion;if(!c||!c.date)return null;
+  return adjOf(J.id).reopens.some(x=>x.at>c.at)?null:c.date;}
+const localDay=ms=>{const d=new Date(ms);return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate());};
+function canUndo(){const c=JOB&&JOB.completion;return !!(doneDate()&&c.by&&c.by.name===ME&&JOB.pm===ME&&localDay(c.at)===TODAY);}
+const isMyOpen=()=>!!(JOB&&ME&&JOB.pm===ME);
+
+/* --- wrappers: hours stop after completion, entry locked, completion saved / merged / sent --- */
+{const _hf=hoursFor;hoursFor=function(d){const dd=doneDate();if(dd&&d>dd)return {men:0,hrs:0,note:'Job completed',def:true,counts:false,closed:true};return _hf(d);};}
+{const _rb=roBlock;roBlock=function(){if(_rb())return true;const dd=doneDate();
+  if(dd&&!CP.bypass){toast(`Job completed ${short(dd)} — work entry is locked.${canUndo()?' Undo it on the Job tab (today only).':' An admin can reopen it.'}`);return true;}return false;};}
+{const _sn=snapshot;snapshot=function(){const s=_sn.apply(this,arguments);s.completion=(JOB&&JOB.completion)||null;return s;};}
+{const _fs=fillState;fillState=function(st,d){_fs.apply(this,arguments);st.JOB.completion=d.completion||null;};}
+{const _mi=mergeInto;mergeInto=function(d){const r=_mi.apply(this,arguments);if(!r||r.err)return r;const f=d.completion,l=JOB.completion;
+  if(f&&(f.t||0)>((l&&l.t)||0)&&JSON.stringify(f)!==JSON.stringify(l)){JOB.completion=f;r.completion=f;MG.cache={};}return r;};}
+{const _id=importData;importData=async function(d,fname){const r=await _id.apply(this,arguments);
+  if(r&&r.completion){SAVE.dirty[JOB.id]=true;saveState();refreshAll();await saveNow();
+    const line=r.completion.date?`Job marked complete — last day ${nice(r.completion.date)} (by ${esc((r.completion.by||{}).name||'—')})`:'Job reopened (completion undone)';
+    const ul=document.querySelector('#msgBox .mb ul');
+    if(ul)ul.insertAdjacentHTML('beforeend',`<li><b>${line}</b></li>`);else showMsg('📥 Brought in',`<p><b>${esc(JOB.name)}</b></p><ul><li><b>${line}</b></li></ul>`);}
+  return r;};}
+{const _so=sendToOffice;sendToOffice=async function(){CP.bypass=true;try{return await _so.apply(this,arguments);}finally{CP.bypass=false;}};}
+{const _us=unsent;unsent=function(){let n=_us.apply(this,arguments);const c=JOB&&JOB.completion,s=JOB&&sentInfo(JOB.id);if(c&&s&&(c.t||0)>(+s.at||0))n++;return n;};}
+
+/* --- the PM: mark complete / undo --- */
+function saveSoon(){const go=()=>{if(SAVE.busy)setTimeout(go,300);else saveNow();};go();}
+function setCompletion(c){JOB.completion=c;SAVE.dirty[JOB.id]=true;saveState();MG.cache={};refreshAll();saveSoon();}
+function lastEntryDay(){return ENTRIES.map(e=>e.date).filter(d=>d<=TODAY).sort().pop()||null;}
+function openComplete(){if(!isMyOpen()||isRO()){toast(JOB?`Only ${JOB.pm} can mark this job complete`:'');return;}
+  const g=mgGate(),box=$('#mgBox'),last=lastEntryDay(),def=C.pct>=0.999&&last?last:TODAY;
+  box.innerHTML=`<h2>✓ Mark job complete?</h2><p><b>${esc(JOB.name)}</b></p>
+    <p style="text-align:left">Last day the crew worked on this job:</p><input type="date" id="cpDate" class="pin" style="letter-spacing:0;font-size:18px" value="${def}" min="${last||JOB.start}" max="${TODAY}">
+    <p style="text-align:left;font-size:14px;margin-top:10px">After this day Labor Hound <b>stops charging crew hours</b> to this job, the job leaves your current rating, and work entry is locked. ${C.pct<0.999?`<br><b style="color:var(--bad)">Only ${fmt(C.pct*100)}% of the work is entered.</b> Enter what's left first if the crew finished it.`:''}<br>You can undo it <b>today only</b>. After that, an admin can reopen it.</p>
+    <div class="admmsg" id="cpMsg"></div>
+    <div class="btns" style="justify-content:center;margin-top:8px"><button class="btn pri" id="cpGo">Mark complete</button><button class="btn" id="mgCancel">Cancel</button></div>`;
+  $('#mgCancel').onclick=closeGate;
+  $('#cpGo').onclick=()=>{const d=$('#cpDate').value;if(!d){$('#cpMsg').textContent='Pick the last day of work.';return;}
+    if(d>TODAY){$('#cpMsg').textContent='That day hasn\'t come yet.';return;}if(last&&d<last){$('#cpMsg').textContent=`Work is entered on ${short(last)} — pick that day or later.`;return;}
+    if(d<JOB.start){$('#cpMsg').textContent='That\'s before the job started.';return;}
+    closeGate();setCompletion({date:d,by:who(),at:new Date().toISOString(),t:Date.now()});toast(`${JOB.name} marked complete — crew hours stop after ${short(d)}`);};
+  g.hidden=false;}
+function undoComplete(){if(!canUndo())return;setCompletion({date:null,undone:true,by:who(),at:new Date().toISOString(),t:Date.now()});toast('Undone — the job is open again');}
+
+/* banner under the header + Job tab card */
+function renderDoneBar(){let b=document.getElementById('cpBar');
+  if(!b){b=document.createElement('div');b.id='cpBar';b.className='cpbar';const ro=document.getElementById('roBar');ro.parentNode.insertBefore(b,ro.nextSibling);}
+  const dd=doneDate();document.body.classList.toggle('done',!!dd);
+  if(!JOB){b.hidden=true;return;}
+  if(dd){const c=JOB.completion;b.hidden=false;b.className='cpbar done';
+    b.innerHTML=`✓ <b>Completed ${nice(dd)}</b>${c.by?' — marked by '+esc(c.by.name):''}. Crew hours stopped; work entry is locked.${canUndo()?' <a href="#" id="cpUndo">Undo (today only)</a>':''}`;}
+  else if(isMyOpen()&&!isRO()&&C&&C.pct>=0.999){b.hidden=false;b.className='cpbar remind';
+    b.innerHTML=`🏁 <b>All work is entered</b> — mark the job complete to stop the crew hours. <a href="#" id="cpMark">Mark job complete…</a>`;}
+  else b.hidden=true;
+  const u=document.getElementById('cpUndo');if(u)u.onclick=e=>{e.preventDefault();undoComplete();};
+  const m=document.getElementById('cpMark');if(m)m.onclick=e=>{e.preventDefault();openComplete();};}
+function renderDoneCard(){let c=document.getElementById('cpCard');
+  if(!c){c=document.createElement('div');c.className='card';c.id='cpCard';const w=document.querySelector('#tJob .wrap');if(!w)return;w.insertBefore(c,w.firstChild);}
+  if(!JOB)return;const dd=doneDate(),cmp=JOB.completion,mine=isMyOpen()&&!isRO(),a=adjOf(JOB.id),acT=a.afterCloseout.reduce((t,x)=>t+acMH(x),0);
+  const reo=a.reopens.length?a.reopens[a.reopens.length-1]:null;
+  c.innerHTML=`<h2>🏁 Job complete</h2>`+(dd?`<p class="note"><b>Completed ${nice(dd)}</b>${cmp.by?' — marked by '+esc(cmp.by.name)+' '+whenStr(cmp.at):''}. No crew hours are charged after that day, the job isn't in the current rating, and work entry is locked.</p>
+      ${canUndo()?'<button class="btn" id="cpUndo2">Undo — the job isn\'t finished</button> <span class="note">(today only)</span>':'<p class="note">An admin can reopen it from Management if work is still needed.</p>'}`
+    :`<p class="note">When the crew has finished, the PM marks the job complete. That <b>stops the crew hours</b> (no more default crew charged each work day), takes the job out of the current rating, and locks work entry.${reo?` <br>Reopened by ${esc((reo.by||{}).name||'an admin')} ${whenStr(reo.at)}.`:''}</p>
+      ${mine?`<button class="btn pri" id="cpMark2">✓ Mark job complete…</button>${C.pct<0.999?` <span class="note">${fmt(C.pct*100)}% of the work is entered so far.</span>`:''}`:`<p class="note">Only ${esc(JOB.pm)} can mark this job complete.</p>`}`)
+    +(acT?`<p class="note mgac" style="margin-top:10px"><b>${fmt(acT)} MH charged after ${JOB.pm===ME?'you':'the PM'} closed the job</b> (added by an admin: ${a.afterCloseout.map(x=>`${short(x.date)} ${fmt(acMH(x))} MH · ${REASONS[x.reason]||x.reason}`).join('; ')}). They count against this job's MH pace.</p>`:'');
+  const u=document.getElementById('cpUndo2');if(u)u.onclick=undoComplete;const m=document.getElementById('cpMark2');if(m)m.onclick=openComplete;}
+{const _rh2=refreshHeader;refreshHeader=function(){_rh2.apply(this,arguments);renderDoneBar();};}
+{const _rj=refreshJob;refreshJob=function(){_rj.apply(this,arguments);renderDoneCard();};}
+/* Progress card: after-closeout hours line */
+{const _rp2=refreshProgress;refreshProgress=function(){_rp2.apply(this,arguments);const d=document.getElementById('pJobRateD'),el=document.getElementById('pJobRate');
+  if(!d||!el||el.hidden||!JOB)return;const s=jobStats(JOB.id);
+  if(s&&s.acMH){d.hidden=false;d.insertAdjacentHTML('beforeend',`<br><b class="mgac">${fmt(s.acMH)} MH charged after you closed the job</b>`);}
+  if(s&&s.finished)d.hidden=false;};}
+
+/* --- Management: reopen + after-closeout hours (admin, behind the management password) --- */
+async function reopenJob(id,btn){if(!MG.unlocked)return;
+  if(btn&&btn.dataset.sure!=='1'){btn.dataset.sure='1';btn.textContent='Tap again to reopen';btn.classList.add('warnbtn');setTimeout(()=>{if(btn.isConnected){btn.dataset.sure='';btn.textContent='Reopen';btn.classList.remove('warnbtn');}},4000);return;}
+  adjOf(id).reopens.push({at:new Date().toISOString(),by:who(),note:''});const ok=await saveAdj(id);renderMgmt();
+  toast(`Reopened — crew hours count again until the PM marks it complete${ok?'':' (saved on this device only)'}`);}
+function renderAdjPanel(){const host=document.getElementById('mgAdj'),id=MG.adjOpen;if(!host||!id)return;const s=jobStats(id);if(!s){host.innerHTML='';return;}
+  const a=adjOf(id),tot=a.afterCloseout.reduce((t,x)=>t+acMH(x),0);
+  host.innerHTML=`<div class="mgbdw mgadj"><h3>After-closeout hours — ${esc(s.name)} <button class="ppx" id="adjX" aria-label="Close">✕</button></h3>
+   <p class="note">Hours charged after ${esc(s.pm)} closed the job (${s.end?'completed '+nice(s.end):'not completed right now'}). They're added to the job's worked MH (estimated MH stay the same), so they lower the job's MH pace, its rating and ${esc(s.pm.split(' ')[0])}'s rating for that year. Saved in <b>${esc(folderOf(JOBLIST.find(j=>j.id===id)))}\\${esc(adjFileName(JOBLIST.find(j=>j.id===id)))}</b>.</p>
+   <table class="t mgt"><thead><tr><th>Date</th><th class="n">MH</th><th>Reason</th><th>Note</th><th>Added by</th><th></th></tr></thead><tbody>
+   ${a.afterCloseout.map(x=>`<tr><td>${short(x.date)}</td><td class="n">${fmt(acMH(x),1)}<small>${x.mh!=null&&x.mh!==''?'MH':(x.men+' men × '+x.hrs+' h')}</small></td><td>${REASONS[x.reason]||esc(x.reason)}</td><td>${esc(x.note||'')}</td><td>${esc((x.by||{}).name||'')}<small>${whenStr(x.at)}</small></td><td><button class="x" data-adjdel="${x.id}">✕</button></td></tr>`).join('')||'<tr><td colspan="6" class="mut">None yet.</td></tr>'}
+   </tbody>${tot?`<tfoot><tr><td>Total</td><td class="n">${fmt(tot,1)}</td><td colspan="4"></td></tr></tfoot>`:''}</table>
+   <div class="mgw"><label>Date <input type="date" id="adjDate" value="${TODAY}" min="${s.end||s.start}" max="${TODAY}" style="width:auto"></label>
+     <label>Men <input type="number" id="adjMen" min="0" step="1" value="${(JOBLIST.find(j=>j.id===id).crew||{}).men||6}"></label><label>Hours each <input type="number" id="adjHrs" min="0" step="0.5" value="8"></label>
+     <label>or MH <input type="number" id="adjMh" min="0" step="0.5" placeholder="—"></label>
+     <label>Reason <select id="adjWhy">${Object.entries(REASONS).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')}</select></label>
+     <input id="adjNote" placeholder="Note (what was done)" style="flex:1;min-width:180px"><button class="btn pri" id="adjAdd">Add hours</button></div><div class="admmsg" id="adjMsg"></div></div>`;
+  $('#adjX').onclick=()=>{MG.adjOpen=null;host.innerHTML='';};
+  host.querySelectorAll('[data-adjdel]').forEach(b=>b.onclick=async()=>{if(b.dataset.sure!=='1'){b.dataset.sure='1';b.textContent='Delete?';b.classList.add('sure');return;}
+    const x=a.afterCloseout.find(y=>y.id===b.dataset.adjdel);a.afterCloseout=a.afterCloseout.filter(y=>y!==x);a.deleted.push(b.dataset.adjdel);await saveAdj(id);renderMgmt();toast('Removed');});
+  $('#adjAdd').onclick=async()=>{const date=$('#adjDate').value,men=+$('#adjMen').value,hrs=+$('#adjHrs').value,mhv=$('#adjMh').value,why=$('#adjWhy').value,note=$('#adjNote').value.trim();
+    const mh=mhv!==''?+mhv:men*hrs;
+    if(!date){$('#adjMsg').textContent='Pick the date the hours were worked.';return;}
+    if(s.end&&date<=s.end){$('#adjMsg').textContent=`After-closeout hours are after ${short(s.end)} (the completion date).`;return;}
+    if(!(mh>0)){$('#adjMsg').textContent='Enter men × hours, or MH.';return;}
+    if(why==='other'&&!note){$('#adjMsg').textContent='Add a note for "Other".';return;}
+    a.afterCloseout.push({id:'ac-'+newUid(),date,men:mhv!==''?null:men,hrs:mhv!==''?null:hrs,mh:mhv!==''?+mhv:null,reason:why,note,by:who(),at:new Date().toISOString()});
+    const ok=await saveAdj(id);renderMgmt();toast(`${fmt(mh)} MH added after closeout${ok?'':' (saved on this device only)'}`);};}
+
+/* phones / iPads: "Open a job file" also takes "<Job> - Admin adjustments.json" */
+{const _if2=importFiles;importFiles=async function(files){const rest=[];
+  for(const f of [...files]){let d=null;try{d=JSON.parse(await f.text());}catch(e){}
+    if(d&&d.app==='Labor Hound'&&d.kind==='adminAdjustments'&&d.job){const id=d.job.id;if(!JOBLIST.some(j=>j.id===id)){showMsg('Open the job first',`<p>${esc(d.job.name||'')} isn't on this device yet.</p>`);continue;}
+      ADJ[id]=mergeAdj(adjOf(id),normAdj(d,id));store.set(ADJ_KEY(id),JSON.stringify(ADJ[id]));MG.cache={};await writeAdj(id);if(JOB)refreshAll();toast('Admin adjustments brought in');}
+    else rest.push(f);}
+  if(rest.length)return _if2(rest);};}
+{const _cf2=connectFolder;connectFolder=async function(which){const r=await _cf2.apply(this,arguments);if(which==='lh'){await readAllAdj();if(JOB)refreshAll();if(mgOn())renderMgmt();}return r;};}
+(async()=>{for(let i=0;i<200&&!window.LH_READY;i++)await new Promise(r=>setTimeout(r,50));try{await readAllAdj();}catch(e){}if(JOB)refreshAll();})();
+Object.assign(window.RPM,{unsent,sendToOffice,importFiles,importData,hoursFor,snapshot:()=>snapshot()});   // the test / console handles point at the wrapped versions
+Object.assign(window.RPM.mg,{doneDate,adjOf,readAllAdj,openComplete,undoComplete,canUndo,reopenJob,saveAdj,get CP(){return CP}});
+
+/* ===================== 11182026-5: PM dashboard (home screen) · messages · weather =====================
+   Charlie, Nov 18: Labor Hound opens on the PM's own dashboard — his rating meter, messages from admin / management,
+   a simple weather card, his current jobs and this year's completed jobs. Tapping a job opens the job page
+   (the existing Daily · Progress · Log · Report · Job tabs); "← Dashboard" or the Jobs drop-down moves around. */
+const DASH={timer:null};
+const NUDGE_HOUR=15;   // Charlie: "Not logged today" only after 3:00 PM local time on work days
+const isDash=()=>document.body.classList.contains('dash');
+function ensureDash(){let t=document.getElementById('tDash');
+  if(!t){t=document.createElement('section');t.className='tab';t.id='tDash';document.querySelector('main').appendChild(t);}
+  if(!document.getElementById('dashBack')){const b=document.createElement('button');b.id='dashBack';b.className='dashback';b.innerHTML='← <span>Dashboard</span>';b.title='Back to my dashboard';
+    b.onclick=e=>{e.stopPropagation();showDash();};const brand=document.querySelector('header .brand');brand.parentNode.insertBefore(b,brand.nextSibling);}
+  return t;}
+function showDash(){const t=ensureDash();document.body.classList.add('dash');
+  document.querySelectorAll('#tabs button').forEach(x=>x.classList.remove('on'));document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===t));
+  try{toggleJobMenu(false);toggleMeMenu(false);}catch(e){}renderDash();window.scrollTo(0,0);}
+function showJobPage(tab){document.body.classList.remove('dash');const b=document.querySelector(`#tabs button[data-t="${tab||'tToday'}"]`);if(b&&JOB)b.click();}
+function goJob(id,tab){if(!JOB||JOB.id!==id){openJob(id);}fitView();refreshAll();showJobPage(tab);}
+/* wrappers: sign-in lands on the dashboard; picking a job from the drop-down opens its page; Management's back → dashboard */
+{const _sm=setMe;setMe=function(){_sm.apply(this,arguments);showDash();};}
+{const _rjm2=renderJobMenu;renderJobMenu=function(){_rjm2.apply(this,arguments);const h=$('#jobMenu .jmh');if(!h)return;
+  const b=document.createElement('button');b.className='ji dashji';b.innerHTML='<div class="jt"><b>🏠 My dashboard</b></div>';b.onclick=e=>{e.stopPropagation();toggleJobMenu(false);showDash();};
+  h.parentNode.insertBefore(b,h.nextSibling);};}
+document.getElementById('jobMenu').addEventListener('click',e=>{const b=e.target.closest('[data-job]');if(b)setTimeout(()=>showJobPage(),0);});
+document.getElementById('tabs').addEventListener('click',e=>{if(e.target.closest('button'))document.body.classList.remove('dash');},true);
+{const _smg=showMgmt;showMgmt=function(){if(!isMgmtUser(ME))document.body.classList.remove('dash');else document.body.classList.add('dash');return _smg.apply(this,arguments);};}
+{const _rh3=refreshHeader;refreshHeader=function(){_rh3.apply(this,arguments);if(isDash())dashSoon();};}
+{const _nj2=showNoJobs;showNoJobs=function(){_nj2.apply(this,arguments);if(isDash())dashSoon();};}
+function dashSoon(){clearTimeout(DASH.timer);DASH.timer=setTimeout(renderDash,60);}
+
+/* ---------- messages from admin / management ----------
+   TR Labor Hound\lh-messages.json  {app:"Labor Hound", kind:"messages", version:1, updatedAt, messages:[{id, to:[names]|"all",
+     from:{name,datumId:null}, at, subject, text, jobId?}], deleted:[ids]}   — written only from Management.
+   Read status (per PM): kept on the device (laborHound.msgRead.<PM> = {id: readAt}), written on desktops to
+     TR Labor Hound\lh-read - <PM>.json {app,kind:"messageReads",version:1,pm:{name,datumId:null},updatedAt,read:{id:at}},
+   and carried in the PM's daily files as msgRead:{pm, read} so it travels with Send to office (merged on the desktop). */
+const MSG_FILE='lh-messages.json',MSG_KEY='laborHound.messages',READ_KEY=n=>'laborHound.msgRead.'+n,readFile=n=>`lh-read - ${safeName(n)}.json`;
+let MSGS=(()=>{try{return normMsgs(JSON.parse(store.get(MSG_KEY)||'null'));}catch(e){return normMsgs(null);}})();
+function normMsgs(d){const m={app:'Labor Hound',kind:'messages',version:1,updatedAt:null,messages:[],deleted:[]};
+  if(d&&d.kind==='messages'){m.updatedAt=d.updatedAt||null;m.messages=(d.messages||[]).slice();m.deleted=(d.deleted||[]).slice();}return m;}
+function mergeMsgs(a,b){const del=new Set([...a.deleted,...b.deleted]),m=new Map();[...a.messages,...b.messages].forEach(x=>{if(!del.has(x.id))m.set(x.id,x);});
+  return {...a,updatedAt:[a.updatedAt||'',b.updatedAt||''].sort().pop()||null,messages:[...m.values()].sort((x,y)=>x.at<y.at?1:-1),deleted:[...del]};}
+const readsOf=n=>{try{return JSON.parse(store.get(READ_KEY(n))||'{}')||{};}catch(e){return {};}};
+async function writeRoot(name,text){if(!(await canWrite(SAVE.lhDir)))return false;try{const fh=await SAVE.lhDir.getFileHandle(name,{create:true});const w=await fh.createWritable();await w.write(text);await w.close();return true;}catch(e){console.warn(name,e);return false;}}
+async function readRoot(name){if(!(await canWrite(SAVE.lhDir)))return null;try{const fh=await SAVE.lhDir.getFileHandle(name);return JSON.parse(await (await fh.getFile()).text());}catch(e){if(e.name!=='NotFoundError')console.warn(name,e);return null;}}
+async function readMessagesFolder(){const d=await readRoot(MSG_FILE);if(d&&d.kind==='messages'){MSGS=mergeMsgs(MSGS,normMsgs(d));store.set(MSG_KEY,JSON.stringify(MSGS));}
+  if(ME){const r=await readRoot(readFile(ME));if(r&&r.kind==='messageReads'){const mine=Object.assign({},r.read||{},readsOf(ME));store.set(READ_KEY(ME),JSON.stringify(mine));
+    if(r.notifSeenAt&&r.notifSeenAt>(store.get(SEEN_KEY(ME))||''))store.set(SEEN_KEY(ME),r.notifSeenAt);}}}
+async function saveMessages(){MSGS.updatedAt=new Date().toISOString();store.set(MSG_KEY,JSON.stringify(MSGS));
+  const cur=await readRoot(MSG_FILE);if(cur&&cur.kind==='messages')MSGS=mergeMsgs(MSGS,normMsgs(cur));store.set(MSG_KEY,JSON.stringify(MSGS));
+  return writeRoot(MSG_FILE,JSON.stringify(MSGS,null,1)+'\n');}
+async function writeReads(n){const read=readsOf(n),seen=store.get(SEEN_KEY(n))||null;return writeRoot(readFile(n),JSON.stringify({app:'Labor Hound',kind:'messageReads',version:1,pm:{name:n,datumId:null},updatedAt:new Date().toISOString(),read,notifSeenAt:seen},null,1)+'\n');}
+const SEEN_KEY=n=>'laborHound.notifSeen.'+n;
+const MSG_DAYS=7;   // Charlie: messages drop off PM dashboards 7 days after they're sent (read or not); Management keeps them, marked Expired
+const msgExpired=m=>Date.now()-new Date(m.at).getTime()>MSG_DAYS*864e5;
+const msgFor=n=>MSGS.messages.filter(m=>(m.to==='all'||(Array.isArray(m.to)&&m.to.includes(n)))&&!msgExpired(m));
+async function markRead(id){if(!ME)return;const r=readsOf(ME);if(r[id])return;r[id]=new Date().toISOString();store.set(READ_KEY(ME),JSON.stringify(r));renderDash();await writeReads(ME);}
+/* read status travels in the daily file (Send to office) */
+{const _sn2=snapshot;snapshot=function(){const s=_sn2.apply(this,arguments);if(ME&&JOB&&JOB.pm===ME){const r=readsOf(ME);if(Object.keys(r).length)s.msgRead={pm:{name:ME,datumId:null},read:r};}return s;};}
+{const _mi2=mergeInto;mergeInto=function(d){const r=_mi2.apply(this,arguments);if(r&&!r.err&&d.msgRead&&d.msgRead.pm&&d.msgRead.pm.name){const n=d.msgRead.pm.name,cur=readsOf(n);let ch=0;
+    Object.entries(d.msgRead.read||{}).forEach(([k,v])=>{if(!cur[k]){cur[k]=v;ch++;}});if(ch){store.set(READ_KEY(n),JSON.stringify(cur));writeReads(n);}}return r;};}
+{const _if3=importFiles;importFiles=async function(files){const rest=[];
+  for(const f of [...files]){let d=null;try{d=JSON.parse(await f.text());}catch(e){}
+    if(d&&d.app==='Labor Hound'&&d.kind==='messages'){MSGS=mergeMsgs(MSGS,normMsgs(d));store.set(MSG_KEY,JSON.stringify(MSGS));renderDash();toast('Messages brought in');}else rest.push(f);}
+  if(rest.length)return _if3(rest);};}
+{const _cf3=connectFolder;connectFolder=async function(which){const r=await _cf3.apply(this,arguments);if(which==='lh'){await readMessagesFolder();if(isDash())renderDash();}return r;};}
+
+/* ---------- weather (Open-Meteo, free, no key). Never blocks the app. ---------- */
+const OFFICE={lat:33.4707,lon:-82.5046,label:'Office — Thomson, GA'};
+const WX_TTL=30*60*1000;
+const ST={GA:'Georgia',SC:'South Carolina',NC:'North Carolina',FL:'Florida',AL:'Alabama',TN:'Tennessee',VA:'Virginia'};
+const wxUrl=(lat,lon)=>`https://api.open-meteo.com/v1/forecast?latitude=${(+lat).toFixed(4)}&longitude=${(+lon).toFixed(4)}&current=temperature_2m,wind_speed_10m,wind_direction_10m&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum,weather_code&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FNew_York&forecast_days=3`;
+const wxKey=(lat,lon)=>'laborHound.wx.'+(+lat).toFixed(2)+','+(+lon).toFixed(2);
+/* place for a job: geocoded once from the city / state in the setup's address (only the city name leaves the device), cached per job */
+async function placeOf(j){if(!j)return OFFICE;const k='laborHound.geo.'+j.id;try{const c=JSON.parse(store.get(k)||'null');if(c&&c.lat!=null)return c;if(c&&c.none)return {...OFFICE,label:'Office ('+(c.why||'job address not found')+')'};}catch(e){}
+  const addr=(j.def&&j.def.analysis&&j.def.analysis.address)||j.address||'';const parts=addr.split(',').map(x=>x.trim()).filter(Boolean);
+  let city='',stv='';if(parts.length>=2){const last=parts[parts.length-1].split(/\s+/);if(/^[A-Z]{2}$/.test(last[0])){stv=last[0];city=parts[parts.length-2];}else city=parts[parts.length-1];}
+  if(!city){store.set(k,JSON.stringify({none:true,why:'no job address'}));return {...OFFICE,label:'Office (no job address)'};}
+  try{const r=await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=10&language=en&format=json&countryCode=US`);
+    const d=await r.json();const list=(d&&d.results)||[];const hit=list.find(x=>ST[stv]&&x.admin1===ST[stv])||list[0];
+    if(hit){const p={lat:hit.latitude,lon:hit.longitude,label:`${hit.name}, ${stv||hit.admin1||''}`.replace(/, $/,'')};store.set(k,JSON.stringify(p));return p;}
+    store.set(k,JSON.stringify({none:true}));}catch(e){/* offline: try again next time */}
+  return {...OFFICE,label:'Office (job location not found yet)'};}
+async function getWx(lat,lon){const k=wxKey(lat,lon);let c=null;try{c=JSON.parse(store.get(k)||'null');}catch(e){}
+  if(c&&Date.now()-c.at<WX_TTL)return {...c,fresh:true};
+  try{const r=await fetch(wxUrl(lat,lon));if(!r.ok)throw new Error('HTTP '+r.status);const data=await r.json();if(!data.current||!data.daily)throw new Error('bad data');
+    const v={at:Date.now(),data};store.set(k,JSON.stringify(v));return {...v,fresh:true};}
+  catch(e){return c?{...c,fresh:false}:null;}}
+const compass=d=>['N','NE','E','SE','S','SW','W','NW'][Math.round(((+d%360)+360)%360/45)%8];
+const wxIcon=c=>c==null?'':c===0?'☀️':c<=2?'🌤':c===3?'☁️':c<=48?'🌫':c<=57?'🌦':c<=67?'🌧':c<=77?'🌨':c<=82?'🌧':c<=86?'🌨':'⛈';
+function wxHTML(w,label,small){if(!w)return `<div class="wx off">🌥 Weather unavailable offline<small>${esc(label)}</small></div>`;
+  const c=w.data.current,d=w.data.daily,g=(k,i)=>d[k]&&d[k][i],n=Math.min(3,(d.time||[]).length||1);
+  const day=i=>i===0?'Today':new Date(d.time[i]+'T12:00:00').toLocaleDateString('en-US',{weekday:'short'});
+  return `<div class="wx${small?' sm':''}"><div class="wxt"><b>${wxIcon(g('weather_code',0))} ${Math.round(c.temperature_2m)}°F</b><span>${esc(label)}</span></div>
+    <div class="wxg"><span>💨 ${Math.round(c.wind_speed_10m)} mph ${compass(c.wind_direction_10m)}</span></div>
+    <div class="wx3">${Array.from({length:n},(_,i)=>`<div class="wxd${i===0?' t':''}"><b>${day(i)}</b><span class="wxi">${wxIcon(g('weather_code',i))}</span><span>⬆ ${Math.round(g('temperature_2m_max',i))}° ⬇ ${Math.round(g('temperature_2m_min',i))}°</span><span>🌧 ${g('precipitation_probability_max',i)??'—'}% · ${(+g('precipitation_sum',i)||0).toFixed(2)} in</span></div>`).join('')}</div>
+    ${w.fresh?'':`<small class="wxold">Offline — last updated ${whenStr(w.at)}</small>`}</div>`;}
+async function fillWx(el,j,small){if(!el)return;const tok=Math.random();el.dataset.tok=tok;const p=j?await placeOf(j):OFFICE;const w=await getWx(p.lat,p.lon);
+  if(el.dataset.tok!==String(tok))return;el.innerHTML=wxHTML(w,p.label,small);}
+/* job page: a small weather card on the Daily tab */
+{const _rd=refreshDaily;refreshDaily=function(){_rd.apply(this,arguments);let el=document.getElementById('wxJob');
+  if(!el){const sec=document.createElement('div');sec.className='sec';sec.innerHTML='<div id="wxJob" class="wxbox"><div class="wx load">Loading weather…</div></div>';const side=document.querySelector('#tToday .side');side.insertBefore(sec,side.children[1]||null);el=document.getElementById('wxJob');}
+  if(JOB&&el.dataset.job!==JOB.id){el.dataset.job=JOB.id;el.innerHTML='<div class="wx load">Loading weather…</div>';fillWx(el,JOBLIST.find(x=>x.id===JOB.id),true);}};}
+
+/* ---------- the dashboard ---------- */
+function renderDash(){const t=ensureDash();if(!isDash()||(ME&&isMgmtUser(ME)))return;
+  const Y=TODAY.slice(0,4);let mine=[];try{mine=JOBLIST.filter(j=>j.pm===ME).map(j=>jobStats(j.id)).filter(Boolean);}catch(e){console.warn(e);}
+  const cur=mine.filter(s=>!s.finished).sort((a,b)=>(b.active-a.active)||a.name.localeCompare(b.name)),past=mine.filter(s=>s.finished&&s.end&&s.end.slice(0,4)===Y).sort((a,b)=>a.end<b.end?1:-1);
+  const r=ME?pmCurrent(ME):null;MG.mine=r;
+  const msgs=ME?msgFor(ME):[],rd=ME?readsOf(ME):{},unread=msgs.filter(m=>!rd[m.id]),readM=msgs.filter(m=>rd[m.id]);
+  const hr=new Date().getHours(),hi=hr<12?'Good morning':hr<17?'Good afternoon':'Good evening';
+  const pick=store.get('laborHound.wxPick.'+ME)||'',wxJobs=cur.filter(s=>s.active),wxSel=wxJobs.find(s=>s.id===pick)?pick:(pick==='office'?'office':(wxJobs[0]||{}).id||'office');
+  const workDay=JOB&&JOB.holidays?isWork(TODAY):(dt(TODAY).getDay()%6!==0);
+  const card=s=>{const j=jobRating(s),st=!s.started?['Not started','none']:s.status==='good'?['Ahead','good']:s.status==='warn'?['On track','warn']:['Behind','bad'];
+    const days=s.last?Math.round((dt(TODAY)-dt(s.last))/864e5):null;
+    const nudge=!s.active?`Starts ${nice(s.start)}`:s.last===TODAY?'<span class="ok">✓ Logged today</span>':workDay?`${new Date().getHours()>=NUDGE_HOUR?'<span class="nudge">Not logged today</span>':'<span class="calm">No entry yet today</span>'}${s.last?` · last entry ${short(s.last)} (${days} day${days===1?'':'s'} ago)`:' · nothing entered yet'}`:(s.last?`Last entry ${short(s.last)}`:'Nothing entered yet');
+    return `<button class="djob" data-dj="${s.id}"><div class="djh"><b>${esc(s.name)}</b><span class="jst">${light(st[1],'xs h')}<span class="stt ${st[1]}">${st[0]}</span></span></div>
+      <div class="djs">${esc([s.client,s.qno].filter(Boolean).join(' · '))}</div>
+      <div class="djb"><div class="jb"><i style="width:${Math.min(100,s.pct*100)}%"></i></div><b>${fmt(s.pct*100)}%</b><span class="zs ${j.rating==null?'none':j.zone}">${j.rating==null?'Not rated yet':r0(j.rating)+' · '+j.word}</span></div>
+      <div class="djs">${nudge}</div>${s.active&&s.pct>=0.999?'<div class="djr">🏁 All work is entered — mark the job complete to stop the crew hours</div>':''}</button>`;};
+  const pcard=s=>{const j=jobRating(s);return `<button class="djob past" data-dj="${s.id}"><div class="djh"><b>${esc(s.name)}</b><span class="zs ${j.rating==null?'none':j.zone}">${j.rating==null?'—':r0(j.rating)+' · '+j.word}</span></div>
+      <div class="djs">Completed ${nice(s.end)}${s.client?' · '+esc(s.client):''}</div>${s.acMH?`<div class="djs mgac">+${fmt(s.acMH)} MH after closeout</div>`:''}</button>`;};
+  const mcard=(m,un)=>{const j=m.jobId&&JOBLIST.find(x=>x.id===m.jobId);return `<div class="dmsg${un?' un':''}" data-msg="${esc(m.id)}"><div class="dmh"><b>${un?'● ':''}${esc(m.subject||'(no subject)')}</b><small>${esc((m.from||{}).name||'Management')} · ${whenStr(m.at)}</small></div>
+      <div class="dmt">${esc(m.text||'').replace(/\n/g,'<br>')}</div>${j?`<a href="#" data-mj="${j.id}">Open ${esc(j.name)} ›</a>`:''}${un?'<small class="tap">Tap to mark read</small>':''}</div>`;};
+  t.innerHTML=`<div class="page dpage"><div class="dwrap">
+   <div class="dhello"><h1>${hi}${ME?', '+esc(ME.split(' ')[0]):''}</h1><span>${nice(TODAY)}</span></div>
+   <div class="dgrid"><div class="dcol">
+    <div class="card dmeter" id="dMeter"><div class="dmh2">My rating</div>${r?`<button class="dmbtn" id="dMeterBtn">${gaugeSVG(r.rating,{w:170})}<b>${r.rating==null?'—':r0(r.rating)}</b><span class="zw z-${r.noJobs?'none':r.zone}">${r.word}</span><small>Average of ${r.rated.length} current job${r.rated.length===1?'':'s'} · tap for the breakdown</small></button><div id="dMeterBd" hidden>${breakdownHTML(r,true)}</div>`:''}</div>
+    <div class="card"><h2>📨 Messages ${unread.length?`<span class="dbadge">${unread.length} new</span>`:''}</h2>${msgs.length?unread.map(m=>mcard(m,true)).join('')+readM.slice(0,5).map(m=>mcard(m,false)).join(''):'<p class="note">No messages from the office.</p>'}</div>
+    <div class="card"><h2>🌤 Weather <select id="wxPick">${wxJobs.map(s=>`<option value="${s.id}"${s.id===wxSel?' selected':''}>${esc(s.name)}</option>`).join('')}<option value="office"${wxSel==='office'?' selected':''}>Office — Thomson</option></select></h2><div id="wxDash" class="wxbox"><div class="wx load">Loading weather…</div></div></div>
+   </div><div class="dcol">
+    <div class="card"><h2>Current projects <small>${cur.length}</small></h2>${cur.map(card).join('')||'<p class="note">No current jobs. Jobs appear here when IronClad sends them to you.</p>'}</div>
+    <div class="card"><h2>Completed in ${Y} <small>${past.length}</small></h2>${past.map(pcard).join('')||'<p class="note">No completed jobs yet this year.</p>'}</div>
+    <p class="note dfoot">Other PMs' jobs (view only) are in the <b>📂 Jobs</b> list at the top.</p>
+   </div></div></div></div>`;
+  const mb=document.getElementById('dMeterBtn');if(mb)mb.onclick=()=>{const d=document.getElementById('dMeterBd');d.hidden=!d.hidden;};
+  t.querySelectorAll('[data-dj]').forEach(b=>b.onclick=()=>goJob(b.dataset.dj));
+  t.querySelectorAll('[data-mj]').forEach(a=>a.onclick=e=>{e.preventDefault();e.stopPropagation();markRead(a.closest('[data-msg]').dataset.msg);goJob(a.dataset.mj);});
+  t.querySelectorAll('.dmsg.un').forEach(d=>d.onclick=()=>markRead(d.dataset.msg));
+  $('#wxPick').onchange=e=>{store.set('laborHound.wxPick.'+ME,e.target.value);fillWx($('#wxDash'),e.target.value==='office'?null:JOBLIST.find(x=>x.id===e.target.value));};
+  fillWx($('#wxDash'),wxSel==='office'?null:JOBLIST.find(x=>x.id===wxSel));}
+
+/* ---------- Management: send a message + who has read it ---------- */
+async function readAllReads(){const out={};if(!(await canWrite(SAVE.lhDir)))return out;
+  try{for await(const [n,h] of SAVE.lhDir.entries()){if(h.kind!=='file'||!/^lh-read - .+\.json$/.test(n))continue;try{const d=JSON.parse(await (await h.getFile()).text());if(d.kind==='messageReads'&&d.pm)out[d.pm.name]=d.read||{};}catch(e){}}}catch(e){}
+  return out;}
+{const _rm2=renderMgmt;renderMgmt=function(){_rm2.apply(this,arguments);const t=document.getElementById('tMgmt');const grid=t&&t.querySelector('.mgrid');if(!grid)return;
+  const c=document.createElement('div');c.className='card';c.id='mgMsg';grid.parentNode.insertBefore(c,grid);renderMgMsgs();};}
+async function renderMgMsgs(){const c=document.getElementById('mgMsg');if(!c)return;
+  const pms=ratedPMs();const reads=await readAllReads();
+  pms.forEach(n=>{reads[n]=Object.assign({},reads[n]||{},readsOf(n));});
+  const jobs=JOBLIST.slice().sort((a,b)=>a.name.localeCompare(b.name));
+  c.innerHTML=`<h2>📨 Messages to PMs</h2><div class="sub">Shows on each PM's dashboard. Saved in <b>TR Labor Hound\\${MSG_FILE}</b>. Phones get new messages when the PM opens that file with “Open a job file” (phase 1).</div>
+   <div class="mgto"><label class="rchk"><input type="checkbox" id="mtAll"> All PMs</label>${pms.map(n=>`<label class="rchk"><input type="checkbox" data-to="${esc(n)}"> ${esc(n)}</label>`).join('')}</div>
+   <div class="mgw"><input id="mtSub" placeholder="Subject" style="flex:1;min-width:200px"><select id="mtJob"><option value="">No job link</option>${jobs.map(j=>`<option value="${j.id}">${esc(j.name)}</option>`).join('')}</select></div>
+   <textarea id="mtText" rows="3" placeholder="Message" class="mgta"></textarea><div class="mgw"><button class="btn pri" id="mtSend">Send message</button><span class="admmsg" id="mtMsg"></span></div>
+   <table class="t mgt"><thead><tr><th>Sent</th><th>Subject</th><th>To</th><th>Read</th></tr></thead><tbody>
+   ${MSGS.messages.slice(0,15).map(m=>{const to=m.to==='all'?pms:m.to;const rd=to.filter(n=>reads[n]&&reads[n][m.id]),nr=to.filter(n=>!(reads[n]&&reads[n][m.id]));
+     return `<tr data-mrow="${esc(m.id)}"><td>${whenStr(m.at)}<small>${esc((m.from||{}).name||'')}</small></td><td><b>${esc(m.subject||'')}</b>${msgExpired(m)?' <span class="zs none">Expired</span>':''}<small>${esc((m.text||'').slice(0,90))}</small></td><td>${m.to==='all'?'All PMs':m.to.map(esc).join(', ')}</td>
+       <td class="mrd">${rd.map(n=>`<span class="ok">✓ ${esc(n.split(' ')[0])}</span>`).join(' ')}${nr.length?` <span class="mut">not yet: ${nr.map(n=>esc(n.split(' ')[0])).join(', ')}</span>`:''}</td></tr>`;}).join('')||'<tr><td colspan="4" class="mut">No messages sent yet.</td></tr>'}</tbody></table>`;
+  $('#mtAll').onchange=e=>c.querySelectorAll('[data-to]').forEach(x=>{x.checked=false;x.disabled=e.target.checked;});
+  $('#mtSend').onclick=async()=>{const all=$('#mtAll').checked,to=[...c.querySelectorAll('[data-to]:checked')].map(x=>x.dataset.to),sub=$('#mtSub').value.trim(),text=$('#mtText').value.trim(),jobId=$('#mtJob').value||undefined;
+    if(!all&&!to.length){$('#mtMsg').textContent='Pick who it goes to.';return;}if(!sub&&!text){$('#mtMsg').textContent='Write a subject or a message.';return;}
+    const m={id:'m-'+newUid(),to:all?'all':to,from:who(),at:new Date().toISOString(),subject:sub,text};if(jobId)m.jobId=jobId;
+    MSGS.messages.unshift(m);const ok=await saveMessages();toast(ok?'Message sent':'Message saved on this device — connect the Labor Hound folder to send it');renderMgMsgs();};}
+
+/* start-up: dashboard first, messages from the folder */
+if(ME){ensureDash();document.body.classList.add('dash');document.querySelectorAll('#tabs button').forEach(x=>x.classList.remove('on'));document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x.id==='tDash'));}
+(async()=>{for(let i=0;i<200&&!window.LH_READY;i++)await new Promise(r=>setTimeout(r,50));try{await readMessagesFolder();}catch(e){}if(isDash())renderDash();})();
+Object.assign(window.RPM,{showDash,goJob,showJobPage,importFiles,snapshot:()=>snapshot()});
+Object.assign(window.RPM.mg,{get MSGS(){return MSGS},readsOf,markRead,readMessagesFolder,wxUrl,placeOf,getWx});
+
+/* ===================== 11182026-6: read notifications · management users land on Management =====================
+   Read notifications (Charlie: no replies for now — the sender is told when a message is read):
+     built from the read receipts (lh-read - <PM>.json on the desktop + this device's copies; phones' reads arrive in daily files).
+     "Seen" state per sender = newest time he has looked at them: laborHound.notifSeen.<sender> on the device, and notifSeenAt in the
+     sender's own lh-read - <sender>.json so it follows him to another desktop. Anything read after that time is "new" (badge).
+   Management users (lh-settings.json managementUsers, default Charlie Toburen, Jay Poston, Mark Jenkins; editable by admins) open on
+     Management (password lock screen until unlocked), have no dashboard / PM rating, and aren't offered as message recipients. */
+async function notifsFor(n){if(!n)return [];const reads=await readAllReads();const out=[];
+  const pms=new Set([...ratedPMs(),...Object.keys(reads)]);pms.forEach(p=>{reads[p]=Object.assign({},reads[p]||{},readsOf(p));});
+  MSGS.messages.filter(m=>m.from&&m.from.name===n).forEach(m=>{const to=m.to==='all'?ratedPMs():m.to;to.forEach(p=>{const at=reads[p]&&reads[p][m.id];if(at)out.push({pm:p,m,at});});});
+  return out.sort((a,b)=>a.at<b.at?1:-1);}
+async function markNotifsSeen(){if(!ME)return;store.set(SEEN_KEY(ME),new Date().toISOString());await writeReads(ME);}
+async function fillNotifs(host){if(!host)return;const list=await notifsFor(ME);if(!list.length){host.hidden=true;return;}
+  const seen=store.get(SEEN_KEY(ME))||'',nw=list.filter(x=>x.at>seen).length;host.hidden=false;
+  host.innerHTML=`<h2>🔔 Read notifications ${nw?`<span class="dbadge" id="ntBadge">${nw} new</span>`:''}</h2>
+    ${list.slice(0,12).map(x=>`<div class="ntf${x.at>seen?' new':''}">✓ <b>${esc(x.pm)}</b> read “${esc(x.m.subject||'(no subject)')}” — ${whenStr(x.at)}</div>`).join('')}
+    ${nw?'<button class="btn sm" id="ntSeen" style="margin-top:8px">✓ Mark seen</button>':''}`;
+  const b=host.querySelector('#ntSeen');if(b)b.onclick=async()=>{await markNotifsSeen();fillNotifs(host);};}
+/* Management: notifications on top, management users card */
+{const _rm3=renderMgmt;renderMgmt=function(){_rm3.apply(this,arguments);const t=document.getElementById('tMgmt');const first=t&&t.querySelector('.wrap > .card');if(!first)return;
+  const n=document.createElement('div');n.className='card ntcard';n.id='mgNotif';n.hidden=true;first.parentNode.insertBefore(n,first);fillNotifs(n);
+  const grid=t.querySelector('.mgsoon');const u=document.createElement('div');u.className='card';u.id='mgUsers';grid.parentNode.insertBefore(u,grid.nextSibling);renderMgUsers();};}
+function renderMgUsers(){const c=document.getElementById('mgUsers');if(!c)return;const S=LH_SETTINGS,names=[...new Set([...PMS,...S.managementUsers])];
+  c.innerHTML=`<h2>Management users</h2><div class="sub">These people open Labor Hound on Management (behind the password) instead of a PM dashboard, and aren't rated as PMs or offered as message recipients. Their jobs stay viewable from the Jobs list. Saved in <b>TR Labor Hound\\${LH_SETTINGS_FILE}</b>${S.managementUsersSetAt?` · changed ${whenStr(S.managementUsersSetAt)}${S.managementUsersSetBy?' by '+esc(S.managementUsersSetBy.name):''}`:''}.</div>
+   <div class="mgto">${names.map(n=>`<label class="rchk${S.managementUsers.includes(n)?' on':''}"><input type="checkbox" data-mu="${esc(n)}"${S.managementUsers.includes(n)?' checked':''}${isAdmin(ME)?'':' disabled'}> ${esc(n)}</label>`).join('')}</div>
+   ${isAdmin(ME)?'<button class="btn" id="muSave">Save management users</button>':`<p class="note">Only an admin can change this list.</p>`}`;
+  const b=document.getElementById('muSave');if(b)b.onclick=async()=>{if(!isAdmin(ME))return;
+    LH_SETTINGS.managementUsers=[...c.querySelectorAll('[data-mu]:checked')].map(x=>x.dataset.mu);LH_SETTINGS.managementUsersSetBy=who();LH_SETTINGS.managementUsersSetAt=new Date().toISOString();
+    const ok=await saveSettings();MG.cache={};updateMeter();renderMgmt();toast(ok?'Management users saved':'Saved on this device only');};}
+/* dashboard: senders who also have a dashboard (e.g. Drue) see their notifications there */
+{const _rd2=renderDash;renderDash=function(){_rd2.apply(this,arguments);const col=document.querySelector('#tDash .dcol');if(!col)return;
+  const n=document.createElement('div');n.className='card ntcard';n.id='dNotif';n.hidden=true;col.insertBefore(n,col.children[1]||null);fillNotifs(n);};}
+
+/* home screen: management users → Management (lock screen until unlocked); everyone else → dashboard */
+function showHome(){if(ME&&isMgmtUser(ME))showMgmtHome();else showDash();}
+function showMgmtHome(){if(MG.unlocked&&Date.now()-MG.last<MG_IDLE_MS){showMgmt();return;}MG.unlocked=false;
+  let t=document.getElementById('tMgmt');if(!t){t=document.createElement('section');t.className='tab';t.id='tMgmt';document.querySelector('main').appendChild(t);}
+  document.body.classList.add('dash');document.querySelectorAll('#tabs button').forEach(x=>x.classList.remove('on'));document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===t));
+  const M=LH_SETTINGS.management;
+  t.innerHTML=`<div class="page dpage"><div class="mglock card"><img class="glogo" alt="" src="${document.querySelector('.brand .logo').src}"><h2>🔒 Management</h2>
+    <p>Good ${new Date().getHours()<12?'morning':new Date().getHours()<17?'afternoon':'evening'}${ME?', '+esc(ME.split(' ')[0]):''}. Enter the management password.</p>
+    ${M.passwordSha256?`<input id="mlPw" type="password" autocomplete="off" placeholder="Management password" class="pin" style="letter-spacing:.05em;font-size:20px"><div class="admmsg" id="mlMsg"></div><button class="btn pri" id="mlGo" style="width:100%;margin-top:8px;padding:12px">Open Management</button>`
+      :`<p class="note">No management password has been set yet.</p><button class="btn pri" id="mlSet">${isAdmin(ME)?'Set the management password…':'Close'}</button>`}
+    <p class="note" style="margin-top:12px">Jobs are in the <b>📂 Jobs</b> list at the top.</p></div></div>`;
+  const go=document.getElementById('mlGo');if(go){go.onclick=()=>{const pw=$('#mlPw').value;if(mgHash(M.salt,pw)!==M.passwordSha256){$('#mlMsg').textContent='Wrong password.';$('#mlPw').select();return;}
+      MG.unlocked=true;MG.last=Date.now();showMgmt();};$('#mlPw').onkeydown=e=>{if(e.key==='Enter')go.click();};setTimeout(()=>{const i=document.getElementById('mlPw');if(i)i.focus();},50);}
+  const st=document.getElementById('mlSet');if(st)st.onclick=()=>{if(isAdmin(ME))openMgmt();};
+  window.scrollTo(0,0);}
+{const _sd=showDash;showDash=function(){if(ME&&isMgmtUser(ME)){showMgmtHome();return;}return _sd.apply(this,arguments);};}
+{const _lm=lockMgmt;lockMgmt=function(){const r=_lm.apply(this,arguments);if(ME&&isMgmtUser(ME))showMgmtHome();return r;};}
+{const _rjm3=renderJobMenu;renderJobMenu=function(){if(ME&&isMgmtUser(ME)&&!MG.jmSet){onlyMine=false;MG.jmSet=true;}   // management users see every job by default
+  _rjm3.apply(this,arguments);if(ME&&isMgmtUser(ME)){const d=document.querySelector('#jobMenu .dashji b');if(d)d.textContent='🔒 Management';}};}
+if(ME&&isMgmtUser(ME))showMgmtHome();
+(async()=>{for(let i=0;i<200&&!window.LH_READY;i++)await new Promise(r=>setTimeout(r,50));await new Promise(r=>setTimeout(r,300));
+  const onHome=document.body.classList.contains('dash');if(onHome&&ME)showHome();})();
+Object.assign(window.RPM,{showHome,showMgmtHome,showDash});Object.assign(window.RPM.mg,{notifsFor,markNotifsSeen,isMgmtUser,get MSG_DAYS(){return MSG_DAYS}});
+
+/* 11182026-8: the job's profile, small, on the Job tab (Sent from IronClad card) */
+{const _rj2=refreshJob;refreshJob=function(){_rj2.apply(this,arguments);const p=document.getElementById('jSent');if(!p||!JOB)return;
+  let el=document.getElementById('jProfile');if(!el){el=document.createElement('p');el.id='jProfile';el.className='note';p.parentNode.insertBefore(el,p.nextSibling);}
+  const pr=jobProfile(JOBLIST.find(j=>j.id===JOB.id)||JOB);
+  el.innerHTML=`<b>Job profile:</b> ${profileChip(pr)}${pr.sent&&pr.sqs?` <small>· flashing ${pr.flashPct==null?'—':Math.round(pr.flashPct*10)/10+'%'}${pr.srs&&pr.flashPct!=null?` (× ${pr.factor} SRS = ${Math.round(pr.flashAdj*10)/10}%)`:''} · ${pr.penDensity==null?'—':Math.round(pr.penDensity*100)/100+' pen/SQ'}${pr.srs&&pr.penDensity!=null?` (× ${pr.factor} = ${Math.round(pr.penAdj*100)/100})`:''}</small>`:''}`;};}
 </script>
 </body>
 </html>
