@@ -590,6 +590,11 @@ td .ovsub,td.stcell .siteln{display:block;font-size:11px;color:var(--ink2);font-
 .chip .also{display:block;color:#ffd970}.chip:not(.on) .also{color:#a06b00}.chipadd{margin-top:8px;font:inherit;font-size:15px;padding:8px 10px;border-radius:10px;border:1.5px solid #c9d3cd;max-width:100%;background:#fff}
 .step.bymem input{background:#eef3f0}.step.bymem button{opacity:.35}#crewChips .otn{margin-top:6px}
 .empl{margin-bottom:6px}#wwDay{font:inherit;font-size:14px;padding:2px 6px;border-radius:8px;border:1px solid #c9d3cd}
+/* 11182026-22: per-job On site / Remote */
+.dsgrid.ps4{grid-template-columns:repeat(4,1fr)}.dsgrid.site2{grid-template-columns:1fr 1fr}.dsl .dsh{font-weight:500;text-transform:none;letter-spacing:0;color:var(--mut)}
+#siteRow>small.dsh{display:block;margin-top:4px;font-size:12px;color:var(--ink2)}.dsb.rem.on{background:#b42318;border-color:#b42318}
+@media (max-width:520px){.dsgrid.ps4{grid-template-columns:1fr 1fr}}
+.youtoday small.ytrem{color:#b42318;font-weight:600}.mgrem{margin:4px 0;color:#b42318;font-size:13px}.ovtoday{display:block;font-weight:600;color:var(--ink2)}
 /* 11182026-10: install help + update bar */
 .instwrap{margin-top:12px}.instbtn{width:100%;padding:12px;font-size:16px}#meMenu .instbtn{width:auto;padding:7px 12px;font-size:14px;margin-bottom:8px;display:block}
 .swupd{position:fixed;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top) + 64px);z-index:140;border:0;border-radius:999px;background:var(--gold);color:var(--g);padding:10px 16px;font:600 15px Barlow,system-ui,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.3)}
@@ -812,6 +817,7 @@ td .ovsub,td.stcell .siteln{display:block;font-size:11px;color:var(--ink2);font-
    11172026-2  combined / not-sent lines from IronClad's "What gets sent, and how"; no-drawing jobs
    11172026-3  draw completed LF items (✏ Draw) and mark EA items (📍 Mark) right on the plan
    11172026-4  fix: a job re-sent from IronClad with lines combined / not sent no longer stops the app (old entries for missing lines are skipped)
+   11182026-22 Remote is marked job by job (Daily page: At this job I was On site / Remote) · PTO / Sick / TR still cover the whole day · Management: Remote on 2 of 3 jobs
    11182026-21 Employees (20 from Summit's Crew today, Management › Crews & employees) · job crew = named men + foreman · Daily crew chips (uncheck / add for the day) · overtime per person across jobs
    11182026-20 Area rectangle: 3 corners → live W × H pop-up (type or drag, anchor locked, roof-extent check), Submit, + Add another area, Done → flashings & penetrations · Free shape kept
    11182026-19 Job status (Standard / No Work / Rain Day) and PM status (Standard / Remote / PTO / Sick Day / TR excursion) kept separate
@@ -834,7 +840,7 @@ td .ovsub,td.stcell .siteln{display:block;font-size:11px;color:var(--ink2);font-
    11182026-2  ratings per job; PM current rating = average of current job ratings; Management: current vs calendar-year rating, year picker; job rating on the Progress tab
    11182026-1  Management screen (shared password, charts on PM / crew performance) · PM rating meter in the header (rating v1: days logged + MH pace, 50/50)
    11172026-5  📅 pick any date · color the plan by week / month · 🔍 what was done here, and when (who entered it) · report: any week, whole job, custom dates, color by week / month */
-const LH_BUILD='11182026-21';
+const LH_BUILD='11182026-22';
 const TODAY=(()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');})();
 /* PM list lives in Shared Database\tr-project-managers.json (shared with IronClad).
    This device keeps a copy of the last list it read, so phones / tablets and offline use still work. */
@@ -3334,9 +3340,23 @@ const LEG_PM={standard:'standard',lack:'remote',pto:'pto',sick:'sick',tr:'tr'};
 function jobSt(S,hr){if(hr&&hr.rain)return 'rain';if(S&&(S.job==='nowork'||(!S.job&&S.status==='nowork')))return 'nowork';if(hr&&+hr.men===0)return 'nowork';return 'standard';}
 function pmSt(S){return (S&&S.pm&&S.pm.status)||(S&&LEG_PM[S.status])||'standard';}
 function pmSet(S){return !!((S&&S.pm&&S.pm.status)||(S&&LEG_PM[S.status]&&S.status!=='standard'));}
+/* 11182026-22 (Charlie, Nov 23): Remote is marked job by job. "A PM might only make it to one of his 3 projects that day so he would
+   get gigged for being remote on two projects but the one he went to he would get credit."
+   • Whole-day PM status (covers every job that day, unchanged keys days[date].pm + device laborHound.pmDay.<PM>.<date>):
+       standard ("On jobs today") · pto · sick · tr.
+   • Per job, per day — this job's daily file only: days[date].pmSite {status:"onsite"|"remote", by, at, t, enteredFrom, late}.
+   • Older files: a whole-day Remote (-19…-21 days[date].pm.status "remote", or -17/-18 days[date].status "lack") reads as Remote on
+     every job that day, unless that job has a newer pmSite record.  setPmStatus(d,'remote') still writes the old whole-day form. */
+const PS4=[['standard','✔ On jobs today'],['pto','🏖 PTO'],['sick','🤒 Sick Day'],['tr','🚐 TR excursion']];
+const SITE2=[['onsite','📍 On site'],['remote','🏢 Remote']];
+const EXCUSED=['pto','sick','tr'];
+function dayPm(S){const p=pmSt(S);return p==='remote'?'standard':p;}
+function legRemote(S){if(S&&S.pm&&S.pm.status)return S.pm.status==='remote'?{t:+S.pm.t||0,late:!!S.pm.late}:null;if(S&&S.status==='lack')return {t:+S.t||0,late:!!S.late};return null;}
+function siteRec(S){const s=S&&S.pmSite&&S.pmSite.status?S.pmSite:null,L=legRemote(S);if(s&&(!L||(+s.t||0)>=L.t))return {status:s.status,late:!!s.late,own:true};return L?{status:'remote',late:L.late,own:false,legacy:true}:null;}
+function jobSite(S){const r=siteRec(S);return r?r.status:null;}
 function mergeDay(a,b){if(!a)return {v:b,ch:true};if(!b)return {v:a,ch:false};const o={...((b.t||0)>(a.t||0)?b:a)};
   const pick=(k,tk)=>{const ta=tk(a),tb=tk(b);if(b[k]!==undefined&&(a[k]===undefined||tb>ta)){o[k]=b[k];}else if(a[k]!==undefined)o[k]=a[k];};
-  pick('job',x=>x.jt||x.t||0);pick('jt',x=>x.jt||x.t||0);pick('crew',x=>x.ct||x.t||0);pick('ct',x=>x.ct||x.t||0);pick('pm',x=>(x.pm&&x.pm.t)||0);pick('status',x=>x.t||0);pick('members',x=>x.mt||0);pick('mt',x=>x.mt||0);
+  pick('job',x=>x.jt||x.t||0);pick('jt',x=>x.jt||x.t||0);pick('crew',x=>x.ct||x.t||0);pick('ct',x=>x.ct||x.t||0);pick('pm',x=>(x.pm&&x.pm.t)||0);pick('pmSite',x=>(x.pmSite&&x.pmSite.t)||0);pick('status',x=>x.t||0);pick('members',x=>x.mt||0);pick('mt',x=>x.mt||0);
   return {v:o,ch:JSON.stringify(o)!==JSON.stringify(a)};}
 const GEO_KEY='laborHound.geoOk',GEO={last:0,busy:false,queue:Promise.resolve()};
 const geoR=()=>+(LH_SETTINGS.analysis&&LH_SETTINGS.analysis.geofenceMiles)||1;
@@ -3405,17 +3425,17 @@ function setDayStatus(d,status){if(['standard','nowork','rain'].includes(status)
 function oversightDays(v){if(!JOB||JOB.started===false)return [];const end=v.end||TODAY,j=JOBLIST.find(x=>x.id===JOB.id),site=!!siteOf(j),late3=new Date().getHours()<15;
   return C.allDays.filter(d=>d>=JOB.start&&d<=end).map(d=>{const S=(JOB.dayStatus||{})[d],cks=(JOB.checkins||[]).filter(c=>c.date===d),ents=ENTRIES.filter(e=>e.date===d),hr=HOURS[d],rain=!!(hr&&hr.rain);
     const docs=ents.map(e=>e.dev||'old').concat(rain?[hr.from||'old']:[]);let res,mig=false;
-    const js=jobSt(S,hr),ps=pmSt(S),A=LH_SETTINGS.analysis;
+    const js=jobSt(S,hr),ps=pmSt(S),A=LH_SETTINGS.analysis,sr=siteRec(S);
     if(['pto','sick','tr'].includes(ps))res=ps;                       /* excused, even when set later */
     else if(js==='nowork')res='nowork';
     else if(js==='rain')res='rain';                                    /* Rain Day counts for him — no site visit needed */
-    else if(ps==='remote')res='remote';                                /* Standard job day, PM Remote → counts against */
+    else if(sr&&sr.status==='remote')res='remote';                     /* 11182026-22: Remote on THIS job (or an old whole-day Remote) → counts against on this job */
     else if(cks.length)res=docs.length?'onsite':'present';
     else if(docs.length&&docs.every(x=>x==='old')){res='onsite';mig=true;}
     else if(docs.length)res=docs.includes('phone')?(A.phoneOffsiteCounts?(site?'phoneoff':'nosite'):'phoneun'):'office';
     else res='missed';
     const rLate=rain&&hr.t>1e12&&localDay(hr.t)>d;
-    const pLate=!!(S&&((S.pm&&S.pm.late)||(!S.pm&&S.late)));
+    const pLate=!!(S&&((S.pm&&S.pm.late)||(!S.pm&&S.late)||(res==='remote'&&sr&&sr.late)));
     return {d,res,mig,late:pLate||(res==='rain'&&rLate),S,ck:cks[0]||null,pending:d===TODAY&&late3};});}
 function blendOversight(r,Y){const from=addDays(TODAY,-29),src=Y==null?(r.active||[]):r.jobs;const days=[];
   src.forEach(s=>(s.ov||[]).forEach(x=>{if(x.pending)return;if(Y==null?x.d<from:x.d.slice(0,4)!==String(Y))return;days.push({...x,job:s.name,jobId:s.id});}));
@@ -3423,9 +3443,16 @@ function blendOversight(r,Y){const from=addDays(TODAY,-29),src=Y==null?(r.active
   const ov=counted?good/counted:null,w=W8();r.pace=r.rating;r.ovScore=ov;r.ovDays=days;r.ovCount=cnt;r.ovGood=good;r.ovCounted=counted;r.w=w;
   r.rating=r.pace!=null&&ov!=null?w.pace*r.pace+w.oversight*ov*100:r.pace!=null?r.pace:ov!=null?ov*100:null;
   const z=zoneOf(r.rating);r.zone=z.k;r.word=r.noJobs?'No jobs yet':z.w;return r;}
+/* 11182026-22: per-job Remote summarized per day — "Remote on 2 of 3 jobs" */
+function remoteByDay(days){const by={};(days||[]).forEach(x=>{const o=by[x.d]=by[x.d]||{d:x.d,n:0,r:0,jobs:[],exc:null};o.n++;if(x.res==='remote'){o.r++;o.jobs.push(x.job);}if(EXCUSED.includes(x.res))o.exc=x.res;});return by;}
+function remoteLine(days){const L=Object.values(remoteByDay(days)).filter(o=>o.r).sort((a,b)=>a.d<b.d?1:-1);if(!L.length)return '';
+  return `<div class="mgrem"><b>Remote:</b> ${L.slice(0,8).map(o=>`${short(o.d)} on ${o.r===o.n?(o.n===1?'his 1 job':'all '+o.n+' jobs'):o.r+' of '+o.n+' jobs'} (${o.jobs.map(esc).join(', ')})`).join('; ')}${L.length>8?` and ${L.length-8} more days`:''}</div>`;}
+function pmTodayTxt(r){const days=[];(r.active||[]).forEach(s=>(s.ov||[]).forEach(x=>{if(x.d===TODAY)days.push({...x,job:s.name});}));if(!days.length)return '';const o=remoteByDay(days)[TODAY];
+  if(o.exc)return `Today: ${OV_LABEL[o.exc]}`;if(o.r)return `Today: Remote on ${o.r} of ${o.n} job${o.n===1?'':'s'}`;const os=days.filter(x=>x.res==='onsite'||x.res==='present').length;return os?`Today: on site at ${os} of ${o.n}`:'';}
 function ovBreakdown(r){if(!r||r.ovScore===undefined||r.noJobs)return '';const w=r.w||W8(),bad=(r.ovDays||[]).filter(x=>OV_BAD.has(x.res)).sort((a,b)=>a.d<b.d?1:-1);
   const exc=(r.ovDays||[]).filter(x=>['pto','sick','tr'].includes(x.res));
   return `<div class="mgbd ovbd"><div><b>Oversight:</b> ${r.ovScore==null?'no counted days yet':`${r.ovGood} of ${r.ovCounted} days visited on site (${Math.round(r.ovScore*100)}%)`} ${r.year?'in '+r.year:'in the last 30 days'}.${exc.length?` ${exc.length} day${exc.length===1?'':'s'} excused (PTO / sick / TR excursion) not counted.`:''}</div>
+    ${remoteLine(r.ovDays)}
     ${bad.length?`<div class="mgmiss">Counted against: ${bad.slice(0,8).map(x=>`${short(x.d)} ${esc(x.job)} — ${OV_LABEL[x.res]}`).join('; ')}${bad.length>8?` and ${bad.length-8} more`:''}</div>`:''}
     <div class="mgf">Meter = ${Math.round(w.pace*100)}% × MH pace ${r.pace==null?'—':r0(r.pace)} + ${Math.round(w.oversight*100)}% × oversight ${r.ovScore==null?'—':Math.round(r.ovScore*100)} = <b>${r0(r.rating)}</b> · ${r.word}</div></div>`;}
 /* ---------- geolocation: on-site check-ins (phones / tablets, app open) ---------- */
@@ -3460,15 +3487,17 @@ function renderGeoBanner(){document.querySelectorAll('.geoban').forEach(x=>x.rem
   if(!el){el=document.createElement('div');el.className='sec';el.id='dsSec';const anchor=document.getElementById('stCta');side.insertBefore(el,anchor?anchor.nextSibling:side.firstChild);}
   if(JOB.started===false){el.hidden=true;}else{el.hidden=false;const d=curDate,S=(JOB.dayStatus||{})[d],s=jobStats(JOB.id),o=(s&&s.ov||[]).find(x=>x.d===d),mine=isMineOpen()&&!isRO();
     const site=siteOf(JOBLIST.find(x=>x.id===JOB.id)),cks=(JOB.checkins||[]).filter(c=>c.date===d);
-    const js=jobSt(S,HOURS[d]),ps=pmSt(S),pl=S&&S.pm&&S.pm.late,pmOn=pmSet(S)||!!(S&&S.pm);
+    const js=jobSt(S,HOURS[d]),ps=dayPm(S),pl=S&&S.pm&&S.pm.late,pmOn=pmSet(S)||!!(S&&S.pm),sr=siteRec(S),exc=EXCUSED.includes(ps);
     el.innerHTML=`<h3>${short(d)}${d===TODAY?' · today':''}</h3>
       <div class="dsrow"><span class="dsl">Job today</span><div class="dsgrid js3">${JS3.map(([k,l])=>`<button class="dsb${js===k?' on':''}" data-js="${k}"${mine?'':' disabled'}>${l}</button>`).join('')}</div></div>
-      <div class="dsrow"><span class="dsl">You today</span><div class="dsgrid ps5">${PS5.map(([k,l])=>`<button class="dsb${pmOn&&ps===k?' on':''}${!pmOn&&k==='standard'?' imp':''}" data-ps="${k}"${mine?'':' disabled'}>${l}</button>`).join('')}</div></div>
+      <div class="dsrow"><span class="dsl">You ${d===TODAY?'today':'this day'} <small class="dsh">all your jobs</small></span><div class="dsgrid ps4">${PS4.map(([k,l])=>`<button class="dsb${pmOn&&ps===k?' on':''}${!pmOn&&k==='standard'?' imp':''}" data-ps="${k}"${mine?'':' disabled'}>${l}</button>`).join('')}</div></div>
+      <div class="dsrow" id="siteRow"><span class="dsl">At this job I was</span><div class="dsgrid site2">${SITE2.map(([k,l])=>`<button class="dsb${!exc&&sr&&sr.status===k?' on':''}${!exc&&!sr&&k==='onsite'?' imp':''}${k==='remote'?' rem':''}" data-site="${k}"${mine&&!exc?'':' disabled'}>${l}</button>`).join('')}</div>
+        ${exc?`<small class="dsh">${PS4.find(x=>x[0]===ps)[1].replace(/^\S+ /,'')} covers every job that day.</small>`:sr&&sr.legacy?'<small class="dsh">Remote for the whole day (older entry) — tap On site if you made it to this job.</small>':sr&&sr.status==='remote'?'<small class="dsh">Remote counts against you on this job only.</small>':''}</div>
       <div class="dsres">${o?`<span class="ovr ov-${o.res}">${OV_LABEL[o.res]}${o.mig?' (migrated)':''}</span>${o.pending?' <small>today counts after 3 PM</small>':''}`:''}
         ${pl?` <small>entered later (${short(S.pm.at.slice(0,10))})</small>`:''}${cks.length?` <small>📍 visit confirmed ${new Date(cks[0].at).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})}</small>`:''}</div>
       ${phoneish()&&mine&&d===TODAY?'<button class="btn gold onsite" id="onSiteBtn">📍 I\'m on site</button>':''}
       <p class="note dsnote">${phoneish()?(site?'📍 Jobsite location on file.':'📍 No jobsite location yet — the office sets it.'):'Enter the day\'s progress on your phone or tablet at the job. Progress entered only on this computer doesn\'t count as a jobsite visit.'}</p>`;
-    el.querySelectorAll('[data-js]').forEach(b=>b.onclick=()=>setJobStatus(d,b.dataset.js));el.querySelectorAll('[data-ps]').forEach(b=>b.onclick=()=>setPmStatus(d,b.dataset.ps));
+    el.querySelectorAll('[data-js]').forEach(b=>b.onclick=()=>setJobStatus(d,b.dataset.js));el.querySelectorAll('[data-ps]').forEach(b=>b.onclick=()=>setPmStatus(d,b.dataset.ps));el.querySelectorAll('[data-site]').forEach(b=>b.onclick=()=>setPmSite(d,b.dataset.site));
     const ob=document.getElementById('onSiteBtn');if(ob)ob.onclick=()=>checkIn(true);
     if(!document.getElementById('wkAdd')&&mine)el.insertAdjacentHTML('beforeend','<a href="#" id="wkAdd" class="mglink">+ Add a weekend or holiday work day</a>');const wa=document.getElementById('wkAdd');if(wa)wa.onclick=e=>{e.preventDefault();openWeekendDay();};}
   const p=C.per[curDate],h=hoursFor(curDate);const ot=p?p.used-(h.counts?h.men*h.hrs:0):0;const cs=document.getElementById('crewSum');
@@ -3495,10 +3524,10 @@ function renderOversight(){const t=document.getElementById('tMgmt');if(!t||!MG.u
   const R=ratedPMs().map(n=>pmCurrent(n)).filter(r=>!r.noJobs),w=W8(),from=addDays(TODAY,-29),dates=[];for(let d=from;d<=TODAY;d=addDays(d,1))dates.push(d);
   const K=['onsite','present','rain','phoneun','nosite','office','phoneoff','remote','missed','pto','sick','tr','nowork'].filter(k=>k!=='phoneoff'&&k!=='nosite'||LH_SETTINGS.analysis.phoneOffsiteCounts);
   c.innerHTML=`<h2>📍 PM oversight — last 30 days</h2>
-   <div class="rainnote"><b>How oversight works.</b> PMs visit each job every work day. Labor Hound checks the phone or tablet's location against a ${geoR()}-mile geofence around the job <b>while the app is open</b> (opening it on site, coming back to it, entering work, or tapping 📍 I'm on site). Each day has a <b>job status</b> (Standard · No Work · Rain Day) and the PM's own <b>status</b> (Standard · Remote · PTO · Sick · TR excursion — one entry covers all his jobs that day). On a Standard day it counts for the PM when he was on site or entered progress on his phone or tablet; it counts against him when progress was entered only from the office desktop (Entered from the office), when he marked himself Remote, or when nothing was entered (Not documented). Rain Days count for him. PTO, sick days and TR excursions — even marked later — don't count; No Work days don't count. <b>Meter = ${Math.round(w.pace*100)}% MH pace + ${Math.round(w.oversight*100)}% oversight.</b>
+   <div class="rainnote"><b>How oversight works.</b> PMs visit each job every work day. Labor Hound checks the phone or tablet's location against a ${geoR()}-mile geofence around the job <b>while the app is open</b> (opening it on site, coming back to it, entering work, or tapping 📍 I'm on site). Each day has a <b>job status</b> (Standard · No Work · Rain Day) and the PM's own <b>day status</b> (On jobs · PTO · Sick · TR excursion — one entry covers all his jobs that day). <b>Remote is marked job by job</b>: on each job's Daily page the PM marks himself On site or Remote for that job, so a PM who makes it to one of his three jobs gets credit on that one and is counted Remote on the other two. On a Standard day it counts for the PM when he was on site or entered progress on his phone or tablet; it counts against him on a job when progress was entered only from the office desktop (Entered from the office), when he marked himself Remote on that job, or when nothing was entered (Not documented). A whole-day Remote from an older build counts as Remote on every job that day. Rain Days count for him. PTO, sick days and TR excursions — even marked later — don't count; No Work days don't count. <b>Meter = ${Math.round(w.pace*100)}% MH pace + ${Math.round(w.oversight*100)}% oversight.</b>
    <br><b>Limit (phase 1):</b> a web app can only read location while it's open. True background tracking needs a native App Store / Play Store app, or GPS from Summit's time clock later.</div>
    <div class="tscroll"><table class="t mgt ovt"><thead><tr><th>PM</th><th class="n">Meter</th><th class="n">MH pace</th><th class="n">Oversight</th>${K.map(k=>`<th class="n"><span class="sw2" style="background:${OVC[k]}"></span>${OV_LABEL[k]}</th>`).join('')}</tr></thead><tbody>
-   ${R.map(r=>`<tr data-ovpm="${esc(r.name)}"><td><b>${esc(r.name)}</b></td><td class="n"><b>${r0(r.rating)}</b><small>${r.word}</small></td><td class="n">${r0(r.pace)}</td><td class="n">${r.ovScore==null?'—':Math.round(r.ovScore*100)+'%'}<small>${r.ovGood} of ${r.ovCounted}</small></td>${K.map(k=>`<td class="n">${r.ovCount[k]||''}</td>`).join('')}</tr>
+   ${R.map(r=>`<tr data-ovpm="${esc(r.name)}"><td><b>${esc(r.name)}</b>${(t=>t?`<small class="ovtoday">${esc(t)}</small>`:'')(pmTodayTxt(r))}</td><td class="n"><b>${r0(r.rating)}</b><small>${r.word}</small></td><td class="n">${r0(r.pace)}</td><td class="n">${r.ovScore==null?'—':Math.round(r.ovScore*100)+'%'}<small>${r.ovGood} of ${r.ovCounted}</small></td>${K.map(k=>`<td class="n">${r.ovCount[k]||''}</td>`).join('')}</tr>
      <tr class="ovstrips"><td colspan="${4+K.length}">${(r.active||[]).map(s=>{const m={};(s.ov||[]).forEach(x=>m[x.d]=x);return `<div class="ovstrip"><span class="ovj">${esc(s.name)}</span>${dates.map(d=>{const x=m[d];return `<i title="${short(d)}${x?' — '+OV_LABEL[x.res]+(x.mig?' (migrated)':'')+(x.late?' · entered later':''):''}" style="background:${x?(x.pending?'#eef1ef':OVC[x.res]):'transparent'}" class="${x?'':'off'}"></i>`;}).join('')}</div>`;}).join('')}</td></tr>`).join('')||`<tr><td colspan="${4+K.length}" class="mut">No PMs with jobs.</td></tr>`}</tbody></table></div>
    <div class="mgw"><label>MH pace <input type="number" id="wPace" min="0" max="100" step="5" value="${Math.round(w.pace*100)}"> %</label><label>Oversight <input type="number" id="wOv" min="0" max="100" step="5" value="${Math.round(w.oversight*100)}"> %</label><label>Geofence <input type="number" id="geoMi" min="0.1" step="0.1" value="${geoR()}"> mi</label><button class="btn pri" id="wSave">Save</button></div>`;
   const a=$('#wPace'),b=$('#wOv');a.oninput=()=>{b.value=Math.max(0,100-(+a.value||0));};b.oninput=()=>{a.value=Math.max(0,100-(+b.value||0));};
@@ -3626,16 +3655,25 @@ function setPmStatus(d,k){if(!ME)return;if(JOB&&JOB.pm===ME&&roBlock&&isRO())ret
     const ds=J.dayStatus=J.dayStatus||{},cur=ds[d]||{};ds[d]={...cur,pm:rec,t:Math.max(cur.t||0,rec.t)};
     if(cur.status&&!cur.job){ds[d].job=cur.status==='nowork'?'nowork':'standard';ds[d].jt=cur.t||rec.t;delete ds[d].status;}
     n++;if(cur0){saveState();SAVE.dirty[j.id]=true;}else persistJob(j.id);});
-  MG.cache={};if(JOB){refreshAll();saveSoon();}if(isDash())renderDash();toast(`You ${short(d)}: ${PS5.find(x=>x[0]===k)[1].replace(/^\S+ /,'')} — on ${n} job${n===1?'':'s'}`);}
+  MG.cache={};if(JOB){refreshAll();saveSoon();}if(isDash())renderDash();toast(`You ${short(d)}: ${(PS4.find(x=>x[0]===k)||PS5.find(x=>x[0]===k))[1].replace(/^\S+ /,'')} — on ${n} job${n===1?'':'s'}`);}
+/* 11182026-22: On site / Remote for THIS job on this day (days[date].pmSite in this job's daily file only) */
+function setPmSite(d,k){if(!JOB||roBlock()||!['onsite','remote'].includes(k))return;const ds=JOB.dayStatus=JOB.dayStatus||{},cur=ds[d]||{},now=Date.now();
+  const rec={status:k,by:who(),at:new Date().toISOString(),t:now,enteredFrom:deviceKind(),late:d<TODAY};ds[d]={...cur,pmSite:rec,t:Math.max(cur.t||0,now)};
+  if(cur.status&&!cur.job){ds[d].job=cur.status==='nowork'?'nowork':'standard';ds[d].jt=cur.t||now;if(LEG_PM[cur.status]&&cur.status!=='standard'&&!cur.pm)ds[d].pm={status:LEG_PM[cur.status],by:cur.by||who(),at:cur.at||rec.at,t:cur.t||now,enteredFrom:cur.enteredFrom||deviceKind(),late:!!cur.late};delete ds[d].status;}
+  saveState();SAVE.dirty[JOB.id]=true;MG.cache={};refreshAll();saveSoon();
+  toast(k==='remote'?`Remote at ${JOB.name} ${short(d)} — counts against you on this job only`:`On site at ${JOB.name} ${short(d)}`);}
 /* the old rain link under the crew is replaced by the job status row */
 {const _rd9=refreshDaily;refreshDaily=function(){_rd9.apply(this,arguments);const co=document.getElementById('crewOff');if(co){const pv=co.previousSibling;if(pv&&pv.nodeType===3)pv.textContent=pv.textContent.replace(/\s*·\s*$/,'');co.remove();}};}
 /* dashboard: "You today" once a day */
 {const _rd10=renderDash;renderDash=function(){_rd10.apply(this,arguments);if(!isDash()||!ME||isMgmtUser(ME))return;const h=document.querySelector('#tDash .dhello');if(!h||document.getElementById('youToday'))return;
   const mine=JOBLIST.filter(j=>j.pm===ME);if(!mine.length)return;
   let cur=(pmDayLocal(TODAY)||{}).status;if(!cur)mine.some(j=>{const S=((STATES[j.id]&&STATES[j.id].JOB.dayStatus)||{})[TODAY];if(S&&S.pm){cur=S.pm.status;return true;}return false;});
-  h.insertAdjacentHTML('afterend',`<div class="card youtoday" id="youToday"><b>You today:</b> ${PS5.map(([k,l])=>`<button class="dsb sm${cur===k?' on':''}" data-yt="${k}">${l}</button>`).join('')}${cur?'':'<small>Tap one — it covers all your jobs today.</small>'}</div>`);
+  const leg=cur==='remote';if(leg)cur='standard';   /* 11182026-22: Remote is per job now (Daily page); an older whole-day Remote shows as On jobs + a note */
+  let nJ=0,nR=0;mine.forEach(j=>{const st=STATES[j.id],J=st&&st.JOB;if(!J||J.started===false||TODAY<J.start||doneDate(J))return;nJ++;if(jobSite((J.dayStatus||{})[TODAY])==='remote')nR++;});
+  const rem=EXCUSED.includes(cur)?'':nR?`<small class="ytrem">🏢 Remote on ${nR} of ${nJ} job${nJ===1?'':'s'} today${leg?' (marked for the whole day)':''} — counts against you on ${nR===1?'that job':'those jobs'}.</small>`:'';
+  h.insertAdjacentHTML('afterend',`<div class="card youtoday" id="youToday"><b>You today:</b> ${PS4.map(([k,l])=>`<button class="dsb sm${cur===k?' on':''}" data-yt="${k}">${l}</button>`).join('')}${rem}<small>${cur?'':'Tap one — it covers all your jobs today. '}Didn't make it to a job? Mark <b>Remote</b> on that job's Daily page.</small></div>`);
   document.querySelectorAll('[data-yt]').forEach(b=>b.onclick=()=>setPmStatus(TODAY,b.dataset.yt));};}
-Object.assign(window.RPM.mg,{setJobStatus,setPmStatus,jobSt,pmSt,mergeDay});
+Object.assign(window.RPM.mg,{setJobStatus,setPmStatus,jobSt,pmSt,mergeDay,setPmSite,jobSite,siteRec,dayPm,remoteByDay,pmTodayTxt});
 
 /* ---------- 11182026-20: Rectangle area mode (3 corners → live W × H pop-up, drag handle, typed sizes, roof-extent check) ---------- */
 const RECT={pts:[],live:false,anchor:null,sx:1,sy:1,w:0,h:0,roof:-1,saved:null,key:'',drag:null};
