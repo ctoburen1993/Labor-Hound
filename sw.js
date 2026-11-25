@@ -1,9 +1,9 @@
-/* Labor Hound service worker — build 11182026-22
+/* Labor Hound service worker — build 11182026-26
    Keeps the app's own files (this folder on GitHub Pages) so Labor Hound opens with no signal.
    index.html: network first (a new upload shows up right away), cached copy when offline.
    Icons / manifest / get page: cache first. Anything from another site (weather, fonts) is left alone.
    It never touches job data: that lives in the phone's localStorage / IndexedDB, which a service worker can't change here. */
-const VERSION='lh-11182026-22';
+const VERSION='lh-11182026-26';
 const SHELL=['./','./index.html','./manifest.webmanifest','./icon-180.png','./icon-192.png','./icon-512.png','./icon-maskable-512.png','./favicon.png','./favicon.ico','./get.html'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(VERSION).then(c=>c.addAll(SHELL)));});   // waits until the PM taps "update"
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k.startsWith('lh-')&&k!==VERSION).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});

@@ -595,6 +595,24 @@ td .ovsub,td.stcell .siteln{display:block;font-size:11px;color:var(--ink2);font-
 #siteRow>small.dsh{display:block;margin-top:4px;font-size:12px;color:var(--ink2)}.dsb.rem.on{background:#b42318;border-color:#b42318}
 @media (max-width:520px){.dsgrid.ps4{grid-template-columns:1fr 1fr}}
 .youtoday small.ytrem{color:#b42318;font-weight:600}.mgrem{margin:4px 0;color:#b42318;font-size:13px}.ovtoday{display:block;font-weight:600;color:var(--ink2)}
+/* 11182026-23: daily count, weekly shading */
+.dcintro{font-size:14px;margin:0 0 8px}.dcl .r .in input{width:78px;text-align:center}.dcov{color:#b42318}
+.wsdue{background:#fff6d8;border:1px solid #e3c55a;border-radius:10px;padding:9px 11px;margin:0 0 10px;font-size:14px;line-height:1.4}.wsdue .btn{margin-top:6px}
+.wsok{font-size:13.5px;margin:0 0 8px;color:var(--ink2)}
+.wsbar{background:#f2f8f4;border:1px solid #bcd3c4;border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:14px;line-height:1.4}.wsbar .btns{margin:8px 0;flex-wrap:wrap}.wsbar>small{display:block;color:var(--ink2)}
+table.dcrec{width:100%;border-collapse:collapse;font-size:13px;margin:4px 0;table-layout:auto}.dcrec th,.dcrec td{padding:5px 4px;border-bottom:1px solid var(--line);text-align:left}.dcrec th{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink2)}
+.dcrec .n{text-align:right;white-space:nowrap}.dcrec tr.dcbad td,li.dcbad,.capg.dcbad{color:#b42318;font-weight:600}
+.dccap{text-align:left;font-size:14px;background:#f6f7f5;border-radius:10px;padding:8px 10px;margin:10px 0}.dccap ul{margin:4px 0 6px 18px;padding:0}.dcrsn{display:flex;flex-wrap:wrap;gap:4px 12px;margin:4px 0}
+.dcnote,.dcwhy{width:100%;box-sizing:border-box;border:1px solid var(--line);border-radius:8px;padding:7px 9px;font:inherit;font-size:14px}
+.pchip.dcchip{background:#e7eef8;color:#1d4e89;border-color:#c4d4ea;white-space:nowrap}.dcline{display:block;margin-top:3px}.dctog{display:inline-flex;gap:5px;align-items:center;cursor:pointer}.dcmiss{color:#b42318}
+.capg{font-size:12.5px;line-height:1.35}.capr{font-size:12.5px;margin-top:3px}.wsdash{font-size:14.5px;line-height:1.45;border-left:4px solid #d4a72c}.wsdash .btn{margin-top:6px}
+/* 11182026-24 */
+.ealine{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}.ealine span{font-size:12.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:#eef3ef;color:#2b4a39;white-space:nowrap}
+.ealine .eatd{background:#f1f1ee;color:var(--mut)}.ealine .eatd.on{background:#1F7A4D;color:#fff}
+.apick{margin:0 0 10px}.apick .dsgrid .dsb{text-align:center;padding:8px 4px;font-size:13.5px}.apick small{display:block;margin-top:4px;font-size:12.5px;color:var(--ink2)}.cl100{color:#1d4e89}
+/* 11182026-25 */
+.recln{display:block;font-size:12px;color:#1d4e89;font-weight:600}.recline{font-size:12.5px;color:#1d4e89;margin-top:3px}.rechead{font-size:13.5px;background:#e7eef8;border-radius:8px;padding:6px 9px;margin:0 0 8px}
+.earnhelp{margin:10px 0;font-size:13.5px;line-height:1.45;background:#f6f7f5;border:1px solid var(--line);border-radius:10px;padding:6px 10px}.earnhelp summary{cursor:pointer;font-weight:700}.earnhelp p{margin:6px 0}
 /* 11182026-10: install help + update bar */
 .instwrap{margin-top:12px}.instbtn{width:100%;padding:12px;font-size:16px}#meMenu .instbtn{width:auto;padding:7px 12px;font-size:14px;margin-bottom:8px;display:block}
 .swupd{position:fixed;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top) + 64px);z-index:140;border:0;border-radius:999px;background:var(--gold);color:var(--g);padding:10px 16px;font:600 15px Barlow,system-ui,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.3)}
@@ -689,8 +707,8 @@ td .ovsub,td.stcell .siteln{display:block;font-size:11px;color:var(--ink2);font-
     <div class="hero"><div class="status" id="pStatus"></div></div>
     <div class="kpis" id="pKpis"></div>
     <div class="card">
-      <h2>Man-hours: estimated MH vs. worked MH</h2>
-      <div class="sub">Running totals by work day. <b>Estimated MH</b> = installed quantity × the estimate's MH per unit (MH estimated for the work installed). Dashed lines = forecast at the current pace.</div>
+      <h2>Man-hours: Earned MH vs. Actual MH</h2>
+      <div class="sub">Running totals by work day. <b>Earned MH</b> = (quantity installed ÷ estimated quantity) × Estimated MH, task by task. <b>Actual MH</b> = crew hours. Dashed lines = forecast at the current pace.</div>
       <div class="chartbox"><canvas id="chMh"></canvas></div>
     </div>
     <div class="card">
@@ -817,6 +835,10 @@ td .ovsub,td.stcell .siteln{display:block;font-size:11px;color:var(--ink2);font-
    11172026-2  combined / not-sent lines from IronClad's "What gets sent, and how"; no-drawing jobs
    11172026-3  draw completed LF items (✏ Draw) and mark EA items (📍 Mark) right on the plan
    11172026-4  fix: a job re-sent from IronClad with lines combined / not sent no longer stops the app (old entries for missing lines are skipped)
+   11182026-26 Terms (Charlie): Estimated MH = IronClad budget · Actual MH = crew hours / punches · Earned MH = (qty done ÷ estimated qty) × Estimated MH · Pace = Earned ÷ Actual · shading, tracing, drawing and marks earn at most 100% per line
+   11182026-25 Earned MH = (quantity done ÷ estimated quantity) × the task's estimated MH — audited; help text with the 25 of 100 SQ × 750 MH = 187.5 example · work dated outside the job's days now earns · completed jobs show recorded figures per line
+   11182026-24 Mark job complete = 100% of the estimate (pace = estimated ÷ worked MH; reopen → recorded) · count lines show est · done · +today · separate tear-off / field roofing shading (Shading for)
+   11182026-23 Daily count, weekly shading (per job, Management › Projects or IronClad progressMode): number boxes per line every day, shade the plan Fri–Mon, reconcile ±10%, completion vs estimate with a reason · Management › Capture accuracy
    11182026-22 Remote is marked job by job (Daily page: At this job I was On site / Remote) · PTO / Sick / TR still cover the whole day · Management: Remote on 2 of 3 jobs
    11182026-21 Employees (20 from Summit's Crew today, Management › Crews & employees) · job crew = named men + foreman · Daily crew chips (uncheck / add for the day) · overtime per person across jobs
    11182026-20 Area rectangle: 3 corners → live W × H pop-up (type or drag, anchor locked, roof-extent check), Submit, + Add another area, Done → flashings & penetrations · Free shape kept
@@ -840,7 +862,7 @@ td .ovsub,td.stcell .siteln{display:block;font-size:11px;color:var(--ink2);font-
    11182026-2  ratings per job; PM current rating = average of current job ratings; Management: current vs calendar-year rating, year picker; job rating on the Progress tab
    11182026-1  Management screen (shared password, charts on PM / crew performance) · PM rating meter in the header (rating v1: days logged + MH pace, 50/50)
    11172026-5  📅 pick any date · color the plan by week / month · 🔍 what was done here, and when (who entered it) · report: any week, whole job, custom dates, color by week / month */
-const LH_BUILD='11182026-22';
+const LH_BUILD='11182026-26';
 const TODAY=(()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');})();
 /* PM list lives in Shared Database\tr-project-managers.json (shared with IronClad).
    This device keeps a copy of the last list it read, so phones / tablets and offline use still work. */
@@ -1043,12 +1065,13 @@ function summaryOf(id){const keep={JOB,ENTRIES,HOURS,MODE,active},keepC=C;saveSt
    Today's default only counts once work is marked today (so the job doesn't look behind before the day is entered). */
 function hoursFor(d){
   if(HOURS[d]) return {...HOURS[d],def:!!HOURS[d].kept,counts:true};
-  const marked=ENTRIES.some(e=>e.mode===MODE&&e.date===d);
+  const marked=ENTRIES.some(e=>e.mode===MODE&&e.date===d&&!e.loc);
   return {men:JOB.crew.men,hrs:JOB.crew.hrs,note:'',def:true,counts:d!==TODAY||marked};
 }
 const usedOn=d=>{const h=hoursFor(d);return h.counts?h.men*h.hrs:0;};
 /* ===================== compute ===================== */
 let C;
+const DCX={loc:new WeakMap(),over:new WeakMap(),overI:new WeakMap()};   /* 11182026-23: weekly shading quantities (loc entries) and daily counts past the estimate */
 function compute(){
   const allDays=workdays(JOB.start,JOB.today), wts=WTS();
   const zero=()=>Object.fromEntries(wts.map(w=>[w.id,0]));
@@ -1063,7 +1086,7 @@ function compute(){
     const skip=()=>{e.parts=[];e.q=0;e.mh=0;e.it=null;orphans++;};
     let w=wts.find(x=>x.id===e.wt); const parts=[];
     if(e.kind==='area'){if(!w||!areaItems(w).length)w=wts.find(x=>areaItems(x).length);if(!w){skip();continue;}
-      areaItems(w).forEach(it=>{const cells=rasterNew(e.poly,cov[it.id]);cells.forEach(k=>cov[it.id][k]=1);parts.push([it,cells.length*it.per]);});}
+      areaItems(w).filter(it=>!e.items||e.items.includes(it.id)).forEach(it=>{const cells=rasterNew(e.poly,cov[it.id]);cells.forEach(k=>cov[it.id][k]=1);parts.push([it,cells.length*it.per]);});}
     else if(e.kind==='line'){const it=w&&RUNS[e.run]&&runItem(w,e.run);if(!it){skip();continue;}const b=ivLen(iv[e.run]||[]);iv[e.run]=mergeIv([...(iv[e.run]||[]),[e.t0,e.t1]]);parts.push([it,(ivLen(iv[e.run])-b)*(it.rk||1)]);}
     else {const raw=e.kind==='path'?plen(e.pts):e.kind==='mark'?1:(+e.qty||0);let f=findItem(e.item),q=raw;
       if(!f){// the line was combined into another when IronClad re-sent the job: move its man-hours to that line
@@ -1072,13 +1095,17 @@ function compute(){
         let old=null;(def.rawDetail||[]).forEach(ww=>ww.items.forEach(x=>{if(x.id===e.item)old=x;}));
         f=!drop[e.item]&&!drop[id]&&old?findItem(id):null;
         if(f&&f[1].mh>0)q=raw*old.mh/f[1].mh;else f=null;}
-      if(!f){skip();continue;}w=f[0];parts.push([f[1],q]);}
+      if(!f){skip();continue;}w=f[0];if(e.dc){const room=Math.max(0,f[1].total-done[f[1].id]),q0=q;q=Math.max(0,Math.min(q,room));DCX.over.set(e,q0-q);}parts.push([f[1],q]);}
+    if(e.loc){DCX.loc.set(e,parts.map(([it,q])=>({it:it.id,q})));e.parts=[];e.q=0;e.it=parts.length?parts[0][0].id:null;e.mh=0;continue;}   /* weekly shading = location only */
+    if(e.kind!=='qty'){const oi={};let any=false;parts.forEach(pp=>{const it=pp[0],tot=+it.total||0;if(!(tot>0))return;const room=Math.max(0,tot-done[it.id]);if(pp[1]>room+1e-9){oi[it.id]=(oi[it.id]||0)+pp[1]-room;pp[1]=room;any=true;}});if(any)DCX.overI.set(e,oi);}   /* 11182026-26: shading / tracing / drawing / marks earn at most the line's estimate */
     if(!parts.length){skip();continue;}
     e.parts=parts.map(([it,q])=>({it:it.id,q,mh:q*it.mh}));
     e.q=parts[0][1];e.it=parts[0][0].id;e.mh=e.parts.reduce((s2,x)=>s2+x.mh,0);
-    e.parts.forEach(x=>{done[x.it]+=x.q;earnedI[x.it]+=x.mh;if(per[e.date])per[e.date].qty[w.id]+=x.q;});
-    if(per[e.date]){per[e.date].mh[w.id]+=e.mh;per[e.date].earned+=e.mh;}
+    const pd=per[e.date]?e.date:(allDays.length?(e.date<allDays[0]?allDays[0]:e.date>allDays[allDays.length-1]?allDays[allDays.length-1]:null):null);   /* 11182026-25: work dated outside the job's days still earns (nearest day) */
+    e.parts.forEach(x=>{done[x.it]+=x.q;earnedI[x.it]+=x.mh;if(per[pd])per[pd].qty[w.id]+=x.q;});
+    if(per[pd]){per[pd].mh[w.id]+=e.mh;per[pd].earned+=e.mh;}
   }
+  if(typeof closeCredit==='function')closeCredit(per,done,earnedI,wts,allDays);   /* 11182026-24: a completed job counts 100% of the estimate */
   const cum={earned:0,used:0}, series=[], wtDone={}, wtEarned={};
   wts.forEach(w=>{wtEarned[w.id]=w.items.reduce((s,i)=>s+earnedI[i.id],0);});
   allDays.forEach(d=>{const p=per[d];cum.earned+=p.earned;cum.used+=p.used;series.push({d,earned:cum.earned,used:cum.used,day:p});});
@@ -1237,12 +1264,12 @@ function infoAt(x,y){const tol=22/pxPerFt(),hits=[];
   drawMap();}
 function setInfo(on){VIEW.info=on;VIEW.hits=[];const b=document.getElementById('zInfo');if(b)b.classList.toggle('on',on);const c=document.getElementById('infoCard');if(c&&!on)c.hidden=true;draft=[];pathDraft=[];lineStart=null;refreshDaily();}
 function finishPath(){if(pathDraft.length<2)return;const w=WT(active),it=itemOf(w,drawItem);if(!it)return;const pts=pathDraft.slice();pathDraft=[];
-  addEntry({wt:w.id,kind:'path',item:it.id,pts},true);toast(`Added ${fmt(plen(pts))} LF · ${it.name} · +${fmt(plen(pts)*it.mh,1)} estimated MH`);}
+  addEntry({wt:w.id,kind:'path',item:it.id,pts},true);toast(`Added ${fmt(plen(pts))} LF · ${it.name} · +${fmt(plen(pts)*it.mh,1)} Earned MH`);}
 function finishArea(){if(draft.length<3)return;const poly=draft.slice();draft=[];addEntry({wt:active,kind:'area',poly});}
 function addEntry(e,quiet){if(roBlock())return;e.id=nid++;e.uid=newUid();e.t=Date.now();e.by=ME||undefined;e.date=curDate;e.mode=MODE;ENTRIES.push(e);refreshAll();
   if(quiet)return;const x=ENTRIES.find(z=>z.id===e.id);const it=dItemAny(x.it);
   const what=x.parts.length>1?'tear-off & install':it.name;
-  toast(x.q>0?`Added ${fmt(x.q,it.unit==='SQ'?1:0)} ${it.unit} · ${what} · +${fmt(x.mh,1)} estimated MH`:'That was already marked — nothing new added');}
+  toast(x.q>0?`Added ${fmt(x.q,it.unit==='SQ'?1:0)} ${it.unit} · ${what} · +${fmt(x.mh,1)} Earned MH`:'That was already marked — nothing new added');}
 const dItemAny=id=>{for(const m of Object.values(MODES))for(const w of m.wts)for(const i of w.items)if(i.id===id)return i;};
 function setDone(itemId,val){ // done-to-date typed / stepped
   if(roBlock()){refreshDaily();return;}
@@ -1256,9 +1283,9 @@ function setDone(itemId,val){ // done-to-date typed / stepped
 
 /* ===================== side panel ===================== */
 function draftNew(){if(draft.length<3)return 0;const w=WT(active);const cov=new Uint8Array(GW*GH);
-  ENTRIES.filter(e=>e.mode===MODE&&e.wt===active&&e.kind==='area').forEach(e=>rasterNew(e.poly,cov).forEach(k=>cov[k]=1));
+  ENTRIES.filter(e=>e.mode===MODE&&e.wt===active&&e.kind==='area'&&(typeof areaPickOk!=='function'||areaPickOk(e))).forEach(e=>rasterNew(e.poly,cov).forEach(k=>cov[k]=1));
   return rasterNew(draft,cov).length;}
-const draftMH=n=>areaItems(WT(active)).reduce((s2,i)=>s2+n*i.per*i.mh,0);
+const draftMH=n=>areaItems(WT(active)).filter(i=>typeof areaPickOn!=='function'||areaPickOn(i)).reduce((s2,i)=>s2+n*i.per*i.mh,0);
 const dp=u=>u==='SQ'?1:0;
 function refreshDaily(){
   document.querySelectorAll('#modeSeg button').forEach(b=>b.classList.toggle('on',b.dataset.m===MODE));
@@ -1276,18 +1303,18 @@ function refreshDaily(){
   const cr=document.getElementById('crewReset');if(cr)cr.onclick=ev=>{ev.preventDefault();if(roBlock())return;delete HOURS[curDate];refreshAll();toast('Back to the job default crew');};
   const co=document.getElementById('crewOff');if(co)co.onclick=ev=>{ev.preventDefault();if(roBlock())return;const m=hoursFor(curDate).men||JOB.crew.men;HOURS[curDate]={...rainDay(m),t:Date.now()};refreshAll();toast(`Rain day ${short(curDate)}: ${m} men × ${SHOWUP_HRS} h show-up = ${m*SHOWUP_HRS} MH charged to the job`);};
   $('#trades').innerHTML=WTS().map(w=>{const pc=wtPct(w)*100;
-    const sub=w.items.every(i=>i.area)&&w.items.length>1?w.items.map(i=>`${i.sn||i.name} ${fmt(C.done[i.id])}`).join(' · ')+` of ${fmt(w.items[0].total)} SF`:w.items.length===1?`${fmt(C.done[w.items[0].id],dp(w.items[0].unit))} of ${fmt(w.items[0].total)} ${w.items[0].unit}`:(MODE==='s'?`${fmt(w.items.reduce((s,i)=>s+C.done[i.id],0))} of ${fmt(w.items.reduce((s,i)=>s+i.total,0))} ${w.items[0].unit}`:`${w.items.length} items · ${fmt(C.wtEarned[w.id])} of ${fmt(wtMH(w))} MH`);
+    const sub=w.items.every(i=>i.area)&&w.items.length>1?w.items.map(i=>`${i.sn||i.name} ${fmt(C.done[i.id])}`).join(' · ')+` of ${fmt(w.items[0].total,dp(w.items[0].unit))} ${w.items[0].unit}`:w.items.length===1?`${fmt(C.done[w.items[0].id],dp(w.items[0].unit))} of ${fmt(w.items[0].total)} ${w.items[0].unit}`:(MODE==='s'?`${fmt(w.items.reduce((s,i)=>s+C.done[i.id],0))} of ${fmt(w.items.reduce((s,i)=>s+i.total,0))} ${w.items[0].unit}`:`${w.items.length} items · ${fmt(C.wtEarned[w.id])} of ${fmt(wtMH(w))} MH`);
     return `<button class="tr${w.id===active?' on':''}" data-tr="${w.id}"><span class="sw" style="background:${w.color}"></span>
       <span class="nm"><b>${w.short}</b><span>${w.incl?w.incl:sub}</span>${w.incl?`<span style="display:block">${sub}</span>`:''}<div class="bar"><i style="width:${pc}%;background:${w.color}"></i></div></span>
       <span class="pc"><b>${fmt(pc)}%</b>done</span></button>`;}).join('');
   // tool
   const w=WT(active), when=isT?'today':'this day'; let html='', hint='';
   const hasRuns=w.items.some(i=>i.runs), hasMarks=w.items.some(i=>i.marks);
-  if(areaItem(w)){const it=areaItem(w);
+  if(areaItem(w)){const it=(typeof areaPickOf==='function'&&areaItems(w).find(i=>i.id===areaPickOf(w)))||areaItem(w);
     if(!draft.length){hint=`<b>${w.short}:</b> tap the corners of the area ${MODE==='s'?'completed (torn off, roofed and flashed)':'torn off and put back'} ${when}. Tap the gold point to close.`;
       html=`<p>${w.note?w.note+' ':''}Shade the area on the photo, or type the ${it.unit==='SQ'?'squares':'SF'} done to date below. Areas already marked aren't counted twice.</p>`;}
     else{const n=draftNew()*it.per;hint=draft.length<3?`<b>${draft.length} point${draft.length>1?'s':''}</b> — keep tapping corners`:`This shape adds <b>${fmt(n,dp(it.unit))} ${it.unit}</b>. Tap the gold point or <b>Done</b>.`;
-      html=`<p>${draft.length} point${draft.length>1?'s':''}${draft.length>2?` · adds <b>${fmt(n,dp(it.unit))} ${it.unit}</b>${areaItems(w).length>1?' of tear-off &amp; install':''} (${fmt(draftMH(n/it.per),1)} MH)`:''}</p>
+      html=`<p>${draft.length} point${draft.length>1?'s':''}${draft.length>2?` · adds <b>${fmt(n,dp(it.unit))} ${it.unit}</b>${areaItems(w).length>1?' of '+(typeof areaPickLabel==='function'?areaPickLabel(w):'tear-off &amp; install'):''} (${fmt(draftMH(n/it.per),1)} MH)`:''}</p>
       <div class="btns"><button class="btn pri" id="aDone" ${draft.length<3?'disabled':''}>✓ Done</button><button class="btn" id="aUndo">↶ Undo point</button><button class="btn" id="aCancel">Cancel</button></div>`;}
   } else if(lineStart){hint=`Start set on <b>${RUNS[lineStart.run].name}</b>. Now tap where it ends.`;
     html=`<p>Start set on <b>${RUNS[lineStart.run].name}</b> (${fmt(plen(RUNS[lineStart.run].pts))} LF).</p><div class="btns"><button class="btn gold" id="lWhole">Whole run done</button><button class="btn" id="lCancel">Cancel</button></div>`;
@@ -1334,8 +1361,8 @@ function refreshDaily(){
   $('#todayList').innerHTML=Object.entries(rows).filter(([,q])=>Math.abs(q)>1e-9).map(([id,q])=>{const it=dItemAny(id),ww=WTS().find(x=>x.items.includes(it));
     return `<div><span><span class="sw2" style="background:${ww.color}"></span>${it.name}</span><b>${q>0?'':'−'}${fmt(Math.abs(q),dp(it.unit))} ${it.unit}</b></div>`;}).join('')||'<div><span style="color:var(--mut)">Nothing marked yet</span></div>';
   const used=p?p.used:0, earned=p?p.earned:0, r=used?earned/used:0;
-  $('#todayMini').innerHTML=`<div>Estimated MH<b>${fmt(earned,1)}</b></div><div>MH worked<b>${fmt(used,1)}</b></div>
-    <div style="grid-column:1/-1">${used?`${light(r>=1.02?'good':r>=0.95?'warn':'bad','xs h')} <b style="display:inline;font-size:14px">${r>=1.02?'Ahead':r>=0.95?'On pace':'Behind'}</b> for the day — <b style="display:inline;font-size:14px">${fmt(r*100)}%</b> estimated MH per worked MH`:'Enter crew hours to compare'}</div>`;
+  $('#todayMini').innerHTML=`<div>Earned MH<b>${fmt(earned,1)}</b></div><div>Actual MH<b>${fmt(used,1)}</b></div>
+    <div style="grid-column:1/-1">${used?`${light(r>=1.02?'good':r>=0.95?'warn':'bad','xs h')} <b style="display:inline;font-size:14px">${r>=1.02?'Ahead':r>=0.95?'On pace':'Behind'}</b> for the day — <b style="display:inline;font-size:14px">${fmt(r*100)}%</b> Earned MH per Actual MH`:'Enter crew hours to compare'}</div>`;
   drawMap();
 }
 
@@ -1426,16 +1453,16 @@ function refreshProgress(){
   const[ic,tx,cl]=statusText(),c=C,over=c.projTotal-EST_TOTAL,late=!!c.finish&&c.finish>c.planFinish;
   $('#pStatus').className='status '+cl;
   $('#pStatus').innerHTML=`${light(c.worked.length||locked()?cl:'none','lg')}<div class="stx"><div class="big cond">${c.worked.length||locked()?tx.toUpperCase():'NOT STARTED'} · ${fmt(c.pct*100)}% COMPLETE</div>
-   <p>For every <b>10 hours</b> worked, the crew has put in <b>${(c.perf*10).toFixed(1)} hours</b> of estimated work. At this pace the job will use about <b>${fmt(c.projTotal)} MH</b> against <b>${fmt(EST_TOTAL)} MH</b> job total estimated (${over>=0?'<b style="color:var(--bad)">'+fmt(over)+' MH over</b>':'<b style="color:var(--good)">'+fmt(-over)+' MH under</b>'}).
+   <p>For every <b>10 Actual MH</b> (crew hours), the crew has <b>${(c.perf*10).toFixed(1)} Earned MH</b>. At this pace the job will use about <b>${fmt(c.projTotal)} MH</b> against <b>${fmt(EST_TOTAL)} MH</b> estimated for the job (${over>=0?'<b style="color:var(--bad)">'+fmt(over)+' MH over</b>':'<b style="color:var(--good)">'+fmt(-over)+' MH under</b>'}).
    ${c.finish?`Forecast finish <b>${nice(c.finish)}</b> (${c.daysLeft} work days left at the last 5 days' pace) — planned <b>${nice(c.planFinish)}</b>.`:`Forecast finish shows once work has been marked on days with crew hours — planned <b>${nice(c.planFinish)}</b>.`}
-   <br><small>Tracking: <b>${MODES[MODE].label}</b>${MODE==='s'?' — roofing field only counts estimated MH when squares are complete (torn off, roofed, curbs and penetrations flashed), so it can run behind early in a job.':''}</small></p></div>`;
+   <br><small>Tracking: <b>${MODES[MODE].label}</b>${MODE==='s'?' — roofing field only counts Earned MH when squares are complete (torn off, roofed, curbs and penetrations flashed), so it can run behind early in a job.':''}</small></p></div>`;
   const k=(l,v,s,scl='')=>`<div class="kpi"><div class="l">${l}</div><div class="v">${v}</div><div class="s ${scl}">${s}</div></div>`;
   const left=EST_TOTAL-c.cum.used;
   $('#pKpis').innerHTML=k('Percent complete',fmt(c.pct*100)+'%',`Schedule says ${fmt(c.planPct*100)}% by now`,c.pct<c.planPct-0.02?'bad':'good')+
-    k('MH worked',fmt(c.cum.used),`Estimated MH for the work installed: ${fmt(c.cum.earned)}`)+
+    k('Actual MH',fmt(c.cum.used),`Earned MH: ${fmt(c.cum.earned)}`)+
     k('Job MH budget left',fmt(left),`Work left needs ~${fmt(c.remaining/c.perf)} MH at this pace`,left<c.remaining/c.perf?'bad':'good')+
     k('Forecast finish',c.finish?short(c.finish):'—',`Planned ${short(c.planFinish)}${late?' — '+(n=>n+' work day'+(n===1?'':'s')+' late')(workdays(c.planFinish,c.finish).length-1):''}`,late?'bad':'good')+
-    k('Forecast total MH',fmt(c.projTotal),`${over>=0?'+':''}${fmt(over)} vs ${fmt(EST_TOTAL)} job total estimated MH`,over>0?'bad':'good');
+    k('Forecast total MH',fmt(c.projTotal),`${over>=0?'+':''}${fmt(over)} vs ${fmt(EST_TOTAL)} Estimated MH`,over>0?'bad':'good');
   let rows='';
   WTS().forEach(w=>{const em=wtMH(w),ea=C.wtEarned[w.id],pc=Math.min(1,ea/em);
     const qty=w.items.length===1||MODE==='s'?`${fmt(w.items.reduce((s,i)=>s+C.done[i.id],0),dp(w.items[0].unit))} / ${fmt(w.items.reduce((s,i)=>s+i.total,0))} ${w.items[0].unit}`:'';
@@ -1443,9 +1470,9 @@ function refreshProgress(){
       <td><span class="pbar"><i style="width:${pc*100}%;background:${w.color}"></i></span>${fmt(pc*100)}%</td><td class="n">${fmt(em,1)}</td><td class="n">${fmt(ea,1)}</td><td class="n">${fmt(em-ea,1)}</td></tr>`;
     if(w.items.length>1) w.items.forEach(it=>{const d=C.done[it.id];rows+=`<tr class="sub"><td>${it.name}</td><td class="n">${fmt(d,dp(it.unit))} / ${fmt(it.total)} ${it.unit}</td><td>${fmt(Math.min(100,d/it.total*100))}%</td><td class="n">${fmt(it.total*it.mh,1)}</td><td class="n">${fmt(C.earnedI[it.id],1)}</td><td class="n">${fmt(it.total*it.mh-C.earnedI[it.id],1)}</td></tr>`;});
   });
-  $('#pTable').innerHTML=`<thead><tr><th>Work</th><th class="n">Installed / total</th><th>Complete</th><th class="n">Job est. MH</th><th class="n">Estimated MH (installed)</th><th class="n">Est. MH of work left</th></tr></thead>
+  $('#pTable').innerHTML=`<thead><tr><th>Work</th><th class="n">Installed / total</th><th>Complete</th><th class="n">Estimated MH</th><th class="n">Earned MH</th><th class="n">MH of work left</th></tr></thead>
    <tbody>${rows}</tbody><tfoot><tr><td>Total</td><td></td><td>${fmt(c.pct*100)}%</td><td class="n">${fmt(EST_TOTAL,1)}</td><td class="n">${fmt(c.cum.earned,1)}</td><td class="n">${fmt(c.remaining,1)}</td></tr>
-   <tr><td colspan="3" style="font-weight:500;color:var(--ink2)">Crew hours worked to date (all work)</td><td></td><td class="n">${fmt(c.cum.used,1)}</td><td></td></tr></tfoot>`;
+   <tr><td colspan="3" style="font-weight:500;color:var(--ink2)">Actual MH to date (crew hours, all work)</td><td></td><td class="n">${fmt(c.cum.used,1)}</td><td></td></tr></tfoot>`;
   drawChart();
 }
 function drawChart(){
@@ -1455,11 +1482,11 @@ function drawChart(){
   const L=labels.concat(futL),pad=a=>a.concat(Array(futL.length).fill(null)),lead=(arr,last)=>Array(n-1).fill(null).concat([last]).concat(arr);
   const F={family:'Barlow, system-ui, sans-serif'};
   const data={labels:L,datasets:[
-    {label:'Hours worked',data:pad(c.series.map(s=>s.used)),borderColor:'#A86F12',backgroundColor:'#A86F12',borderWidth:2,pointRadius:0,pointHoverRadius:5,tension:.15},
-    {label:'Estimated MH (work installed)',data:pad(c.series.map(s=>s.earned)),borderColor:'#1F7A4D',backgroundColor:'#1F7A4D',borderWidth:2,pointRadius:0,pointHoverRadius:5,tension:.15},
-    {label:'Hours worked — forecast',data:lead(fU,c.cum.used),borderColor:'#A86F12',borderDash:[6,5],borderWidth:2,pointRadius:0,pointHoverRadius:4},
-    {label:'Estimated MH — forecast',data:lead(fE,c.cum.earned),borderColor:'#1F7A4D',borderDash:[6,5],borderWidth:2,pointRadius:0,pointHoverRadius:4},
-    {label:'Job total estimated MH ('+fmt(EST_TOTAL)+')',data:L.map(()=>EST_TOTAL),borderColor:'#8a8f8c',borderDash:[2,4],borderWidth:1.5,pointRadius:0,pointHoverRadius:0}]};
+    {label:'Actual MH',data:pad(c.series.map(s=>s.used)),borderColor:'#A86F12',backgroundColor:'#A86F12',borderWidth:2,pointRadius:0,pointHoverRadius:5,tension:.15},
+    {label:'Earned MH',data:pad(c.series.map(s=>s.earned)),borderColor:'#1F7A4D',backgroundColor:'#1F7A4D',borderWidth:2,pointRadius:0,pointHoverRadius:5,tension:.15},
+    {label:'Actual MH — forecast',data:lead(fU,c.cum.used),borderColor:'#A86F12',borderDash:[6,5],borderWidth:2,pointRadius:0,pointHoverRadius:4},
+    {label:'Earned MH — forecast',data:lead(fE,c.cum.earned),borderColor:'#1F7A4D',borderDash:[6,5],borderWidth:2,pointRadius:0,pointHoverRadius:4},
+    {label:'Estimated MH ('+fmt(EST_TOTAL)+')',data:L.map(()=>EST_TOTAL),borderColor:'#8a8f8c',borderDash:[2,4],borderWidth:1.5,pointRadius:0,pointHoverRadius:0}]};
   const opt={responsive:true,maintainAspectRatio:false,animation:false,interaction:{mode:'index',intersect:false},
     plugins:{legend:{position:'top',align:'start',labels:{boxWidth:14,boxHeight:3,font:F,color:'#55605a'}},
       tooltip:{backgroundColor:'#1d2420',titleFont:F,bodyFont:F,filter:i=>i.raw!=null&&i.datasetIndex!==4,callbacks:{label:i=>` ${i.dataset.label}: ${fmt(i.raw)} MH`}}},
@@ -1471,7 +1498,7 @@ function drawChart(){
 /* ===================== log / job ===================== */
 function refreshLog(){
   $('#logList').innerHTML=`<p class="note" style="margin:0 0 10px">Showing <b>${MODES[MODE].label}</b> entries.</p>`+C.allDays.slice().reverse().map(d=>{const p=C.per[d],h=hoursFor(d);const es=ENTRIES.filter(e=>e.mode===MODE&&e.date===d);
-    return `<div class="logday"><div class="h"><b>${nice(d)}${d===JOB.today?' · Today':''}</b><span>${h.rain?'☔ Rain day — ':''}${h.men} men × ${h.hrs} h${h.rain?' show-up':''}${h.def?' (default)':''} = <b>${fmt(p.used,1)} MH</b> worked · ${fmt(p.earned,1)} estimated MH${h.note&&!h.rain?' · '+h.note:''}</span></div>
+    return `<div class="logday"><div class="h"><b>${nice(d)}${d===JOB.today?' · Today':''}</b><span>${h.rain?'☔ Rain day — ':''}${h.men} men × ${h.hrs} h${h.rain?' show-up':''}${h.def?' (default)':''} = <b>${fmt(p.used,1)} MH</b> actual · ${fmt(p.earned,1)} Earned MH${h.note&&!h.rain?' · '+h.note:''}</span></div>
      <ul>${es.map(e=>{const it=e.it&&dItemAny(e.it),w=(it&&WTS().find(x=>x.items.includes(it)))||WTS().find(x=>x.id===e.wt)||{name:'',color:'#bbb'};
        if(!it)return `<li style="color:var(--mut)"><span class="sw2" style="background:#bbb"></span>${e.item||e.wt} · <i>line no longer in this job — doesn't count</i><span class="q">${e.qty!=null?fmt(e.qty):''}</span><button class="x${sureDel===e.id?' sure':''}" data-del="${e.id}">${sureDel===e.id?'Delete?':'✕'}</button></li>`;
        const how=e.kind==='area'?'shaded on the photo':e.kind==='line'?(RUNS[e.run]||{name:'traced run'}).name:e.kind==='path'?'drawn on the plan':e.kind==='mark'?'marked on the plan':'typed in the list';
@@ -1486,7 +1513,7 @@ function refreshJob(){
     IronClad's man-hours for this takeoff: <b>${fmt(est.totalMH||EST_TOTAL,1)} MH</b>${est.notSentMH>0.05?` (${fmt(est.notSentMH,1)} MH not sent, by the estimator's choice — tracked here: ${fmt(EST_TOTAL,1)} MH)`:''}${est.roofSF?` · roof ${fmt(est.roofSF)} SF`:''}${d.plan&&d.plan.source?` · plan: ${d.plan.source}`:''}.
 ${C.orphans?`<br><b style="color:#8a5a00">⚠ ${C.orphans} earlier entr${C.orphans===1?'y is':'ies are'} for lines that are no longer in this job's setup</b> (IronClad re-sent it with lines combined or not sent), so ${C.orphans===1?'it doesn\'t':'they don\'t'} count. Re-enter that work on the new lines.<br>`:''}
         <span style="color:var(--mut)">Labor Hound build ${LH_BUILD}.</span> Curbs and penetrations come over as pick lists. Accessories (adhesive, primer, sealant, corners, cleats…) are spread into the items they go with, so every estimated man-hour is counted.`;
-  $('#jTable').innerHTML=`<thead><tr><th>Detailed pick list</th><th class="n">Quantity</th><th class="n">MH / unit</th><th class="n">Job est. MH</th><th>Simple group</th><th>From IronClad</th></tr></thead><tbody>`+
+  $('#jTable').innerHTML=`<thead><tr><th>Detailed pick list</th><th class="n">Quantity</th><th class="n">MH / unit</th><th class="n">Estimated MH</th><th>Simple group</th><th>From IronClad</th></tr></thead><tbody>`+
    DETAIL.map(w=>`<tr class="grp"><td><span class="sw2" style="background:${w.color}"></span>${w.name}</td><td></td><td></td><td class="n">${fmt(wtMH(w),1)}</td><td>${grp[w.id]||''}</td><td class="note">${src[w.id]||''}</td></tr>`+
      w.items.map(i=>`<tr class="sub"><td>${i.name}${i.incl?`<br><small class="note">includes ${i.incl.join(', ')}</small>`:''}</td><td class="n">${fmt(i.total,i.total<10&&i.total%1?1:0)} ${i.unit}</td><td class="n">${i.mh<1?i.mh.toFixed(3):fmt(i.mh,2)}</td><td class="n">${fmt(i.total*i.mh,1)}</td><td></td><td></td></tr>`).join('')).join('')+
    `</tbody><tfoot><tr><td>Total</td><td></td><td></td><td class="n">${fmt(EST_TOTAL,1)}</td><td colspan="2"></td></tr></tfoot>`+
@@ -1494,7 +1521,7 @@ ${C.orphans?`<br><b style="color:#8a5a00">⚠ ${C.orphans} earlier entr${C.orpha
   $('#jcMen').value=JOB.crew.men;$('#jcHrs').value=JOB.crew.hrs;
   const changed=Object.values(HOURS).filter(h=>!h.kept).length;
   $('#jcSum').innerHTML=`<b>${JOB.crew.men} men × ${JOB.crew.hrs} h = ${JOB.crew.men*JOB.crew.hrs} MH per work day</b>. ${changed} day${changed===1?'':'s'} changed on the Daily tab keep their own numbers. Changing the default applies from today on — earlier days keep the crew they had.`;
-  $('#jPlan').innerHTML=`Planned from IronClad's crew <b>${JOB.planCrew.men} men × ${JOB.planCrew.hrs} h = ${JOB.planCrew.men*JOB.planCrew.hrs} MH/day</b> → <b>${C.planDays} work days</b>, ${JOB.started===false?'not started yet (counted from today)':'actual start '+nice(JOB.start)} · planned start (IronClad) ${nice(JOB.plannedStart||JOB.start)}, planned finish <b>${nice(C.planFinish)}</b>. Weekends and ${JOB.holidays.map(short).join(', ')} are skipped. The planned finish stays on IronClad's crew; a bigger crew or longer days show up as an earlier forecast finish. The forecast finish uses the average estimated MH per day over the last 5 days with hours (rain days left out).<br><br>
+  $('#jPlan').innerHTML=`Planned from IronClad's crew <b>${JOB.planCrew.men} men × ${JOB.planCrew.hrs} h = ${JOB.planCrew.men*JOB.planCrew.hrs} MH/day</b> → <b>${C.planDays} work days</b>, ${JOB.started===false?'not started yet (counted from today)':'actual start '+nice(JOB.start)} · planned start (IronClad) ${nice(JOB.plannedStart||JOB.start)}, planned finish <b>${nice(C.planFinish)}</b>. Weekends and ${JOB.holidays.map(short).join(', ')} are skipped. The planned finish stays on IronClad's crew; a bigger crew or longer days show up as an earlier forecast finish. The forecast finish uses the average Earned MH per day over the last 5 days with hours (rain days left out).<br><br>
    <b>Simple vs Detailed:</b> both use the same estimate and the same crew hours; Simple rolls the detailed types into three groups.`;
   refreshFormat();
 }
@@ -1665,22 +1692,22 @@ function jobPage(w){
       <div class="rleg">${RPT.color==='week'||RPT.color==='month'?'':WTS().map(t=>`<span><i style="background:${t.color}"></i>${t.short}</span>`).join('')}${RPT.color==='week'||RPT.color==='month'?(()=>{const all=periodKeys(RPT.color),ks=periodKeys(RPT.color,w.end);return ks.slice(-12).map(k=>`<span><i style="background:${PAL[all.indexOf(k)%PAL.length]}"></i>${periodLabel(k,RPT.color)}</span>`).join('')+(RPT.week==='all'?'':'<span><i class="hat"></i>'+w.nowLbl+'</span>');})():`<span><i class="hat"></i>${w.nowLbl}</span><span><i style="background:#888;opacity:.45"></i>Earlier</span>`}<span><i class="dash"></i>Not done yet</span></div></div>
     <div class="rside">
       <div class="rstat ${st}">${light(st,'lg')}<div><div class="rbig">${stWord(st).toUpperCase()}</div><div class="rpc">${fmt(c.pct*100)}% complete</div>
-        <div class="rsm">${started?`${(c.perf*10).toFixed(1)} h of estimated work per 10 h worked`:'No work marked yet'}</div></div></div>
+        <div class="rsm">${started?`${(c.perf*10).toFixed(1)} Earned MH per 10 Actual MH`:'No work marked yet'}</div></div></div>
       <div class="rk">
-        <div><span>MH worked</span><b>${fmt(c.cum.used)}</b></div>
-        <div><span>Estimated MH</span><b>${fmt(c.cum.earned)}</b></div>
+        <div><span>Actual MH</span><b>${fmt(c.cum.used)}</b></div>
+        <div><span>Earned MH</span><b>${fmt(c.cum.earned)}</b></div>
         <div><span>Job MH budget left</span><b class="${left<c.remaining/Math.max(.01,c.perf)?'bad':''}">${fmt(left)}</b></div>
-        <div><span>Forecast total MH</span><b class="${over>0?'bad':'good'}">${fmt(c.projTotal)}</b><em>${over>=0?'+':''}${fmt(over)} vs ${fmt(EST_TOTAL)} job est.</em></div>
+        <div><span>Forecast total MH</span><b class="${over>0?'bad':'good'}">${fmt(c.projTotal)}</b><em>${over>=0?'+':''}${fmt(over)} vs ${fmt(EST_TOTAL)} estimated</em></div>
         <div><span>Forecast finish</span><b class="${late?'bad':'good'}">${c.finish?short(c.finish):'—'}</b><em>planned ${short(c.planFinish)}${late?` · ${lateDays} day${lateDays===1?'':'s'} late`:''}</em></div>
         <div><span>Schedule says</span><b>${fmt(c.planPct*100)}%</b><em>by today</em></div>
       </div>
-      <div class="rweek"><div class="rwh">${light(wk.status,'xs h')} <b>${w.thisLbl}</b> · ${wk.days} work day${wk.days===1?'':'s'}${wk.rain?` · ${wk.rain} rain`:''} · ${fmt(wk.earned)} estimated MH for ${fmt(wk.used)} MH worked</div>
+      <div class="rweek"><div class="rwh">${light(wk.status,'xs h')} <b>${w.thisLbl}</b> · ${wk.days} work day${wk.days===1?'':'s'}${wk.rain?` · ${wk.rain} rain`:''} · ${fmt(wk.earned)} Earned MH for ${fmt(wk.used)} Actual MH</div>
         <table class="rt2"><thead><tr><th>Installed — ${w.thisLbl.toLowerCase()}</th><th class="n">Qty</th><th class="n">MH</th></tr></thead><tbody>${wkRows}</tbody></table></div>
     </div>
    </div>
    <div class="rfoot">
-    <div class="rchart"><div class="rct">Man-hours to date — worked MH vs. estimated MH (dashed = forecast)</div><div class="rcbox"><canvas></canvas></div></div>
-    <div class="rtab"><table class="rt2"><thead><tr><th>Work</th><th>Complete</th><th class="n">Job est. MH</th><th class="n">Estimated</th><th class="n">Left</th></tr></thead><tbody>${rows}</tbody>
+    <div class="rchart"><div class="rct">Man-hours to date — Actual MH vs. Earned MH (dashed = forecast)</div><div class="rcbox"><canvas></canvas></div></div>
+    <div class="rtab"><table class="rt2"><thead><tr><th>Work</th><th>Complete</th><th class="n">Estimated MH</th><th class="n">Earned</th><th class="n">Left</th></tr></thead><tbody>${rows}</tbody>
       <tfoot><tr><td>Total</td><td>${fmt(c.pct*100)}%</td><td class="n">${fmt(EST_TOTAL)}</td><td class="n">${fmt(c.cum.earned)}</td><td class="n">${fmt(c.remaining)}</td></tr></tfoot></table>
       <div class="rnotes"><b>PM notes</b><div class="rn" contenteditable="${isRO()?'false':'true'}" data-notes="${JOB.id}" data-ph="Notes for the meeting (issues, weather, crew, change orders)…">${NOTES[JOB.id]||''}</div></div></div>
    </div>
@@ -1694,11 +1721,11 @@ function chartDataFor(){const c=C,labels=c.series.map(s=>short(s.d)),n=labels.le
 function summaryPage(w,rows){const logo=document.querySelector('.brand .logo').src;
   return `<div class="rpage rsum"><div class="rhead"><img src="${logo}" alt="TR"><div class="rt"><b>Job Progress</b><span>${RPT.allPm?'All projects — every PM':'Projects for '+ME} · ${rows.length} job${rows.length===1?'':'s'}</span></div>
     <div class="rr"><b>LABOR HOUND</b><span>${w.label}${w.meeting?' · meeting '+nice(w.meeting):''}</span></div></div>
-   <table class="rt2 rsumt"><thead><tr><th></th><th>Job</th><th>PM</th><th class="n">Complete</th><th class="n">MH worked</th><th class="n">Estimated MH</th><th class="n">Forecast MH</th><th>Forecast finish</th><th>${w.thisLbl}</th></tr></thead>
+   <table class="rt2 rsumt"><thead><tr><th></th><th>Job</th><th>PM</th><th class="n">Complete</th><th class="n">Actual MH</th><th class="n">Earned MH</th><th class="n">Forecast MH</th><th>Forecast finish</th><th>${w.thisLbl}</th></tr></thead>
    <tbody>${rows.map(r=>`<tr><td>${light(r.st,'sm')}</td><td><b>${r.name}</b><br><small>${[r.client,r.qno].filter(Boolean).join(' · ')}</small></td><td>${r.pm}</td><td class="n"><b>${fmt(r.pct*100)}%</b><br><small>plan ${fmt(r.planPct*100)}%</small></td>
      <td class="n">${fmt(r.used)}</td><td class="n">${fmt(r.earned)}</td><td class="n ${r.st==='none'?'':r.over>0?'bad':'good'}">${fmt(r.proj)}<br><small>${r.st==='none'?'estimate':(r.over>=0?'+':'')+fmt(r.over)+' vs est.'}</small></td>
      <td class="${r.late?'bad':''}">${r.finish?short(r.finish):'—'}<br><small>planned ${short(r.plan)}</small></td><td>${r.wU?`${light(r.wst,'xs h')} ${fmt(r.wE)} of ${fmt(r.wU)} MH`:'<span style="color:var(--mut)">No hours</span>'}</td></tr>`).join('')}</tbody></table>
-   <div class="rpf">Stop light: green = ahead (≥ 1.02 estimated MH per MH worked), yellow = on track (0.95–1.02), red = behind (below 0.95). Each job has its own page after this one.</div></div>`;}
+   <div class="rpf">Stop light: green = ahead (≥ 1.02 Earned MH per Actual MH), yellow = on track (0.95–1.02), red = behind (below 0.95). Each job has its own page after this one.</div></div>`;}
 function reportJobIds(){if(RPT.scope==='job')return [JOB.id];return (RPT.allPm?JOBLIST:JOBLIST.filter(j=>j.pm===ME)).map(j=>j.id);}
 function buildReport(){
   RPT.charts.forEach(ch=>ch.destroy());RPT.charts=[];
@@ -1715,10 +1742,10 @@ function buildReport(){
   const F={family:'Barlow, system-ui, sans-serif',size:11};
   $('#rptPages').querySelectorAll('.rpage[data-job] canvas').forEach((cv,i)=>{const d=charts[i];if(!window.Chart)return;
     RPT.charts.push(new Chart(cv,{type:'line',data:{labels:d.L,datasets:[
-      {label:'Hours worked',data:d.used,borderColor:'#A86F12',borderWidth:2,pointRadius:0,tension:.15},
-      {label:'Estimated MH',data:d.earned,borderColor:'#1F7A4D',borderWidth:2,pointRadius:0,tension:.15},
-      {label:'Worked — forecast',data:d.fU,borderColor:'#A86F12',borderDash:[5,4],borderWidth:1.5,pointRadius:0},
-      {label:'Estimated MH — forecast',data:d.fE,borderColor:'#1F7A4D',borderDash:[5,4],borderWidth:1.5,pointRadius:0},
+      {label:'Actual MH',data:d.used,borderColor:'#A86F12',borderWidth:2,pointRadius:0,tension:.15},
+      {label:'Earned MH',data:d.earned,borderColor:'#1F7A4D',borderWidth:2,pointRadius:0,tension:.15},
+      {label:'Actual MH — forecast',data:d.fU,borderColor:'#A86F12',borderDash:[5,4],borderWidth:1.5,pointRadius:0},
+      {label:'Earned MH — forecast',data:d.fE,borderColor:'#1F7A4D',borderDash:[5,4],borderWidth:1.5,pointRadius:0},
       {label:'Estimate',data:d.L.map(()=>d.est),borderColor:'#8a8f8c',borderDash:[2,3],borderWidth:1,pointRadius:0}]},
      options:{responsive:true,maintainAspectRatio:false,animation:false,devicePixelRatio:2,
       plugins:{legend:{position:'bottom',labels:{boxWidth:12,boxHeight:2,font:F,color:'#55605a'}},tooltip:{enabled:false}},
@@ -2362,7 +2389,7 @@ function jobLine(j,own,multi){const s=j.job;
   if(j.rating==null)return `<div class="mgj"><div class="mgjh"><b>${esc(s.name)}</b><span class="zs none">Not rated yet</span></div><small>No hours worked ${j.year?'in '+j.year:'yet'} — left out of the average.</small></div>`;
   const ms=j.missed.slice(0,5).map(short).join(', ')+(j.missed.length>5?` and ${j.missed.length-5} more`:'');
   return `<div class="mgj"><div class="mgjh"><b>${esc(s.name)}</b><span class="zs ${j.zone}">${r0(j.rating)} · ${j.word}</span></div>
-    <small>MH pace ${j.ratio==null?'— (no hours yet)':`${j.ratio.toFixed(2)} (${fmt(j.earned)} estimated ÷ ${fmt(j.paceUsed)} worked MH${j.rainU?`, ${fmt(j.rainU)} rain show-up left out`:''}) → ${r0(j.paceScore)}`}${s.finished?' · finished':''}</small>
+    <small>MH pace ${j.ratio==null?'— (no hours yet)':`${j.ratio.toFixed(2)} (${fmt(j.earned)} Earned ÷ ${fmt(j.paceUsed)} Actual MH${j.rainU?`, ${fmt(j.rainU)} rain show-up left out`:''}) → ${r0(j.paceScore)}`}${s.finished?' · finished':''}</small>
     ${j.acMH?`<small class="mgac">${fmt(j.acMH)} MH charged after ${own?'you':'the PM'} closed the job</small>`:''}
     <small class="mgdl">Days logged ${j.workDays?`${j.logged} of ${j.workDays} (${pctTxt(j.daysPct)})`:'—'} — not part of the rating</small>
     ${ms?`<small class="mgmiss">Missed: ${ms}</small>`:''}</div>`;}
@@ -2374,7 +2401,7 @@ function breakdownHTML0(r,own,label){
   const nums=r.rated.map(x=>r0(x.rating));
   return `<div class="mgbd">${r.list.map(j=>jobLine(j,own)).join('')}
    <div class="mgf">MH pace part (${label||(own?'your rating':'current rating')}) = ${r.rated.length?`average of ${r.rated.length} job${r.rated.length===1?'':'s'}${r.rated.length>1?` = (${nums.join(' + ')}) ÷ ${r.rated.length}`:''} = <b>${r0(r.pace!==undefined?r.pace:r.rating)}</b>`:'not rated yet'}</div>
-   <div class="mgf note">Each job's rating = its MH pace score (estimated MH ÷ worked MH, ${r.year?'within '+r.year:'job to date'}; rain show-up hours left out). Days logged is shown for information only. ${own&&r.list.some(j=>j.missed.length)?'For a missed day, go back to it (📅 on the Daily tab) and enter the work, or set Men to 0 if nobody worked.':''}</div>
+   <div class="mgf note">Each job's rating = its MH pace score (Earned MH ÷ Actual MH, ${r.year?'within '+r.year:'job to date'}; rain show-up hours left out). Days logged is shown for information only. ${own&&r.list.some(j=>j.missed.length)?'For a missed day, go back to it (📅 on the Daily tab) and enter the work, or set Men to 0 if nobody worked.':''}</div>
    <div class="mgsc"><span class="zs sub">Sub Par under 40</span><span class="zs good">Good 40–60</span><span class="zs great">Great over 60</span></div></div>`;}
 
 /* header meter: the signed-in PM's own rating only */
@@ -2394,7 +2421,7 @@ function updateMeter(){if(!document.querySelector('header .jobpick'))return;cons
 function fillMeterPop(){const r=MG.mine||pmRating(ME),pop=document.getElementById('pmPop');
   const Y0=TODAY.slice(0,4),acj=pmYear(ME,Y0).list.filter(j=>j.acMH>0&&j.job.finished);
   pop.innerHTML=`<div class="pph">${gaugeSVG(r.rating,{w:84})}<div><b>${r.rating==null?r.word:r0(r.rating)+' · '+r.word}</b><span>My rating — ${esc(ME||'')}</span></div><button class="ppx" aria-label="Close">✕</button></div>${breakdownHTML(r,true)}${acj.length?`<div class="mgacbox">${acj.map(j=>`<b>${esc(j.job.name)}</b> (completed ${short(j.job.end)}): <b class="mgac">${fmt(j.acMH)} MH charged after you closed the job</b> — job rating ${r0(j.rating)}, counts in your ${Y0} rating.`).join('<br>')}</div>`:''}
-    <p class="note" style="margin:8px 0 0;font-size:12px">Only you see your rating. It's your crews' pace against the estimate's man-hours (estimated MH ÷ worked MH) — rain show-up hours don't count against it. Keep entering progress every work day so the pace stays right.</p>`;
+    <p class="note" style="margin:8px 0 0;font-size:12px">Only you see your rating. It's your crews' pace against the estimate's man-hours (Earned MH ÷ Actual MH) — rain show-up hours don't count against it. Keep entering progress every work day so the pace stays right.</p>`;
   pop.querySelector('.ppx').onclick=()=>pop.hidden=true;}
 function toggleMeterPop(){const pop=document.getElementById('pmPop'),b=document.getElementById('pmMeter');
   if(!pop.hidden){pop.hidden=true;return;}fillMeterPop();pop.hidden=false;toggleMeToo();
@@ -2421,7 +2448,7 @@ function toggleMeToo(){try{toggleMeMenu(false);toggleJobMenu(false);}catch(e){}}
   let j;try{const s=jobStats(JOB.id);j=jobRating(s);j.cur=s.active;}catch(e){console.warn(e);el.hidden=true;return;}
   el.hidden=false;el.className='pjr z-'+(j.rating==null?'none':j.zone);
   el.innerHTML=`<span class="pjl">This job's rating</span>${gaugeSVG(j.rating,{w:96})}<b>${j.rating==null?'—':r0(j.rating)}</b><span class="zw">${j.rating==null?'Not rated yet':j.word}</span>
-    <div id="pJobRateD" class="pjd" hidden>${j.rating==null?'No hours worked yet.':`MH pace ${j.ratio.toFixed(2)} estimated MH per hour worked → ${r0(j.paceScore)}${j.rainU?`<br>${fmt(j.rainU)} MH rain show-up left out`:''}`}<br><span class="mgdl">Days logged ${j.workDays?j.logged+' of '+j.workDays:'—'} (last ${LH_SETTINGS.rating.windowDays} days) — not part of the rating</span>${j.cur?'':'<br><i>Finished — not in your current rating</i>'}</div>`;};}
+    <div id="pJobRateD" class="pjd" hidden>${j.rating==null?'No hours worked yet.':`MH pace ${j.ratio.toFixed(2)} Earned MH per Actual MH → ${r0(j.paceScore)}${j.rainU?`<br>${fmt(j.rainU)} MH rain show-up left out`:''}`}<br><span class="mgdl">Days logged ${j.workDays?j.logged+' of '+j.workDays:'—'} (last ${LH_SETTINGS.rating.windowDays} days) — not part of the rating</span>${j.cur?'':'<br><i>Finished — not in your current rating</i>'}</div>`;};}
 {const _cf=connectFolder;connectFolder=async function(which){const r=await _cf.apply(this,arguments);if(which==='lh'){await readSettingsFolder();updateMeter();if(mgOn())renderMgmt();}return r;};}
 
 /* ---------- management: unlock (shared password, this session only) ---------- */
@@ -2531,7 +2558,7 @@ function renderMgmt(){const t=document.getElementById('tMgmt');if(!t)return;
    <div class="mghead"><div><h1>📊 Management</h1><span>PM ratings and crew performance · all jobs ${SAVE.lhDir?'in the Labor Hound folder':'on this '+(isPhone()?devWord():'computer')} · ${all.length} job${all.length===1?'':'s'}. Unlocked for this session — locks after 30 minutes idle.</span></div>
      <div class="btns"><button class="btn" id="mgBack">‹ Dashboard</button>${SAVE.lhDir?'<button class="btn" id="mgRe">↻ Read folder again</button>':''}<button class="btn" id="mgLock">🔒 Lock</button></div></div>
    <div class="card"><div class="mgcardh"><h2>PM ratings</h2><label class="mgyr">Calendar year <select id="mgYear">${years.map(y=>`<option${y===Y?' selected':''}>${y}</option>`).join('')}</select></label></div>
-     <div class="sub">Each job is rated on <b>MH pace only</b> — estimated MH ÷ worked MH, rain show-up hours left out (the crew doesn't pick the job or the weather). <b>Current projects</b> = average of the PM's current jobs (pace job to date). <b>${Y}</b> = average of every job with work days in ${Y}, finished jobs too (pace within ${Y}). Every job counts the same. Days logged is information only. <span class="zs sub">Sub Par under ${S.zones.subParBelow}</span> <span class="zs good">Good ${S.zones.subParBelow}–${S.zones.greatAbove}</span> <span class="zs great">Great over ${S.zones.greatAbove}</span></div>
+     <div class="sub">Each job is rated on <b>MH pace only</b> — Earned MH ÷ Actual MH, rain show-up hours left out (the crew doesn't pick the job or the weather). <b>Current projects</b> = average of the PM's current jobs (pace job to date). <b>${Y}</b> = average of every job with work days in ${Y}, finished jobs too (pace within ${Y}). Every job counts the same. Days logged is information only. <span class="zs sub">Sub Par under ${S.zones.subParBelow}</span> <span class="zs good">Good ${S.zones.subParBelow}–${S.zones.greatAbove}</span> <span class="zs great">Great over ${S.zones.greatAbove}</span></div>
      <div class="mgmeters">${R.map(r=>`<button class="mgm z-${r.noJobs?'none':r.zone}" data-pm="${esc(r.name)}">${gaugeSVG(r.rating,{w:104})}<b>${r.rating==null?'—':r0(r.rating)}</b><span class="zw">${r.rating==null&&!r.noJobs?'Not rated yet':r.word}</span><span class="nm">${esc(r.name)}</span><small>${r.active.length} current job${r.active.length===1?'':'s'}</small><small class="mgyrv">${Y}: <b>${r.yr.rating==null?'—':r0(r.yr.rating)}</b> ${r.yr.rating==null?'':r.yr.word}</small></button>`).join('')}</div>
      <div class="tscroll"><table class="t mgt"><thead><tr><th>PM</th><th class="n">Current</th><th>Zone</th><th>Current projects (job ratings)</th><th class="n">Days logged<small>info · last ${S.windowDays} days</small></th><th class="n">${Y}</th><th>Zone</th><th>Jobs in ${Y}</th></tr></thead><tbody>
      ${R.map(r=>`<tr data-row="${esc(r.name)}"><td><b>${esc(r.name)}</b><small><a href="#" data-pmd="${esc(r.name)}">Details</a></small></td><td class="n"><b>${r0(r.rating)}</b></td><td>${zchip(r)}${rainPmChip(r.name)}</td><td class="mgjl">${jl(r.list)}</td>
@@ -2541,10 +2568,10 @@ function renderMgmt(){const t=document.getElementById('tMgmt');if(!t)return;
    <div class="mgrid">
      <div class="card"><h2>PM ratings — current vs ${Y}</h2><div class="sub">Current projects average and the ${Y} average for each PM. Hover for the zone.</div><div class="mgc" style="height:${Math.max(180,60+rated.length*46)}px"><canvas id="mgcRate"></canvas></div></div>
      <div class="card"><h2>Job ratings — current projects</h2><div class="sub">Each current job's own rating = its MH pace score (bar color = zone). Hover for pace and days logged.</div><div class="mgc" style="height:${Math.max(180,40+curJobs.length*30)}px"><canvas id="mgcDays"></canvas></div></div>
-     <div class="card"><h2>Estimated MH vs worked MH — by PM</h2><div class="sub">Current jobs, job to date. Estimated MH = installed quantity × the estimate's MH per unit.</div><div class="mgc"><canvas id="mgcPm"></canvas></div></div>
-     <div class="card"><h2>Estimated MH vs worked MH — by job</h2><div class="sub">Every job with hours worked (finished jobs too).</div><div class="mgc" style="height:${Math.max(180,50+worked.length*38)}px"><canvas id="mgcJob"></canvas></div></div>
-     <div class="card mgwide"><h2>Crew performance by job over time</h2><div class="sub">Estimated MH ÷ worked MH, job to date, at the end of each Tue–Mon week. 1.00 = on the estimate · on track 0.95–1.02 · ahead above 1.02.</div><div class="mgc" style="height:300px"><canvas id="mgcTime"></canvas></div></div>
-     <div class="card mgwide" id="mgScn"><h2>Crew performance by job scenario</h2><div class="sub">Estimated MH ÷ worked MH and the average job rating for every job with hours, grouped by the job details IronClad sends (size, complexity, roof type…). <b>Complexity hours are already in the estimate, so estimated MH ÷ worked MH compares fairly across simple and complex jobs.</b> Ratings are not adjusted for complexity. Jobs sent before IronClad 11182026-1 count as <b>Not sent</b>. Tap a row or cell to see its jobs.</div>
+     <div class="card"><h2>Earned MH vs Actual MH — by PM</h2><div class="sub">Current jobs, job to date. Earned MH = (quantity installed ÷ estimated quantity) × Estimated MH, task by task.</div><div class="mgc"><canvas id="mgcPm"></canvas></div></div>
+     <div class="card"><h2>Earned MH vs Actual MH — by job</h2><div class="sub">Every job with hours worked (finished jobs too).</div><div class="mgc" style="height:${Math.max(180,50+worked.length*38)}px"><canvas id="mgcJob"></canvas></div></div>
+     <div class="card mgwide"><h2>Crew performance by job over time</h2><div class="sub">Earned MH ÷ Actual MH, job to date, at the end of each Tue–Mon week. 1.00 = on the estimate · on track 0.95–1.02 · ahead above 1.02.</div><div class="mgc" style="height:300px"><canvas id="mgcTime"></canvas></div></div>
+     <div class="card mgwide" id="mgScn"><h2>Crew performance by job scenario</h2><div class="sub">Earned MH ÷ Actual MH and the average job rating for every job with hours, grouped by the job details IronClad sends (size, complexity, roof type…). <b>Complexity hours are already in the estimate, so Earned MH ÷ Actual MH compares fairly across simple and complex jobs.</b> Ratings are not adjusted for complexity. Jobs sent before IronClad 11182026-1 count as <b>Not sent</b>. Tap a row or cell to see its jobs.</div>
        <div class="mgdims">${DIMS.map(d=>`<button class="btn sm${MG.dim===d[0]?' pri':''}" data-dim="${d[0]}">${d[1]}</button>`).join('')}</div>
        <div class="mgsplit"><div class="mgc" style="height:260px"><canvas id="mgcDim"></canvas></div><div class="tscroll"><table class="t mgt mgclick" id="mgDimT"></table></div></div>
        <div class="mgsplit" style="margin-top:14px"><div><h3 class="mgh3">Size × complexity</h3><div class="tscroll"><table class="t mgt mgx mgclick" id="mgXsize"></table></div></div><div><h3 class="mgh3">Roof type × complexity</h3><div class="tscroll"><table class="t mgt mgx mgclick" id="mgXroof"></table></div></div></div>
@@ -2553,16 +2580,16 @@ function renderMgmt(){const t=document.getElementById('tMgmt');if(!t)return;
        <div id="mgScnJobs"></div>
        <p class="note" style="margin-top:8px">Thresholds (lh-settings.json “analysis”): Small ≤ ${LH_SETTINGS.analysis.sizeSmallMaxSqs} SQS · Medium ≤ ${LH_SETTINGS.analysis.sizeMediumMaxSqs} · Large over that. Complex if flashing SQS ÷ roof SQS is over ${LH_SETTINGS.analysis.flashingPctComplex}% or penetrations are over ${LH_SETTINGS.analysis.penPerSqComplex} per SQ (1 per ${Math.round(1/LH_SETTINGS.analysis.penPerSqComplex*10)/10} SQS); SRS jobs count ${LH_SETTINGS.analysis.srsFactor}× on both.</p></div>
    </div>
-   <div class="card"><h2>Jobs</h2><div class="tscroll"><table class="t mgt"><thead><tr><th>Job</th><th>PM</th><th>Status</th><th class="n">Complete</th><th class="n">Estimated MH</th><th class="n">Worked MH</th><th class="n">Estimated ÷ worked</th><th>Job details</th></tr></thead><tbody>
+   <div class="card"><h2>Jobs</h2><div class="tscroll"><table class="t mgt"><thead><tr><th>Job</th><th>PM</th><th>Status</th><th class="n">Complete</th><th class="n">Earned MH</th><th class="n">Actual MH</th><th class="n">Earned ÷ Actual</th><th>Job details</th></tr></thead><tbody>
      ${all.map(s=>{const[w,c]=st(s);return `<tr><td><a href="#" class="mgopen" data-goj="${s.id}"><b>${esc(s.name)}</b></a><small>${[s.client,s.qno].filter(Boolean).map(esc).join(' · ')}${s.client||s.qno?' · ':''}start ${short(s.start)}</small></td><td>${esc(s.pm||'—')}${isTestPM(s.pm)?' <span class="pchip tst">Test</span>':''}</td><td><span class="stt ${c}">${w}</span>${s.finished?`<small>${s.completion&&s.completion.by?'by '+esc(s.completion.by.name)+' · ':''}not current${s.acMH?` · <b class="mgac">+${fmt(s.acMH)} MH after closeout</b>`:''}</small><span class="mgbtns"><button class="btn sm" data-adj="${s.id}">After-closeout hours…</button><button class="btn sm" data-reopen="${s.id}">Reopen</button></span>`:s.active?'':'<small>not counted in ratings</small>'}</td>
        <td class="n">${fmt(s.pct*100)}%</td><td class="n">${fmt(s.earned,1)}</td><td class="n">${fmt(s.used,1)}</td><td class="n">${s.used?(s.earned/s.used).toFixed(2):'—'}</td><td>${profileChip(jobProfile(s))}${(r=>r&&r.flag?' <span class="pchip rainchip" title="Rainier than normal">🌧 Rain</span>':'')(rainFor(s.id))}</td></tr>`;}).join('')||'<tr><td colspan="8" class="mut">No jobs yet.</td></tr>'}</tbody></table></div><div id="mgAdj"></div></div>
    <div class="card mgsoon"><h2>Coming with Summit time clock</h2><div class="sub">These need clock-ins by employee from Summit (read only). Nothing is tracked here yet, and no pay data is in Labor Hound.</div>
-     <div class="mgph"><div><b>Foreman performance</b><span>Estimated MH ÷ worked MH on the days each foreman ran the crew.</span></div><div><b>Crew performance by crew</b><span>Same measure, grouped by the crew that clocked in.</span></div><div><b>Hourly rate vs performance</b><span>Admins only — pay rates never show on PM phones.</span></div></div>
+     <div class="mgph"><div><b>Foreman performance</b><span>Earned MH ÷ Actual MH on the days each foreman ran the crew.</span></div><div><b>Crew performance by crew</b><span>Same measure, grouped by the crew that clocked in.</span></div><div><b>Hourly rate vs performance</b><span>Admins only — pay rates never show on PM phones.</span></div></div>
      <div class="mgph" style="margin-top:10px"><div><b>Leaks / callbacks after completion — coming later</b><span>A deduction from the job's rating for leaks or callbacks after the job is done.</span></div></div></div>
    <div class="card"><h2>Rating settings</h2>
      <div class="sub">Saved in <b>TR Labor Hound\\${LH_SETTINGS_FILE}</b> ${MG.where==='folder'?'(Labor Hound folder)':'(on this device only — connect the Labor Hound folder to share)'}. </div>
-     <p class="note"><b>Job rating = MH pace score only</b> (Charlie, Nov 18) — no weights to set. Rain show-up hours (days the PM marked rain) are left out of worked MH for the rating.</p>
-     <p class="note">Pace score: estimated MH ÷ worked MH of ${S.pacePoints.map(p=>p[0].toFixed(2)+' → '+p[1]).join(' · ')} (straight lines between). Days logged (information only) counts company work days; days with Men set to 0 are skipped.</p>
+     <p class="note"><b>Job rating = MH pace score only</b> (Charlie, Nov 18) — no weights to set. Rain show-up hours (days the PM marked rain) are left out of Actual MH for the rating.</p>
+     <p class="note">Pace score: Earned MH ÷ Actual MH of ${S.pacePoints.map(p=>p[0].toFixed(2)+' → '+p[1]).join(' · ')} (straight lines between). Days logged (information only) counts company work days; days with Men set to 0 are skipped.</p>
      <h3 class="mgh3">Management password</h3>
      <p class="note">One shared password for admins and upper management. ${M.setAt?`Set ${whenStr(M.setAt)}${M.setBy?' by '+esc(M.setBy.name):''}.`:''} It only hides this screen in the app (a soft lock for phase 1) — the job files themselves aren't encrypted.</p>
      ${isAdmin(ME)?`<div class="mgw"><input id="mgC1" type="password" autocomplete="new-password" placeholder="New management password"><input id="mgC2" type="password" autocomplete="new-password" placeholder="Type it again"><button class="btn" id="mgCGo">Change password</button></div><div class="admmsg" id="mgCMsg"></div>`
@@ -2599,11 +2626,11 @@ function renderMgmt(){const t=document.getElementById('tMgmt');if(!t)return;
       plugins:{legend:{display:false},tooltip:{callbacks:{title:it=>{const j=curJobs[it[0].dataIndex];return j.job.name+' · '+j.job.pm;},label:c=>{const j=curJobs[c.dataIndex];return [` ${Math.round(j.rating)} · ${j.word}`,` MH pace ${j.ratio==null?'—':j.ratio.toFixed(2)+' → '+r0(j.paceScore)}`,` Days logged ${j.logged} of ${j.workDays} (info)`];}}}}})});
   R.forEach(r=>{r.earned=r.active.reduce((a,s)=>a+s.earned,0);r.used=r.active.reduce((a,s)=>a+s.used,0);});
   const pmW=R.filter(r=>r.used>0);
-  chartOn('mgcPm',{type:'bar',data:{labels:pmW.map(r=>r.name),datasets:[{label:'Worked MH',data:pmW.map(r=>Math.round(r.used)),backgroundColor:SER[0],borderRadius:4},{label:'Estimated MH',data:pmW.map(r=>Math.round(r.earned)),backgroundColor:SER[1],borderRadius:4}]},
-    options:baseOpts({plugins:{legend:{display:true,position:'top',labels:{boxWidth:12,font:{family:'Barlow, system-ui, sans-serif'}}},tooltip:{callbacks:{footer:it=>{const r=pmW[it[0].dataIndex];return 'Estimated ÷ worked MH '+(r.earned/r.used).toFixed(2);}}}}})});
-  chartOn('mgcJob',{type:'bar',data:{labels:worked.map(s=>s.name.length>28?s.name.slice(0,27)+'…':s.name),datasets:[{label:'Worked MH',data:worked.map(s=>Math.round(s.used)),backgroundColor:SER[0],borderRadius:4},{label:'Estimated MH',data:worked.map(s=>Math.round(s.earned)),backgroundColor:SER[1],borderRadius:4}]},
+  chartOn('mgcPm',{type:'bar',data:{labels:pmW.map(r=>r.name),datasets:[{label:'Actual MH',data:pmW.map(r=>Math.round(r.used)),backgroundColor:SER[0],borderRadius:4},{label:'Earned MH',data:pmW.map(r=>Math.round(r.earned)),backgroundColor:SER[1],borderRadius:4}]},
+    options:baseOpts({plugins:{legend:{display:true,position:'top',labels:{boxWidth:12,font:{family:'Barlow, system-ui, sans-serif'}}},tooltip:{callbacks:{footer:it=>{const r=pmW[it[0].dataIndex];return 'Earned ÷ Actual MH '+(r.earned/r.used).toFixed(2);}}}}})});
+  chartOn('mgcJob',{type:'bar',data:{labels:worked.map(s=>s.name.length>28?s.name.slice(0,27)+'…':s.name),datasets:[{label:'Actual MH',data:worked.map(s=>Math.round(s.used)),backgroundColor:SER[0],borderRadius:4},{label:'Earned MH',data:worked.map(s=>Math.round(s.earned)),backgroundColor:SER[1],borderRadius:4}]},
     options:baseOpts({indexAxis:'y',scales:{x:{grid:{color:'#eef1ef'},ticks:{font:{family:'Barlow, system-ui, sans-serif'}}},y:{grid:{display:false},ticks:{font:{family:'Barlow, system-ui, sans-serif',size:12},color:'#1d2420'}}},
-      plugins:{legend:{display:true,position:'top',labels:{boxWidth:12,font:{family:'Barlow, system-ui, sans-serif'}}},tooltip:{callbacks:{title:it=>worked[it[0].dataIndex].name+' · '+worked[it[0].dataIndex].pm,footer:it=>{const s=worked[it[0].dataIndex];return 'Estimated ÷ worked MH '+(s.earned/s.used).toFixed(2);}}}}})});
+      plugins:{legend:{display:true,position:'top',labels:{boxWidth:12,font:{family:'Barlow, system-ui, sans-serif'}}},tooltip:{callbacks:{title:it=>worked[it[0].dataIndex].name+' · '+worked[it[0].dataIndex].pm,footer:it=>{const s=worked[it[0].dataIndex];return 'Earned ÷ Actual MH '+(s.earned/s.used).toFixed(2);}}}}})});
   // over time: active jobs first, at most 8 lines (fixed color per job)
   const tj=worked.slice().sort((a,b)=>(b.active-a.active)||(b.start<a.start?-1:1)).slice(0,8);
   const wk=[...new Set([].concat(...tj.map(s=>Object.keys(s.weekly))))].sort().slice(-26);
@@ -2617,16 +2644,16 @@ function sortKeys(keys,dim){const ord=ORDER[dim]||[];const sp=x=>x==='Not sent'?
   return keys.sort((a,b)=>{if(sp(a)!==sp(b))return sp(a)-sp(b);const ia=ord.indexOf(a),ib=ord.indexOf(b);if(ia>-1||ib>-1)return (ia<0?99:ia)-(ib<0?99:ib);return a.localeCompare(b);});}
 const cellHTML=(g,key)=>g?`<td class="n mgcell" data-cell="${esc(key)}"><span class="sw2" style="background:${g.k==='Not sent'?'#c3c9c5':ratioCol(gRatio(g))}"></span>${gRatio(g).toFixed(2)}<small>${g.n} job${g.n===1?'':'s'}</small></td>`:'<td class="n mut">—</td>';
 function showCellJobs(title,jobs){const h=document.getElementById('mgScnJobs');if(!h)return;
-  h.innerHTML=`<div class="mgbdw"><h3>${esc(title)} <button class="ppx" id="scnX" aria-label="Close">✕</button></h3><table class="t mgt"><thead><tr><th>Job</th><th>PM</th><th>Profile</th><th class="n">Estimated ÷ worked</th><th class="n">Job rating</th></tr></thead><tbody>${jobs.map(s=>{const r=jobRating(s);return `<tr><td><a href="#" class="mgopen" data-goj="${s.id}"><b>${esc(s.name)}</b></a></td><td>${esc(s.pm)}</td><td>${profileChip(jobProfile(s))}</td><td class="n">${s.used?(s.earned/s.used).toFixed(2):'—'}</td><td class="n">${r.rating==null?'—':r0(r.rating)}</td></tr>`;}).join('')}</tbody></table></div>`;
+  h.innerHTML=`<div class="mgbdw"><h3>${esc(title)} <button class="ppx" id="scnX" aria-label="Close">✕</button></h3><table class="t mgt"><thead><tr><th>Job</th><th>PM</th><th>Profile</th><th class="n">Earned ÷ Actual</th><th class="n">Job rating</th></tr></thead><tbody>${jobs.map(s=>{const r=jobRating(s);return `<tr><td><a href="#" class="mgopen" data-goj="${s.id}"><b>${esc(s.name)}</b></a></td><td>${esc(s.pm)}</td><td>${profileChip(jobProfile(s))}</td><td class="n">${s.used?(s.earned/s.used).toFixed(2):'—'}</td><td class="n">${r.rating==null?'—':r0(r.rating)}</td></tr>`;}).join('')}</tbody></table></div>`;
   h.querySelector('#scnX').onclick=()=>h.innerHTML='';h.querySelectorAll('[data-goj]').forEach(a=>a.onclick=e=>{e.preventDefault();goJob(a.dataset.goj);});h.scrollIntoView({block:'nearest'});}
 function drawDim(worked){const d=DIMS.find(x=>x[0]===MG.dim)||DIMS[0];const G=grp(worked,d[2]);
   const rows=sortKeys(Object.keys(G),d[0]).map(k=>G[k]);
   const old=MG.charts.find(c=>c.canvas&&c.canvas.id==='mgcDim');if(old){old.destroy();MG.charts=MG.charts.filter(c=>c!==old);}
-  chartOn('mgcDim',{type:'bar',data:{labels:rows.map(g=>`${g.k} (${g.n})`),datasets:[{label:'Estimated ÷ worked MH',data:rows.map(g=>+gRatio(g).toFixed(3)),
+  chartOn('mgcDim',{type:'bar',data:{labels:rows.map(g=>`${g.k} (${g.n})`),datasets:[{label:'Earned ÷ Actual MH',data:rows.map(g=>+gRatio(g).toFixed(3)),
       backgroundColor:rows.map(g=>g.k==='Not sent'?'#c3c9c5':ratioCol(gRatio(g))),borderRadius:4,maxBarThickness:46}]},
     options:baseOpts({scales:{x:{grid:{display:false},ticks:{font:{family:'Barlow, system-ui, sans-serif',size:12},color:'#1d2420'}},y:{suggestedMin:0,suggestedMax:1.2,grid:{color:c=>[0.95,1,1.02].includes(+c.tick.value)?'#b9c4bd':'#eef1ef'},ticks:{callback:v=>(+v).toFixed(2),font:{family:'Barlow, system-ui, sans-serif'}}}},
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>{const g=rows[c.dataIndex];return ` ${gRatio(g).toFixed(2)} estimated MH per hour worked · ${g.n} job${g.n===1?'':'s'}`;},footer:it=>rows[it[0].dataIndex].jobs.slice(0,6).map(s=>s.name).join('\n')}}}})});
-  const tb=document.getElementById('mgDimT');if(tb){tb.innerHTML=`<thead><tr><th>${d[1]}</th><th class="n">Jobs</th><th class="n">Estimated MH</th><th class="n">Worked MH</th><th class="n">Estimated ÷ worked</th><th class="n">Avg job rating</th></tr></thead><tbody>`+
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>{const g=rows[c.dataIndex];return ` ${gRatio(g).toFixed(2)} Earned MH per Actual MH · ${g.n} job${g.n===1?'':'s'}`;},footer:it=>rows[it[0].dataIndex].jobs.slice(0,6).map(s=>s.name).join('\n')}}}})});
+  const tb=document.getElementById('mgDimT');if(tb){tb.innerHTML=`<thead><tr><th>${d[1]}</th><th class="n">Jobs</th><th class="n">Earned MH</th><th class="n">Actual MH</th><th class="n">Earned ÷ Actual</th><th class="n">Avg job rating</th></tr></thead><tbody>`+
     (rows.map(g=>`<tr data-row="${esc(g.k)}"><td>${esc(g.k)}</td><td class="n">${g.n}</td><td class="n">${fmt(g.e)}</td><td class="n">${fmt(g.u)}</td><td class="n"><span class="sw2" style="background:${g.k==='Not sent'?'#c3c9c5':ratioCol(gRatio(g))}"></span>${gRatio(g).toFixed(2)}</td><td class="n">${gRate(g)==null?'—':r0(gRate(g))}</td></tr>`).join('')||'<tr><td colspan="6" class="mut">No jobs with hours yet.</td></tr>')+'</tbody>';
     tb.querySelectorAll('[data-row]').forEach(r=>r.onclick=()=>showCellJobs(`${d[1]}: ${r.dataset.row}`,G[r.dataset.row].jobs));}
   drawCross(worked);}
@@ -2681,6 +2708,7 @@ function mergeAdj(a,b){const del=new Set([...(a.deleted||[]),...(b.deleted||[])]
    const hist=[...h.values()].sort((x,y)=>x.at<y.at?-1:1);if(hist.length){const cur=hist[hist.length-1];o.startOverride={date:cur.date,by:cur.by,at:cur.at,history:hist};}}
   if(b.defaultCrew&&(!a.defaultCrew||(b.defaultCrew.at||'')>(a.defaultCrew.at||'')))o.defaultCrew=b.defaultCrew;   // 11182026-18
   if(b.site&&(!a.site||(b.site.at||'')>(a.site.at||'')))o.site=b.site;   // 11182026-17
+  if(b.progressMode&&(!a.progressMode||(b.progressMode.at||'')>(a.progressMode.at||'')))o.progressMode=b.progressMode;   // 11182026-23
   if(b.weatherDays&&(!a.weatherDays||(b.weatherDays.at||'')>(a.weatherDays.at||'')))o.weatherDays=b.weatherDays;   // 11182026-15
   if((b.updatedAt||'')>(a.updatedAt||'')){o.updatedAt=b.updatedAt;o.updatedBy=b.updatedBy;}return o;}
 const adjText=a=>JSON.stringify(a,null,1)+'\n';
@@ -2724,7 +2752,7 @@ const isMyOpen=()=>!!(JOB&&ME&&JOB.pm===ME);
 /* --- the PM: mark complete / undo --- */
 function saveSoon(){const go=()=>{if(SAVE.busy)setTimeout(go,300);else saveNow();};go();}
 function setCompletion(c){JOB.completion=c;SAVE.dirty[JOB.id]=true;saveState();MG.cache={};refreshAll();saveSoon();}
-function lastEntryDay(){return ENTRIES.map(e=>e.date).filter(d=>d<=TODAY).sort().pop()||null;}
+function lastEntryDay(){return ENTRIES.filter(e=>!e.loc).map(e=>e.date).filter(d=>d<=TODAY).sort().pop()||null;}
 function openComplete(){if(!isMyOpen()||isRO()){toast(JOB?`Only ${JOB.pm} can mark this job complete`:'');return;}
   const g=mgGate(),box=$('#mgBox'),last=lastEntryDay(),def=C.pct>=0.999&&last?last:TODAY;
   box.innerHTML=`<h2>✓ Mark job complete?</h2><p><b>${esc(JOB.name)}</b></p>
@@ -2778,7 +2806,7 @@ async function reopenJob(id,btn){if(!MG.unlocked)return;
 function renderAdjPanel(){const host=document.getElementById('mgAdj'),id=MG.adjOpen;if(!host||!id)return;const s=jobStats(id);if(!s){host.innerHTML='';return;}
   const a=adjOf(id),tot=a.afterCloseout.reduce((t,x)=>t+acMH(x),0);
   host.innerHTML=`<div class="mgbdw mgadj"><h3>After-closeout hours — ${esc(s.name)} <button class="ppx" id="adjX" aria-label="Close">✕</button></h3>
-   <p class="note">Hours charged after ${esc(s.pm)} closed the job (${s.end?'completed '+nice(s.end):'not completed right now'}). They're added to the job's worked MH (estimated MH stay the same), so they lower the job's MH pace, its rating and ${esc(s.pm.split(' ')[0])}'s rating for that year. Saved in <b>${esc(folderOf(JOBLIST.find(j=>j.id===id)))}\\${esc(adjFileName(JOBLIST.find(j=>j.id===id)))}</b>.</p>
+   <p class="note">Hours charged after ${esc(s.pm)} closed the job (${s.end?'completed '+nice(s.end):'not completed right now'}). They're added to the job's Actual MH (Earned MH stay the same), so they lower the job's MH pace, its rating and ${esc(s.pm.split(' ')[0])}'s rating for that year. Saved in <b>${esc(folderOf(JOBLIST.find(j=>j.id===id)))}\\${esc(adjFileName(JOBLIST.find(j=>j.id===id)))}</b>.</p>
    <table class="t mgt"><thead><tr><th>Date</th><th class="n">MH</th><th>Reason</th><th>Note</th><th>Added by</th><th></th></tr></thead><tbody>
    ${a.afterCloseout.map(x=>`<tr><td>${short(x.date)}</td><td class="n">${fmt(acMH(x),1)}<small>${x.mh!=null&&x.mh!==''?'MH':(x.men+' men × '+x.hrs+' h')}</small></td><td>${REASONS[x.reason]||esc(x.reason)}</td><td>${esc(x.note||'')}</td><td>${esc((x.by||{}).name||'')}<small>${whenStr(x.at)}</small></td><td><button class="x" data-adjdel="${x.id}">✕</button></td></tr>`).join('')||'<tr><td colspan="6" class="mut">None yet.</td></tr>'}
    </tbody>${tot?`<tfoot><tr><td>Total</td><td class="n">${fmt(tot,1)}</td><td colspan="4"></td></tr></tfoot>`:''}</table>
@@ -3378,7 +3406,7 @@ function ensureSite(j){if(!j||siteOf(j))return Promise.resolve(siteOf(j));const 
 /* ---------- weekend days, overtime, no-work hours ---------- */
 {const _wd=workdays;workdays=function(a,b){const base=_wd(a,b);if(!JOB)return base;const set=new Set(base),extra=new Set();
   Object.entries(JOB.dayStatus||{}).forEach(([d,s])=>{if(s&&(s.job?s.job!=='nowork':(s.status&&s.status!=='nowork'))&&d>=a&&d<=b&&!set.has(d))extra.add(d);});   /* a PM-status-only record doesn't add a day */
-  ENTRIES.forEach(e=>{if(e.date>=a&&e.date<=b&&!set.has(e.date))extra.add(e.date);});
+  ENTRIES.forEach(e=>{if(!e.loc&&e.date>=a&&e.date<=b&&!set.has(e.date))extra.add(e.date);});   /* 11182026-23: a weekly shading record isn't a work day */
   return extra.size?base.concat([...extra]).sort():base;};}
 let OTCTX=null;
 {const _cmp=compute;compute=function(){const m=crewsOn()&&JOB?crossOT(JOB.id):null,pm=JOB&&jobHasMembers(JOB)?personOT(JOB.id):null;OTCTX={set:null,map:m,pmap:pm};try{return _cmp.apply(this,arguments);}finally{OTCTX=null;}};}
@@ -3579,7 +3607,7 @@ const LEDGER={};
 function baseSig(st){const J=st.JOB,E=st.ENTRIES||[];return [J.start,J.started,JSON.stringify(J.completion||null),JSON.stringify(st.HOURS||{}),JSON.stringify(J.dayStatus||{}),JSON.stringify(J.crewPick||null),JSON.stringify(adjOf(J.id).defaultCrew||null),
   JSON.stringify(adjOf(J.id).reopens||[]),JSON.stringify(adjOf(J.id).startOverride||null),JSON.stringify(J.crew||null),E.length,E.reduce((m,e)=>Math.max(m,e.t||0),0),TODAY].join('|');}
 function ledgerHere(){const out=[],keep=OTCTX;OTCTX=null;try{if(!JOB||JOB.started===false)return out;
-  const first={};ENTRIES.forEach(e=>{if(e.t&&(!first[e.date]||e.t<first[e.date]))first[e.date]=e.t;});
+  const first={};ENTRIES.forEach(e=>{if(e.t&&!e.loc&&(!first[e.date]||e.t<first[e.date]))first[e.date]=e.t;});
   workdays(JOB.start,JOB.today).forEach(d=>{const h=hoursFor(d);if(!h.counts||!(h.men>0))return;
     if(h.members){h.members.forEach(m=>out.push({job:JOB.id,name:JOB.name,d,emp:m,hrs:+h.hrs,men:1,first:first[d]||Infinity}));return;}
     const cr=dayCrew(d);if(!cr)return;out.push({job:JOB.id,name:JOB.name,d,crew:cr,hrs:+h.hrs,men:+h.men,first:first[d]||Infinity});});}
@@ -3698,7 +3726,7 @@ function rectPoly(){const A=RECT.anchor,w=isFinite(RECT.w)&&RECT.w>0?RECT.w:RECT
   const B=[A[0]+RECT.sx*w,A[1]+RECT.sy*h];return [[A[0],A[1]],[B[0],A[1]],[B[0],B[1]],[A[0],B[1]]];}
 /* SF this rectangle adds: inside the roof and not already shaded (same rule as free shapes) */
 function rectNew(){const w=WT(active),it=areaItem(w);if(!it)return {sf:0,q:0};const cov=new Uint8Array(GW*GH);
-  ENTRIES.filter(e=>e.mode===MODE&&e.wt===active&&e.kind==='area').forEach(e=>rasterNew(e.poly,cov).forEach(k=>cov[k]=1));
+  ENTRIES.filter(e=>e.mode===MODE&&e.wt===active&&e.kind==='area'&&(typeof areaPickOk!=='function'||areaPickOk(e))).forEach(e=>rasterNew(e.poly,cov).forEach(k=>cov[k]=1));
   const n=rasterNew(rectPoly(),cov).length;return {cells:n,q:n*it.per,sf:n*(it.unit==='SQ'?it.per*100:it.per),unit:it.unit};}
 function rectTap(x,y){rectSync();const R=RECT,tol=Math.min(16/pxPerFt(),5);
   if(R.live){setDiag(x,y,tol);return;}R.raw=R.raw||[];if(!R.pts.length)R.raw=[];
@@ -3931,6 +3959,286 @@ function bindChips(el,d,cur){el.querySelectorAll('[data-mem]').forEach(b=>b.oncl
     LH_SETTINGS.employees=L2;LH_SETTINGS.employeesSetAt=new Date().toISOString();await saveSettings();MG.cache={};renderMgmt();toast(x.name+(x.active?' reactivated':' retired'));});
   const wdi=document.getElementById('wwDay');if(wdi)wdi.onchange=()=>{MG.wwDay=wdi.value||TODAY;renderMgmt();};};}
 Object.assign(window.RPM.mg,{employees,EMP_SEED,jobCrewDef,dayMembers,dayMembersOf,setJobCrew21,setDayMembers,personLedger,personOT,alsoOn,empName});
+
+/* ===================== 11182026-23: "Daily count, weekly shading" (Charlie, Nov 24) =====================
+   For very slow, complex jobs (e.g. SRS, ~1.5 SQ a day) where daily shading is too small to read.
+   • Turned on per job: Management › Projects toggle (admin file "progressMode" {mode, by, at}), or the IronClad setup flag
+     setup.job.progressMode = "daily-count". The admin setting wins; missing = normal shading.  The PM's desktop copies the admin
+     record into the daily file ("progress" {mode, by, at, tol}) so phones that open the job file get it too.
+   • Daily page: a number box per line, as the job was sent (SQ area lines, LF run / flashing lines, EA count lines). Each day's
+     number is a "qty" entry with dc:1 — the same conversion as the quantity boxes of a job sent without a drawing, so it drives
+     earned MH and pace every day. A line's earned quantity stops at its estimate (like shading a whole roof); the rest is kept
+     as "entered" for the completion check.
+   • Weekly shading: shapes drawn during a weekly shading session are location records (entries loc:1, wk:<Monday>) and earn
+     nothing (they still block the same spot being counted twice if the job goes back to normal shading).
+     Rule: weeks run Mon–Sun. On Fri, Sat and Sun the prompt is for this week; on Monday it is for last week. Submitting compares
+     everything entered to date with everything shaded to date (cumulative, per line), so work entered after the shading is
+     picked up the next week.
+   • Reconcile: a line is off when |shaded − entered| ÷ entered is over the tolerance (Management setting captureTolPct, default
+     10%). The PM fixes the shading, fixes his numbers, or gives a reason. Daily file "weekShade" {<Monday>: {wk, done, at, by, t,
+     tol, lines:[{item,name,unit,entered,shaded,gap}], over:[item…], reason, tries:[{at,by,over}]}}.
+   • Mark job complete: entered vs estimate per line; over the tolerance needs a reason (mine / estimate / scope / other + note),
+     saved as completion.capture {v:1, tol, lines, reason, note}.
+   • Capture accuracy is report-only (Management) — it never changes ratings or oversight. */
+const PM_DC='daily-count';
+const DC_REASONS={mine:'My tracking',estimate:'Estimate quantity was off',scope:'Scope changed',other:'Other'};
+const SH={on:false,id:null,wk:null};
+function capTol(J){const a=LH_SETTINGS.analysis||{};if(a.captureTolPct!=null&&isFinite(+a.captureTolPct))return +a.captureTolPct/100;
+  J=J||JOB;const p=J&&J.progress;return p&&p.tol!=null&&isFinite(+p.tol)?+p.tol/100:0.10;}
+function pmodeRec(id){const st=STATES[id],J=JOB&&JOB.id===id?JOB:st&&st.JOB;const a=adjOf(id).progressMode,f=J&&J.progress;let r=null;
+  [a,f].forEach(x=>{if(x&&x.mode&&(!r||(x.at||'')>(r.at||'')))r=x;});return r;}
+function pmodeOf(id){const j=JOBLIST.find(x=>x.id===id);if(!j)return {mode:'normal',src:'none'};const r=pmodeRec(id);
+  if(r)return {mode:r.mode===PM_DC?PM_DC:'normal',src:'admin',by:r.by,at:r.at};
+  const sm=j.def&&j.def.job&&j.def.job.progressMode;return sm===PM_DC?{mode:PM_DC,src:'setup'}:{mode:'normal',src:'default'};}
+const isDC=id=>{id=id||(JOB&&JOB.id);return !!id&&pmodeOf(id).mode===PM_DC;};
+const inShade=()=>!!(SH.on&&JOB&&SH.id===JOB.id);
+const weekOf=d=>{const x=dt(d),k=(x.getDay()+6)%7;x.setDate(x.getDate()-k);return iso(x);};
+const wkLabel=wk=>short(wk)+' – '+short(addDays(wk,6));
+function dueWeek(T){T=T||TODAY;const w=dt(T).getDay();return [5,6,0].includes(w)?weekOf(T):w===1?weekOf(addDays(T,-1)):null;}
+const shadeable=it=>!!(it&&(it.area||it.runs||it.marks||(hasPlan()&&drawable(it))));
+const dcK=it=>it&&it.area&&it.unit==='SF'?100:1;   /* area lines are counted in SQ (stored in the line's own unit, SF ÷ 100) */
+const dcUnit=it=>dcK(it)===100?'SQ':it.unit;
+const allItems=()=>[].concat(...WTS().map(w=>w.items.map(i=>({w,it:i}))));
+/* compute: earned stops at the estimate for daily counts; shaded / entered quantities per line */
+{const _c23=compute;compute=function(){const r=_c23.apply(this,arguments);if(JOB&&C){const sh={},en={};
+  WTS().forEach(w=>w.items.forEach(i=>{sh[i.id]=0;en[i.id]=C.done[i.id]||0;}));
+  ENTRIES.forEach(e=>{if(e.mode!==MODE)return;
+    if(e.loc){(DCX.loc.get(e)||[]).forEach(x=>{if(x.it in sh)sh[x.it]+=x.q;});return;}
+    if(e.kind!=='qty'&&e.parts){e.parts.forEach(x=>{if(x.it in sh)sh[x.it]+=x.q;});const oi=DCX.overI.get(e);if(oi)Object.entries(oi).forEach(([k,v])=>{if(k in sh)sh[k]+=v;if(k in en)en[k]+=v;});}   /* -26: past-the-estimate shapes stay in shaded / recorded */
+    if(e.dc&&e.it in en)en[e.it]+=DCX.over.get(e)||0;});
+  C.shaded=sh;C.entered=en;}return r;};}
+/* week sums of the daily numbers */
+function weekEntered(wk,E,mode){E=E||ENTRIES;mode=mode||MODE;const end=addDays(wk,6),o={};
+  E.forEach(e=>{if(e.mode===mode&&e.kind==='qty'&&e.dc&&e.date>=wk&&e.date<=end&&+e.qty>0)o[e.item]=(o[e.item]||0)+ +e.qty;});return o;}
+const wsRec=(J,wk)=>((J||JOB).weekShade||{})[wk]||null;
+const wsDone=(J,wk)=>!!(wsRec(J,wk)&&wsRec(J,wk).done);
+function shadeNeeded(wk){const we=weekEntered(wk);return allItems().some(({it})=>shadeable(it)&&we[it.id]>0);}
+function shadeAdvice(wk){const we=weekEntered(wk),said=[],todo=[];let sf=0,lf=0,ea=0;
+  allItems().forEach(({w,it})=>{if(we[it.id]>0)said.push(`${(q=>fmt(q,q%1?1:0))(we[it.id]/dcK(it))} ${dcUnit(it)} ${(it.sn||it.name).toLowerCase()}`);});
+  WTS().forEach(w=>{const ai=w.items.filter(i=>i.area);if(ai.length){const rem=Math.max(0,...ai.map(i=>(C.entered[i.id]||0)-(C.shaded[i.id]||0)));sf=Math.max(sf,0)+rem*(ai[0].unit==='SQ'?100:1);}
+    w.items.filter(i=>!i.area&&shadeable(i)).forEach(i=>{const rem=Math.max(0,(C.entered[i.id]||0)-(C.shaded[i.id]||0));if(i.unit==='LF')lf+=rem;else if(i.unit==='EA')ea+=rem;});});
+  if(sf>=5)todo.push(`shade about ${fmt(Math.round(sf/10)*10)} SF`);if(lf>=1)todo.push(`trace about ${fmt(lf)} LF`);if(ea>=1)todo.push(`mark about ${fmt(ea)} more`);
+  const and=a=>a.length<2?a.join(''):a.slice(0,-1).join(', ')+' and '+a[a.length-1];
+  return {said:and(said),todo:and(todo),text:`${dueWeek()===wk&&wk===weekOf(TODAY)?'This week':'Last week ('+wkLabel(wk)+')'} you entered ${and(said)||'nothing'}${todo.length?' — '+and(todo)+'.':' — the plan already shows it.'}`};}
+function missedWeeks(J,E,mode){const set=new Set();(E||[]).forEach(e=>{if(e.mode===mode&&e.kind==='qty'&&e.dc&&+e.qty>0)set.add(weekOf(e.date));});
+  return [...set].sort().filter(wk=>addDays(wk,7)<TODAY&&!wsDone(J,wk));}
+/* the PM: today's number for a line */
+function dayQty(itemId,d){const e=ENTRIES.find(x=>x.mode===MODE&&x.kind==='qty'&&x.dc&&x.item===itemId&&x.date===(d||curDate));return e?+e.qty:0;}
+function setDayQty(itemId,v){if(roBlock()){refreshDaily();return;}const f=allItems().find(x=>x.it.id===itemId);if(!f)return;const {w,it}=f;
+  v=Math.round(Math.max(0,+v||0)*100)/100*dcK(it);const ex=ENTRIES.find(e=>e.mode===MODE&&e.kind==='qty'&&e.dc&&e.item===itemId&&e.date===curDate);
+  if(ex){if(Math.abs(+ex.qty-v)<1e-9){refreshDaily();return;}if(!v){noteDel([ex]);ENTRIES=ENTRIES.filter(e=>e!==ex);saveState();}else{ex.qty=v;ex.t=Date.now();ex.dev=deviceKind();ex.onsite=hasCheckin(JOB,curDate);}refreshAll();}
+  else if(v>0)addEntry({wt:w.id,kind:'qty',item:itemId,qty:v,dc:1},true);else{refreshDaily();return;}
+  const k=dcK(it),ent=(C.entered[itemId]||0)/k,over=ent>it.total/k+1e-9,vv=v/k;
+  toast(`${it.name}: ${fmt(vv,vv%1?1:0)} ${dcUnit(it)} on ${short(curDate)} · ${fmt(ent,ent%1?1:0)} of ${fmt(it.total/k,(it.total/k)%1?1:0)} to date${over?' — past the estimate (extra isn\'t counted)':''}`);}
+/* entries: shapes are location records in a weekly shading session; normal shading is off on daily-count jobs */
+{const _ae23=addEntry;addEntry=function(e,quiet){if(JOB&&e&&e.kind!=='qty'&&isDC()){
+    if(!inShade()){toast('Daily count job — type the day\'s numbers on the right. Shade the plan in the weekly shading.');return;}
+    e.loc=1;e.wk=SH.wk;const r=_ae23.call(this,e,true);const x=ENTRIES.find(z=>z.uid===e.uid)||e,lq=DCX.loc.get(x)||[];
+    const q=lq.reduce((s,p)=>s+p.q,0),it=lq[0]&&dItemAny(lq[0].it);
+    toast(it?`Location recorded: ${fmt(it.unit==='SQ'?q*100:q)} ${it.unit==='SQ'?'SF':it.unit} · ${it.name}`:'Location recorded');return r;}
+  if(JOB&&e&&e.kind==='qty'&&!e.dc&&isDC()){toast('Daily count job — use the day\'s number boxes.');refreshDaily();return;}
+  return _ae23.apply(this,arguments);};}
+{const _t23=toast;toast=function(m){if(inShade()&&typeof m==='string'&&/MH earned|estimated MH|Earned MH|of [\d,.]+ done/.test(m)&&!/^Location/.test(m))return;return _t23.apply(this,arguments);};}
+{const _tap23=tap;tap=function(x,y){if(JOB&&!VIEW.info&&isDC()&&!inShade()){toast('Daily count job — type the day\'s numbers on the right. Shading is weekly (Fri–Mon).');return;}return _tap23.apply(this,arguments);};}
+/* weekly shading session */
+function startShade(wk){if(!JOB||!isDC()||isRO()||roBlock())return;SH.on=true;SH.id=JOB.id;SH.wk=wk||dueWeek()||weekOf(addDays(TODAY,-7));
+  const last=C.allDays[C.allDays.length-1];curDate=last&&last<=TODAY?last:TODAY;draft=[];lineStart=null;pathDraft=[];drawItem=null;
+  const w=WTS().find(x=>x.items.some(i=>shadeable(i)&&(C.entered[i.id]||0)>(C.shaded[i.id]||0)))||WTS().find(x=>x.items.some(shadeable));if(w)active=w.id;
+  showJobPage('tToday');refreshAll();toast(`Weekly shading — ${wkLabel(SH.wk)}`);}
+function endShade(){SH.on=false;SH.id=null;draft=[];lineStart=null;pathDraft=[];drawItem=null;if(JOB)refreshAll();}
+function reconLines(){const tol=capTol();return allItems().filter(({it})=>shadeable(it)).map(({it})=>{const en=+(C.entered[it.id]||0),sh=+(C.shaded[it.id]||0);
+  const gap=en>1e-9?(sh-en)/en:(sh>1e-9?1:0),k=dcK(it);return {item:it.id,name:it.name,unit:dcUnit(it),entered:+(en/k).toFixed(2),shaded:+(sh/k).toFixed(2),gap:+gap.toFixed(4),over:Math.abs(gap)>tol+1e-9};}).filter(x=>x.entered>0||x.shaded>0);}
+const pctS=g=>(g>0?'+':g<0?'−':'')+Math.abs(Math.round(g*100))+'%';
+const qS=(q,u)=>`${fmt(q,Math.abs(q%1)>0.04?1:0)} ${u}`;
+function saveWeek(rec){const ws=JOB.weekShade=JOB.weekShade||{};const old=ws[rec.wk]||{};ws[rec.wk]={...old,...rec,tries:(old.tries||[]).concat(rec.tries||[]),t:Date.now()};
+  SAVE.dirty[JOB.id]=true;saveState();MG.cache={};saveSoon();}
+function submitShade(){if(!inShade())return;const L=reconLines(),tol=capTol(),over=L.filter(x=>x.over),base={wk:SH.wk,at:new Date().toISOString(),by:who(),tol:Math.round(tol*100),lines:L.map(({over,...x})=>x),over:over.map(x=>x.item)};
+  if(!over.length){saveWeek({...base,done:true,reason:null});endShade();toast(`✓ Weekly shading saved for ${wkLabel(base.wk)} — matches your numbers`);return;}
+  const g=mgGate(),box=$('#mgBox');
+  box.innerHTML=`<h2>📐 Shading and numbers don't match</h2><p style="text-align:left">More than ${Math.round(tol*100)}% apart (to date):</p>
+    <table class="dcrec"><thead><tr><th>Line</th><th class="n">Entered</th><th class="n">Shaded</th><th class="n">Gap</th></tr></thead><tbody>
+    ${over.map(x=>`<tr><td>${esc(x.name)}</td><td class="n">${qS(x.entered,x.unit)}</td><td class="n">${qS(x.shaded,x.unit)}</td><td class="n"><b>${pctS(x.gap)}</b></td></tr>`).join('')}</tbody></table>
+    <div class="btns" style="justify-content:center;margin:10px 0"><button class="btn pri" id="dcFixShade">Fix my shading</button><button class="btn" id="dcFixNums">Fix my daily numbers</button></div>
+    <p style="text-align:left;margin:6px 0 4px">Or keep both as they are — why?</p><textarea id="dcWhy" rows="2" class="dcwhy" placeholder="Short reason (e.g. tear-off ahead of the new roof)"></textarea>
+    <div class="admmsg" id="dcMsg"></div><div class="btns" style="justify-content:center"><button class="btn" id="dcKeep">Save with this reason</button></div>`;
+  const tryRec={at:base.at,by:base.by,over:over.map(x=>({item:x.item,entered:x.entered,shaded:x.shaded,gap:x.gap}))};
+  $('#dcFixShade').onclick=()=>{closeGate();saveWeek({wk:SH.wk,tries:[{...tryRec,choice:'shading'}]});toast('Keep shading — then Submit again');};
+  $('#dcFixNums').onclick=()=>{closeGate();saveWeek({wk:SH.wk,tries:[{...tryRec,choice:'numbers'}]});endShade();toast('Fix the day\'s numbers, then do the weekly shading again');};
+  $('#dcKeep').onclick=()=>{const why=$('#dcWhy').value.trim();if(why.length<3){$('#dcMsg').textContent='Type a short reason.';return;}
+    closeGate();saveWeek({...base,done:true,reason:why,tries:[{...tryRec,choice:'reason'}]});endShade();toast(`✓ Weekly shading saved for ${wkLabel(base.wk)} with your reason`);};
+  g.hidden=false;}
+/* Daily page */
+function dcPanelHTML(){const w=WT(active),isT=curDate===TODAY,ro=isRO()||!!doneDate();
+  const rows=w.items.map(it=>{const k=dcK(it),v=dayQty(it.id)/k,ent=(C.entered[it.id]||0)/k,tot=it.total/k,ea=it.unit==='EA',p=tot?ent/tot*100:0;
+    return `<div class="r dcr"><div class="nm"><b>${it.name}</b><small>Estimate ${fmt(tot,tot%1?1:0)} ${dcUnit(it)} · to date ${fmt(ent,ent%1?1:0)}${ent>tot+1e-9?' <b class="dcov">past the estimate</b>':''}</small></div>
+      <div class="in">${ea?`<button data-dcstep="${it.id}" data-v="-1"${ro?' disabled':''}>−</button>`:''}<input data-dcq="${it.id}" inputmode="decimal" value="${v?+v.toFixed(2):''}" placeholder="0"${ro?' disabled':''}>${ea?`<button data-dcstep="${it.id}" data-v="1"${ro?' disabled':''}>+</button>`:''}</div>
+      <div class="of">${dcUnit(it)} ${isT?'today':'this day'}<b>${fmt(Math.min(100,p))}%</b></div></div>`;}).join('');
+  return `<p class="dcintro">📋 <b>Daily count job</b> — type what the crew did <b>${isT?'today':'on '+short(curDate)}</b>, line by line. Once a week (Fri–Mon) you shade where it is on the plan.</p>
+    ${wsBanner()}<div class="pl dcl">${rows}<div class="cap">Each box is the amount done <b>on ${short(curDate)}</b> only. These numbers set Earned MH and pace; the weekly shading just records where the work is.</div></div>`;}
+function wsBanner(){if(!JOB||isRO()||!hasPlan())return '';const wk=dueWeek();
+  if(wk&&shadeNeeded(wk)&&!wsDone(JOB,wk)){const a=shadeAdvice(wk);return `<div class="wsdue">📐 <b>Weekly shading due</b> (${wkLabel(wk)}). ${esc(a.text)} <button class="btn gold sm" id="wsGo">Shade the plan now</button></div>`;}
+  if(wk&&wsDone(JOB,wk))return `<div class="wsok">✓ Weekly shading done for ${wkLabel(wk)}${wsRec(JOB,wk).reason?' (with a reason)':''}. <a href="#" id="wsGo">Shade again</a></div>`;
+  return `<div class="wsok"><a href="#" id="wsGo">📐 Weekly shading…</a> <small>due Fri–Mon</small></div>`;}
+function shadeBar(){const L=reconLines(),tol=capTol();
+  return `<div class="wsbar"><div><b>📐 Weekly shading — ${wkLabel(SH.wk)}</b><br><small>${esc(shadeAdvice(SH.wk).text)} Shapes you draw now record <b>where</b> the work is; they don't change Earned MH.</small></div>
+    <div class="btns"><button class="btn pri" id="wsSubmit">✓ Submit weekly shading</button><button class="btn" id="wsExit">Exit</button></div>
+    ${L.length?`<table class="dcrec"><thead><tr><th>Line</th><th class="n">Entered</th><th class="n">Shaded</th><th class="n">Gap</th></tr></thead><tbody>${L.map(x=>`<tr${x.over?' class="dcbad"':''}><td>${esc(x.name)}</td><td class="n">${qS(x.entered,x.unit)}</td><td class="n">${qS(x.shaded,x.unit)}</td><td class="n">${pctS(x.gap)}</td></tr>`).join('')}</tbody></table><small class="mut">To date · tolerance ±${Math.round(tol*100)}%</small>`:''}</div>`;}
+{const _rd23=refreshDaily;refreshDaily=function(){_rd23.apply(this,arguments);if(!JOB)return;if(SH.on&&SH.id!==JOB.id){SH.on=false;SH.id=null;}
+  const tool=$('#tool'),hint=$('#hint');if(!isDC()){return;}
+  if(inShade()){tool.insertAdjacentHTML('afterbegin',shadeBar());
+    tool.querySelectorAll('.pl .r').forEach(r=>{const inp=r.querySelector('[data-done]');if(!inp)return;const id=inp.dataset.done,it=dItemAny(id);
+      const k=dcK(it);r.querySelector('.in').innerHTML=`<span class="dcsh">${shadeable(it)?'shaded '+qS((C.shaded[id]||0)/k,dcUnit(it)):'not on the plan'}</span>`;r.querySelector('.of').innerHTML=`entered<b>${qS((C.entered[id]||0)/k,dcUnit(it))}</b>`;});
+    const cap=tool.querySelector('.pl .cap');if(cap)cap.innerHTML='Weekly shading: shade, trace or mark where the work is. Numbers to date come from the daily boxes.';
+    if(!VIEW.info)hint.innerHTML='📐 <b>Weekly shading</b> — '+hint.innerHTML;
+    $('#toolH').innerHTML=`2 · Weekly shading <span class="modetag">DAILY COUNT</span>`;
+    $('#wsSubmit').onclick=submitShade;$('#wsExit').onclick=endShade;return;}
+  tool.innerHTML=dcPanelHTML();$('#toolH').innerHTML=`2 · The day's numbers <span class="modetag">DAILY COUNT</span>`;
+  if(!VIEW.info&&!isRO())hint.innerHTML=`📋 <b>Daily count job</b> — enter the day's numbers on the right. The plan shows the weekly shading.`;
+  tool.querySelectorAll('[data-dcq]').forEach(i=>{i.onchange=()=>setDayQty(i.dataset.dcq,i.value);i.onkeydown=e=>{if(e.key==='Enter')i.blur();};});
+  tool.querySelectorAll('[data-dcstep]').forEach(b=>b.onclick=()=>setDayQty(b.dataset.dcstep,Math.max(0,dayQty(b.dataset.dcstep)+ +b.dataset.v)));
+  const g=document.getElementById('wsGo');if(g)g.onclick=e=>{e.preventDefault();startShade(dueWeek()||undefined);};};}
+/* days / crew hours / ledger: a weekly shading record isn't a work day */
+/* completion: entered vs estimate */
+let CAP_PENDING=null;
+function capLines(){return allItems().filter(({it})=>it.total>0).map(({it})=>{const en=+(C.entered[it.id]||0);const gap=(en-it.total)/it.total,k=dcK(it);return {item:it.id,name:it.name,unit:dcUnit(it),entered:+(en/k).toFixed(2),est:+(it.total/k).toFixed(2),gap:+gap.toFixed(4)};});}
+{const _oc23=openComplete;openComplete=function(){_oc23.apply(this,arguments);CAP_PENDING=null;if(!JOB||!isDC())return;const go=document.getElementById('cpGo');if(!go)return;
+  const L=capLines(),tol=capTol(),over=L.filter(x=>Math.abs(x.gap)>tol+1e-9);
+  document.getElementById('cpMsg').insertAdjacentHTML('beforebegin',`<div class="dccap"><b>Entered vs estimate</b><ul>${L.map(x=>`<li${Math.abs(x.gap)>tol+1e-9?' class="dcbad"':''}>${esc(x.name)}: entered ${qS(x.entered,x.unit)}, estimate ${qS(x.est,x.unit)} (${pctS(x.gap)})</li>`).join('')}</ul>
+    ${over.length?`<p>${over.length===1?'One line is':over.length+' lines are'} more than ${Math.round(tol*100)}% off. Why?</p><div class="dcrsn">${Object.entries(DC_REASONS).map(([k,v])=>`<label class="rchk"><input type="radio" name="dcR" value="${k}"> ${v}</label>`).join('')}</div><input id="dcNote" class="dcnote" placeholder="Note (required for Other)">`:'<p class="note">Within the tolerance.</p>'}
+    <p class="note">This is takeoff feedback for estimating — it doesn't change ratings.</p></div>`);
+  const orig=go.onclick;go.onclick=e=>{let reason=null,note='';if(over.length){const r=document.querySelector('input[name="dcR"]:checked');note=($('#dcNote').value||'').trim();
+      if(!r){$('#cpMsg').textContent='Pick why the entered quantity differs from the estimate.';return;}if(r.value==='other'&&note.length<3){$('#cpMsg').textContent='Add a short note for "Other".';return;}reason=r.value;}
+    CAP_PENDING={v:1,tol:Math.round(tol*100),lines:L,over:over.map(x=>x.item),reason,note};try{orig.call(go,e);}finally{CAP_PENDING=null;}};};}
+{const _sc23=setCompletion;setCompletion=function(c){if(c&&c.date&&CAP_PENDING)c.capture=CAP_PENDING;return _sc23.apply(this,arguments);};}
+/* daily file: progress mode copy + weekly records */
+{const _sn23=snapshot;snapshot=function(){const s=_sn23.apply(this,arguments);if(JOB){const r=pmodeRec(JOB.id);if(r)s.progress={mode:r.mode,by:r.by||null,at:r.at||null,tol:Math.round(capTol()*100)};
+  if(JOB.weekShade&&Object.keys(JOB.weekShade).length)s.weekShade=JOB.weekShade;}return s;};}
+{const _fs23=fillState;fillState=function(st,d){_fs23.apply(this,arguments);st.JOB.progress=d.progress||null;st.JOB.weekShade=d.weekShade?JSON.parse(JSON.stringify(d.weekShade)):{};};}
+function mergeWeek(a,b){if(!a)return b;if(!b)return a;const n=(!!a.done!==!!b.done)?(a.done?a:b):((b.t||0)>(a.t||0)?b:a),o=n===b?a:b;const seen=new Set(),tries=[];[...(a.tries||[]),...(b.tries||[])].forEach(x=>{const k=x.at+'|'+(x.choice||'');if(!seen.has(k)){seen.add(k);tries.push(x);}});
+  tries.sort((x,y)=>x.at<y.at?-1:1);return {...o,...n,tries};}
+{const _mi23=mergeInto;mergeInto=function(d){const r=_mi23.apply(this,arguments);if(!r||r.err)return r;let n=0;
+  if(d.progress&&d.progress.mode&&(!JOB.progress||(d.progress.at||'')>(JOB.progress.at||''))){JOB.progress=d.progress;n++;}
+  const ws=JOB.weekShade=JOB.weekShade||{};Object.entries(d.weekShade||{}).forEach(([k,v])=>{const m=mergeWeek(ws[k],v);if(JSON.stringify(m)!==JSON.stringify(ws[k])){ws[k]=m;n++;}});
+  if(n){r.dcCh=n;MG.cache={};}return r;};}
+{const _id23=importData;importData=async function(d,fname){const r=await _id23.apply(this,arguments);if(r&&r.dcCh){SAVE.dirty[JOB.id]=true;saveState();refreshAll();await saveNow();
+  const line=`${r.dcCh} weekly shading / progress-mode update${r.dcCh===1?'':'s'}`;const ul=document.querySelector('#msgBox .mb ul');if(ul)ul.insertAdjacentHTML('beforeend',`<li><b>${line}</b></li>`);else showMsg('📥 Brought in',`<p><b>${esc(JOB.name)}</b></p><ul><li><b>${line}</b></li></ul>`);}return r;};}
+{const _us23=unsent;unsent=function(){let n=_us23.apply(this,arguments);const s=JOB&&sentInfo(JOB.id);if(!JOB||!s)return n;n+=Object.values(JOB.weekShade||{}).filter(v=>(v.t||0)>(+s.at||0)).length;return n;};}
+{const _sig23=jobSig;jobSig=function(st){return _sig23.apply(this,arguments)+'|'+JSON.stringify(pmodeOf(st.JOB.id))+'|'+JSON.stringify(st.JOB.weekShade||null)+'|'+capTol(st.JOB);};}
+/* admin: progress mode per job */
+async function setPmode(id,mode){if(!MG.unlocked&&!canAssign())return false;const rec={mode:mode===PM_DC?PM_DC:'normal',by:who(),at:new Date().toISOString()};adjOf(id).progressMode=rec;
+  const J=(JOB&&JOB.id===id)?JOB:(STATES[id]&&STATES[id].JOB);if(J)J.progress={...rec,tol:Math.round(capTol(J)*100)};
+  const ok=await saveAdj(id);MG.cache={};if(JOB){if(JOB.id===id&&SH.on)endShade();refreshAll();}if(mgOn())renderMgmt();return ok;}
+const dcChip=()=>'<span class="pchip dcchip">Daily count, weekly shading</span>';
+{const _rp23=renderProjects;renderProjects=function(){_rp23.apply(this,arguments);const c=document.getElementById('mgProjects');if(!c)return;
+  c.querySelectorAll('tr[data-proj]').forEach(tr=>{const id=tr.dataset.proj,m=pmodeOf(id),on=m.mode===PM_DC,td=tr.querySelector('td');if(!td)return;
+    const st=stateOf(id),miss=on?missedWeeks(st.JOB,st.ENTRIES,st.MODE):[];
+    td.insertAdjacentHTML('beforeend',`<small class="dcline"><label class="dctog"><input type="checkbox" data-dcmode="${id}"${on?' checked':''}> Daily count, weekly shading</label>${on?` · ${m.src==='setup'?'from IronClad':'set by '+esc((m.by||{}).name||'admin')}`:''}${miss.length?` · <b class="dcmiss">⚠ ${miss.length} weekly shading${miss.length===1?'':'s'} missed</b>`:''}</small>`);});
+  c.querySelectorAll('[data-dcmode]').forEach(x=>x.onchange=async()=>{const id=x.dataset.dcmode,j=JOBLIST.find(y=>y.id===id);const ok=await setPmode(id,x.checked?PM_DC:'normal');
+    toast(`${j.name}: ${x.checked?'Daily count, weekly shading':'normal daily shading'}${ok?'':' (saved on this device only)'}`);});
+  renderCapture();};}
+/* Management: capture accuracy (report only) */
+function capRows(){return JOBLIST.map(j=>{const st=stateOf(j.id),J=st.JOB,m=pmodeOf(j.id),ws=J.weekShade||{},cap=J.completion&&J.completion.date&&J.completion.capture;
+  if(m.mode!==PM_DC&&!Object.keys(ws).length&&!cap)return null;const done=Object.values(ws).filter(x=>x.done).sort((a,b)=>a.wk<b.wk?-1:1);
+  return {j,m,done,miss:missedWeeks(J,st.ENTRIES,st.MODE),gaps:done.filter(x=>(x.over||[]).length),cap};}).filter(Boolean);}
+function renderCapture(){const t=document.getElementById('tMgmt'),pc=document.getElementById('mgProjects');if(!t||!pc)return;let c=document.getElementById('mgCapture');
+  const R=capRows(),tol=Math.round(capTol()*100);if(!c){c=document.createElement('div');c.className='card';c.id='mgCapture';}pc.parentNode.insertBefore(c,pc.nextSibling);
+  const gapTxt=x=>(x.lines||[]).filter(l=>(x.over||[]).includes(l.item)).map(l=>`${esc(l.name)} ${qS(l.entered,l.unit)} entered / ${qS(l.shaded,l.unit)} shaded (${pctS(l.gap)})`).join('; ');
+  c.innerHTML=`<h2>📐 Capture accuracy — daily count jobs</h2><div class="sub">Jobs set to <b>Daily count, weekly shading</b>: the PM types each day's quantities and shades the plan once a week (Fri–Mon; Monday covers the week before). Report only — it doesn't change ratings or oversight.</div>
+    <div class="tscroll"><table class="t mgt capt"><thead><tr><th>Job</th><th class="n">Weeks shaded</th><th>Missed weekly shading</th><th>Weekly gaps over ±${tol}%</th><th>Completion vs estimate</th></tr></thead><tbody>
+    ${R.map(r=>`<tr data-cap="${r.j.id}"><td><b>${esc(r.j.name)}</b>${r.m.mode===PM_DC?dcChip():'<small>back to normal shading</small>'}<small>${esc(r.j.pm||'Not assigned')}</small></td><td class="n">${r.done.length}</td>
+      <td>${r.miss.length?`<b class="dcmiss">⚠ ${r.miss.length}</b><small>${r.miss.map(wkLabel).join(', ')}</small>`:'<span class="mut">none</span>'}</td>
+      <td>${r.gaps.length?r.gaps.map(x=>`<div class="capg"><b>${wkLabel(x.wk)}</b>: ${gapTxt(x)}${x.reason?` — <i>“${esc(x.reason)}”</i>`:''}</div>`).join(''):'<span class="mut">none</span>'}</td>
+      <td>${r.cap?`${r.cap.lines.map(l=>`<div class="capg${(r.cap.over||[]).includes(l.item)?' dcbad':''}">${esc(l.name)}: entered ${qS(l.entered,l.unit)}, estimate ${qS(l.est,l.unit)} (${pctS(l.gap)})</div>`).join('')}${r.cap.reason?`<div class="capr">Reason: <b>${DC_REASONS[r.cap.reason]||esc(r.cap.reason)}</b>${r.cap.note?' — '+esc(r.cap.note):''}</div>`:''}`:'<span class="mut">not complete</span>'}</td></tr>`).join('')||'<tr><td colspan="5" class="mut">No daily count jobs. Turn it on per job in Projects above.</td></tr>'}</tbody></table></div>
+    <div class="mgw"><label>Tolerance ± <input type="number" id="capTol" min="1" max="100" step="1" value="${tol}"> %</label><button class="btn pri" id="capSave">Save</button><small class="mut">Weekly shading vs numbers, and entered vs estimate at completion.</small></div>`;
+  $('#capSave').onclick=async()=>{const v=Math.max(1,Math.min(100,+$('#capTol').value||10));LH_SETTINGS.analysis={...LH_SETTINGS.analysis,captureTolPct:v,setBy:who(),setAt:new Date().toISOString()};const ok=await saveSettings();MG.cache={};renderMgmt();toast(ok?'Tolerance saved':'Saved on this device only');};}
+/* Management job table + PM dashboard: badge */
+{const _rm23=renderMgmt;renderMgmt=function(){_rm23.apply(this,arguments);document.querySelectorAll('#tMgmt [data-goj]').forEach(a=>{const id=a.dataset.goj;if(isDC(id)&&!a.parentNode.querySelector('.dcchip')&&!a.closest('#mgProjects'))a.insertAdjacentHTML('afterend',dcChip());});};}
+{const _rh23=refreshHeader;refreshHeader=function(){_rh23.apply(this,arguments);const s=document.getElementById('hSub');if(s&&JOB&&isDC()&&!s.querySelector('.dcchip'))s.insertAdjacentHTML('beforeend',' '+dcChip());};}
+{const _rdb23=renderDash;renderDash=function(){_rdb23.apply(this,arguments);if(!isDash()||!ME||isMgmtUser(ME))return;document.querySelectorAll('.wsdash').forEach(x=>x.remove());const wk=dueWeek();if(!wk)return;
+  const h=document.getElementById('youToday')||document.querySelector('#tDash .dhello');if(!h)return;const keep={JOB,ENTRIES,HOURS,MODE,active},keepC=C,cards=[];
+  try{JOBLIST.filter(j=>j.pm===ME&&isDC(j.id)).forEach(j=>{saveState();useState(stateOf(j.id));if(doneDate()||!hasPlan())return;compute();if(shadeNeeded(wk)&&!wsDone(JOB,wk))cards.push(`<div class="card wsdash">📐 <b>Weekly shading due — ${esc(j.name)}</b><br>${esc(shadeAdvice(wk).text)} <button class="btn gold sm" data-wsj="${j.id}">Shade now</button></div>`);});}
+  finally{if(keep.JOB)useState(keep);else JOB=null;C=keepC;}
+  if(cards.length)h.insertAdjacentHTML('afterend',cards.join(''));document.querySelectorAll('[data-wsj]').forEach(b=>b.onclick=()=>{goJob(b.dataset.wsj);setTimeout(()=>startShade(wk),50);});};}
+Object.assign(window.RPM.mg,{pmodeOf,isDC,setPmode,setDayQty,dayQty,startShade,endShade,submitShade,reconLines,capLines,weekOf,dueWeek,weekEntered,missedWeeks,shadeAdvice,capRows,SH});
+/* a hidden map (Management / dashboard open) has no size: keep marks' radius finite instead of "Infinity" */
+{const _pf23=pxPerFt;pxPerFt=function(){const v=_pf23.apply(this,arguments);return v>0&&isFinite(v)?v:1;};}
+
+/* ===================== 11182026-24 (Charlie, Nov 24 answers) =====================
+   1. Mark job complete = 100%: while a job is complete (not reopened), every sent line's earned quantity is set to its estimate on
+      the completion day (closeCredit, called from compute). Earned MH = estimated MH, so pace = estimated MH ÷ worked MH (crew hours
+      today; Summit punches later). After-closeout hours still add to worked MH. Recorded progress, the weekly records and the
+      completion capture (entered vs estimate + reason) are kept as recorded. Reopen → back to recorded progress.
+   2. Count lines (EA): "12 est · 7 done · +2 today" on every row where the PM marks them (normal pick list and daily count).
+   3. Separate tear-off and field-roofing area lines (whole roof demoed + vapor barrier first): a "Shading for" picker credits the
+      picked line only (area entry items:[id]); "Both" credits all area lines (the old behavior, and what entries without items do).
+      Same picker in the daily-count weekly shading session, so the reconcile compares each line with its own shading. */
+let CLOSE_LAST=null;
+function closeCredit(per,done,earnedI,wts,allDays){CLOSE_LAST=null;if(!JOB||typeof doneDate!=='function')return;const dd=doneDate();if(!dd)return;
+  let day=per[dd]?dd:allDays.filter(d=>d<=dd).pop();if(!day||!per[day])return;const q={};let mh=0;
+  wts.forEach(w=>w.items.forEach(it=>{const tot=+it.total||0;if(!(tot>0))return;const dq=tot-(done[it.id]||0);if(Math.abs(dq)<1e-9)return;const m=dq*(+it.mh||0);
+    done[it.id]=tot;earnedI[it.id]=(earnedI[it.id]||0)+m;per[day].qty[w.id]=(per[day].qty[w.id]||0)+dq;per[day].mh[w.id]=(per[day].mh[w.id]||0)+m;per[day].earned+=m;q[it.id]=dq;mh+=m;}));
+  let sum=0;wts.forEach(w=>w.items.forEach(it=>{sum+=(earnedI[it.id]||0);}));const res=EST_TOTAL-sum;
+  if(Math.abs(res)>1e-6){per[day].earned+=res;mh+=res;}   /* lines not in this view (Simple roll-up) — earned MH = estimated MH */
+  CLOSE_LAST={day,date:dd,q,mh};}
+{const _c24=compute;compute=function(){CLOSE_LAST=null;const r=_c24.apply(this,arguments);if(C){C.close=CLOSE_LAST;
+  if(CLOSE_LAST&&C.entered){Object.entries(CLOSE_LAST.q).forEach(([id,dq])=>{if(id in C.entered)C.entered[id]-=dq;});}}return r;};}
+const recDone=id=>C.entered&&id in C.entered?C.entered[id]:(C.done[id]||0)-((C.close&&C.close.q[id])||0);   /* -26: recorded = everything entered / drawn, past the estimate included */
+const recPct=()=>EST_TOTAL>0?(C.cum.earned-((C&&C.close&&C.close.mh)||0))/EST_TOTAL:0;
+/* job card + Progress: counted at 100% */
+{const _rdc24=renderDoneCard;renderDoneCard=function(){_rdc24.apply(this,arguments);const c=document.getElementById('cpCard');if(!c||!JOB||!doneDate()||!C||!C.close)return;
+  c.insertAdjacentHTML('beforeend',`<p class="note cl100">📐 Counted at <b>100% of the estimate</b> (${fmt(EST_TOTAL)} Estimated MH) from ${short(C.close.date)}. Recorded progress was ${fmt(recPct()*100)}% — kept as recorded. Earned MH = Estimated MH, so pace = Earned MH ÷ Actual MH.</p>`);};}
+{const _rp24=refreshProgress;refreshProgress=function(){_rp24.apply(this,arguments);if(!JOB||!doneDate()||!C||!C.close)return;const p=document.querySelector('#pStatus p');
+  if(p&&!p.querySelector('.cl100'))p.insertAdjacentHTML('beforeend',`<br><small class="cl100">✓ Completed ${short(C.close.date)} — counted at 100% of the estimate (recorded ${fmt(recPct()*100)}%).</small>`);};}
+/* 2. count lines: est · done · today */
+function dayQ(id,d){let q=0;ENTRIES.forEach(e=>{if(e.mode!==MODE||e.loc||e.date!==d)return;if(e.dc){if(e.item===id)q+=+e.qty||0;return;}(e.parts||[]).forEach(x=>{if(x.it===id)q+=x.q;});});return q;}
+function eaLine(it){const t=dayQ(it.id,curDate),dn=recDone(it.id),f=v=>fmt(v,Math.abs(v%1)>0.04?1:0);
+  return `<div class="ealine"><span>${f(+it.total)} est</span><span>${f(dn)} done</span><span class="eatd${t?' on':''}">${t>=0?'+':'−'}${f(Math.abs(t))} ${curDate===TODAY?'today':short(curDate)}</span></div>`;}
+/* 3. separate area lines: what this shape is for */
+const AREA_PICK={};
+const multiArea=w=>!!w&&areaItems(w).length>1;
+function areaPickOf(w){if(!multiArea(w))return null;const k=(JOB&&JOB.id)+'|'+MODE+'|'+w.id;if(!(k in AREA_PICK))AREA_PICK[k]=areaItems(w)[0].id;return AREA_PICK[k];}
+function areaPickOk(e){const w=WT(active),p=areaPickOf(w);return !p||p==='all'||!e.items||e.items.includes(p);}
+function areaPickOn(i){const w=WT(active),p=areaPickOf(w);return !p||p==='all'||i.id===p;}
+function areaPickLabel(w){const p=areaPickOf(w);if(!p||p==='all')return 'tear-off &amp; install';const it=areaItems(w).find(i=>i.id===p);return it?esc((it.sn||it.name).toLowerCase()):'';}
+{const _ae24=addEntry;addEntry=function(e){if(e&&e.kind==='area'&&JOB){const w=WT(e.wt||active),p=areaPickOf(w);if(p&&p!=='all')e.items=[p];}return _ae24.apply(this,arguments);};}
+{const _rd24=refreshDaily;refreshDaily=function(){_rd24.apply(this,arguments);if(!JOB)return;const tool=$('#tool');if(!tool)return;const w=WT(active);
+  // count lines
+  tool.querySelectorAll('[data-done],[data-dcq]').forEach(inp=>{const id=inp.dataset.done||inp.dataset.dcq,it=dItemAny(id);if(!it||it.unit!=='EA')return;const nm=inp.closest('.r')&&inp.closest('.r').querySelector('.nm');
+    if(!nm||nm.querySelector('.ealine'))return;if(inp.dataset.dcq){const sm=nm.querySelector('small');if(sm)sm.remove();}nm.insertAdjacentHTML('beforeend',eaLine(it));inp.closest('.r').classList.add('ear');});
+  // area-line picker (normal shading, or the weekly shading session of a daily-count job)
+  const shading=!(typeof isDC==='function'&&isDC())||(typeof inShade==='function'&&inShade());
+  if(multiArea(w)&&shading&&!isRO()&&!VIEW.info){const p=areaPickOf(w),its=areaItems(w);
+    const html=`<div class="apick"><span class="dsl">Shading for</span><div class="dsgrid" style="grid-template-columns:repeat(${its.length+1},1fr)">${its.map(i=>`<button class="dsb${p===i.id?' on':''}" data-apick="${i.id}">${esc(i.sn||i.name)}</button>`).join('')}<button class="dsb${p==='all'?' on':''}" data-apick="all">Both</button></div>
+      <small>${p==='all'?'One shape credits every line here (tear-off and new roof the same day).':`Only <b>${esc((its.find(i=>i.id===p)||{}).name||'')}</b> is credited by the shapes you draw now.`}</small></div>`;
+    const bar=tool.querySelector('.wsbar');if(bar)bar.insertAdjacentHTML('afterend',html);else tool.insertAdjacentHTML('afterbegin',html);
+    tool.querySelectorAll('[data-apick]').forEach(b=>b.onclick=()=>{AREA_PICK[(JOB&&JOB.id)+'|'+MODE+'|'+w.id]=b.dataset.apick;draft=[];refreshDaily();});}};}
+Object.assign(window.RPM.mg,{closeCredit,recPct,areaPickOf,AREA_PICK,dayQ});
+
+/* ===================== 11182026-25 (Charlie, Nov 24): EARNED HOURS definition =====================
+   Earned MH for a task = (progress quantity ÷ estimated quantity) × the task's estimated MH, in the task's own unit (SF/SQ, LF, EA).
+   Job earned MH = the sum over its tasks.  In code: each line carries mh = estimated MH ÷ estimated quantity, and compute() credits
+   quantity × mh — the same number ((q ÷ total) × total MH).  -25 also: entries dated outside the job's work-day range are credited
+   on the nearest day (they used to count in the line's progress but not in earned MH), and completed jobs show the recorded
+   figures line by line beside the counted 100%. */
+const EARN_HELP=`<details class="earnhelp"><summary>How Earned MH and pace work</summary>
+  <p><b>Estimated MH</b> — the man-hours IronClad's takeoff budgets for each task and the whole job.<br><b>Actual MH</b> — hours on the clock: today the crew hours entered in Labor Hound, later Summit's punches.<br>
+  <b>Earned MH</b> — what the work installed so far is worth: (quantity done ÷ estimated quantity) × the task's Estimated MH, in the task's own unit (SF or SQ, LF, EA).</p>
+  <p>Example: field roofing install, <b>25 SQ</b> done of <b>100 SQ</b> estimated, <b>750 Estimated MH</b> → 25 ÷ 100 = 0.25 × 750 = <b>187.5 Earned MH</b>.
+   Wall flashing 50 of 200 LF, 300 Estimated MH → 75 Earned MH. Pipe boots 3 of 12 EA, 60 Estimated MH → 15 Earned MH.</p>
+  <p>The job's Earned MH is the sum over its tasks. Shading, tracing, drawing, marks, typed quantities and daily counts all give the quantity done; a task earns at most 100% of its Estimated MH (anything past the estimate is kept as recorded).</p>
+  <p><b>Pace</b> = Earned MH ÷ Actual MH (rain show-up hours are left out of the rating). When the PM marks the job complete, every task counts 100% — Earned MH = Estimated MH — and the recorded quantities are kept for the record.</p></details>`;
+{const _rp25=refreshProgress;refreshProgress=function(){_rp25.apply(this,arguments);if(!JOB)return;const t=document.getElementById('pTable');if(!t)return;
+  const host=t.closest('.tscroll')||t;if(!document.getElementById('earnHelpP')){host.insertAdjacentHTML('afterend',`<div id="earnHelpP">${EARN_HELP}</div>`);}
+  if(!(doneDate()&&C&&C.close))return;const rows=[...t.querySelectorAll('tbody tr')];let i=0;
+  WTS().forEach(w=>{const g=rows[i++];if(!g)return;const tag=it=>recTag(it);if(w.items.length===1){g.cells[0].insertAdjacentHTML('beforeend',tag(w.items[0]));}else w.items.forEach(it=>{const r=rows[i++];if(r)r.cells[0].insertAdjacentHTML('beforeend',tag(it));});});};}
+function recTag(it){const k=(typeof isDC==='function'&&isDC()&&typeof dcK==='function')?dcK(it):1,u=k===100?'SQ':it.unit,rec=recDone(it.id)/k,tot=(+it.total||0)/k,f=v=>fmt(v,Math.abs(v%1)>0.04?1:0);
+  return `<small class="recln">100% (counted) · recorded ${f(rec)} of ${f(tot)} ${u}</small>`;}
+{const _rd25=refreshDaily;refreshDaily=function(){_rd25.apply(this,arguments);if(!JOB||!doneDate()||!C||!C.close)return;const tool=$('#tool');if(!tool)return;
+  tool.querySelectorAll('[data-done],[data-dcq]').forEach(inp=>{const it=dItemAny(inp.dataset.done||inp.dataset.dcq),nm=inp.closest('.r')&&inp.closest('.r').querySelector('.nm');if(!it||!nm||nm.querySelector('.recln'))return;
+    nm.insertAdjacentHTML('beforeend',`<div class="recline"><b>${esc(it.name)}:</b> ${recTag(it).replace(/<\/?small[^>]*>/g,'')}</div>`);});
+  if(!tool.querySelector('.rechead'))tool.insertAdjacentHTML('afterbegin',`<p class="rechead">✓ Job complete — every line counts <b>100%</b> of its estimate. The recorded quantities are shown under each line.</p>`);};}
+{const _rm25=renderMgmt;renderMgmt=function(){_rm25.apply(this,arguments);const s=[...document.querySelectorAll('#tMgmt .sub')].find(x=>/rated on/.test(x.textContent));if(s&&!s.parentNode.querySelector('.earnhelp'))s.insertAdjacentHTML('afterend',EARN_HELP);};}
+Object.assign(window.RPM.mg,{recTag,EARN_HELP});
 
 /* ===================== 11182026-10: install on the phone + offline start =====================
    Only when opened from the web address (window.LH_WEB). Nothing here runs from the OneDrive folder (file://).
